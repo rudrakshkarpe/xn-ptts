@@ -14,6 +14,11 @@ increased throughput by **11.9%** versus the pinned upstream build. Single-voice
 was unchanged; the adverse round-robin control was slightly slower. See the
 [optimization stack and reproduction guide](benchmarks/voice-cache/README.md) and
 [all measured results](benchmarks/voice-cache/results/m4-pro-2026-11-01/README.md).
+An additional [AIPerf 0.13.0 profile](benchmarks/aiperf/results/m4-pro-2026-11-01/README.md)
+measured complete-response latency of 54.18 → 48.90 ms (−9.8%) and throughput
+of 17.62 → 19.40 requests/s (+10.1%) for the same cache-pressure diagnostic at
+concurrency one. See the [AIPerf adapter and reproduction guide](benchmarks/aiperf/README.md)
+for the separate metric and controls.
 The upstream performance table below describes separate experiments.
 
 <p align="center">
