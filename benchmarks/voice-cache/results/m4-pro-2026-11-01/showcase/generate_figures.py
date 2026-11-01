@@ -15,7 +15,7 @@ HERE = Path(__file__).resolve().parent
 RESULTS = HERE.parent
 COLORS = {"upstream": "#3976bc", "optimized": "#d77836"}
 WORKLOADS = [("warm-one", "One warm voice"), ("voice-pressure", "Voice pressure"), ("round-robin-17", "Round-robin 17")]
-plt.rcParams.update({"font.family": "DejaVu Sans", "font.size": 11, "axes.spines.top": False, "axes.spines.right": False, "axes.titleweight": "bold", "axes.labelcolor": "#263247", "text.color": "#263247", "axes.edgecolor": "#b9c2ce", "figure.facecolor": "white", "savefig.facecolor": "white"})
+plt.rcParams.update({"svg.fonttype": "none", "svg.hashsalt": "phonon-voice-cache", "font.family": "DejaVu Sans", "font.size": 11, "axes.spines.top": False, "axes.spines.right": False, "axes.titleweight": "bold", "axes.labelcolor": "#263247", "text.color": "#263247", "axes.edgecolor": "#b9c2ce", "figure.facecolor": "white", "savefig.facecolor": "white"})
 
 
 def report(workload, variant, trial):
@@ -25,7 +25,9 @@ def report(workload, variant, trial):
 def save(fig, name, caption):
     fig.text(.055, .015, caption, fontsize=9, color="#566379")
     fig.savefig(HERE / f"{name}.png", dpi=150, bbox_inches="tight")
-    fig.savefig(HERE / f"{name}.svg", bbox_inches="tight")
+    fig.savefig(HERE / f"{name}.svg", bbox_inches="tight", metadata={"Date": None})
+    svg = HERE / f"{name}.svg"
+    svg.write_text("\n".join(line.rstrip() for line in svg.read_text().splitlines()) + "\n")
     plt.close(fig)
 
 
