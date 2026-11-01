@@ -1,0 +1,252 @@
+[
+  {
+    "voice": "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/models/phonon-31m-en/default-voice.safetensors",
+    "text": "Hey Gradium team, this is Rudraksh loving the phonon so far!",
+    "repeat": {
+      "same_length": true,
+      "samples": 101760,
+      "max_abs_error": 1.043081283569336e-06,
+      "rmse": 3.520938825944502e-08,
+      "snr_db": 126.73531156054936
+    },
+    "packed": {
+      "same_length": true,
+      "samples": 101760,
+      "max_abs_error": 1.043081283569336e-06,
+      "rmse": 3.4533484805235244e-08,
+      "snr_db": 126.90367303929028
+    },
+    "combined": {
+      "same_length": true,
+      "samples": 101760,
+      "max_abs_error": 1.043081283569336e-06,
+      "rmse": 3.4720917214315324e-08,
+      "snr_db": 126.85665736527204
+    }
+  },
+  {
+    "voice": "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/models/phonon-31m-en/default-voice.safetensors",
+    "text": "Hello, how are you?",
+    "repeat": {
+      "same_length": true,
+      "samples": 48000,
+      "max_abs_error": 1.1920928955078125e-07,
+      "rmse": 3.704972127481187e-09,
+      "snr_db": 144.48636518858913
+    },
+    "packed": {
+      "same_length": true,
+      "samples": 48000,
+      "max_abs_error": 1.1920928955078125e-07,
+      "rmse": 3.704972127481187e-09,
+      "snr_db": 144.48636518858913
+    },
+    "combined": {
+      "same_length": true,
+      "samples": 48000,
+      "max_abs_error": 1.1920928955078125e-07,
+      "rmse": 3.7062204249979144e-09,
+      "snr_db": 144.48343918862582
+    }
+  },
+  {
+    "voice": "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/models/phonon-31m-en/default-voice.safetensors",
+    "text": "The quick brown fox jumps over the lazy dog, then naps in the warm afternoon sun.",
+    "repeat": {
+      "same_length": true,
+      "samples": 124800,
+      "max_abs_error": 7.82310962677002e-07,
+      "rmse": 4.024921453970972e-08,
+      "snr_db": 126.73846392955224
+    },
+    "packed": {
+      "same_length": true,
+      "samples": 124800,
+      "max_abs_error": 9.872019290924072e-07,
+      "rmse": 3.784641774409466e-08,
+      "snr_db": 127.27311654587068
+    },
+    "combined": {
+      "same_length": true,
+      "samples": 124800,
+      "max_abs_error": 6.854534149169922e-07,
+      "rmse": 3.6293115644025374e-08,
+      "snr_db": 127.63712706988679
+    }
+  },
+  {
+    "voice": "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/models/phonon-31m-en/default-voice.safetensors",
+    "text": "Your appointment is at 10:30 tomorrow morning, and the total comes to 42 dollars.",
+    "repeat": {
+      "same_length": true,
+      "samples": 134400,
+      "max_abs_error": 9.57399606704712e-07,
+      "rmse": 3.0668295329712536e-08,
+      "snr_db": 128.1537658385925
+    },
+    "packed": {
+      "same_length": true,
+      "samples": 134400,
+      "max_abs_error": 8.866190910339355e-07,
+      "rmse": 3.1393585561994614e-08,
+      "snr_db": 127.9507401601619
+    },
+    "combined": {
+      "same_length": true,
+      "samples": 134400,
+      "max_abs_error": 9.57399606704712e-07,
+      "rmse": 3.0534572853238977e-08,
+      "snr_db": 128.19172159313555
+    }
+  },
+  {
+    "voice": "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/models/phonon-31m-en/default-voice.safetensors",
+    "text": "Please confirm your delivery address. I will then check the available delivery dates for you.",
+    "repeat": {
+      "same_length": true,
+      "samples": 124800,
+      "max_abs_error": 7.450580596923828e-07,
+      "rmse": 2.8650811319632785e-08,
+      "snr_db": 127.8698009670677
+    },
+    "packed": {
+      "same_length": true,
+      "samples": 124800,
+      "max_abs_error": 7.450580596923828e-07,
+      "rmse": 3.187231452361408e-08,
+      "snr_db": 126.94426740965511
+    },
+    "combined": {
+      "same_length": true,
+      "samples": 124800,
+      "max_abs_error": 1.6838312149047852e-06,
+      "rmse": 3.2338656162034e-08,
+      "snr_db": 126.81810008399339
+    }
+  },
+  {
+    "voice": "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/models/voices/voices/0zLApsZfVLLNaEGl.safetensors",
+    "text": "Hey Gradium team, this is Rudraksh loving the phonon so far!",
+    "repeat": {
+      "same_length": true,
+      "samples": 109440,
+      "max_abs_error": 5.066394805908203e-07,
+      "rmse": 3.1104014324361516e-08,
+      "snr_db": 128.02622237032136
+    },
+    "packed": {
+      "same_length": true,
+      "samples": 109440,
+      "max_abs_error": 2.980232238769531e-07,
+      "rmse": 2.683087895378226e-08,
+      "snr_db": 129.30985323587902
+    },
+    "combined": {
+      "same_length": true,
+      "samples": 109440,
+      "max_abs_error": 3.5762786865234375e-07,
+      "rmse": 2.768712895052746e-08,
+      "snr_db": 129.0369927673239
+    }
+  },
+  {
+    "voice": "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/models/voices/voices/0zLApsZfVLLNaEGl.safetensors",
+    "text": "Hello, how are you?",
+    "repeat": {
+      "same_length": true,
+      "samples": 46080,
+      "max_abs_error": 7.450580596923828e-08,
+      "rmse": 3.323186896143922e-09,
+      "snr_db": 148.9905000478713
+    },
+    "packed": {
+      "same_length": true,
+      "samples": 46080,
+      "max_abs_error": 4.842877388000488e-08,
+      "rmse": 2.5758597127094793e-09,
+      "snr_db": 151.2031512489566
+    },
+    "combined": {
+      "same_length": true,
+      "samples": 46080,
+      "max_abs_error": 5.960464477539063e-08,
+      "rmse": 2.778296721979339e-09,
+      "snr_db": 150.54602285167104
+    }
+  },
+  {
+    "voice": "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/models/voices/voices/0zLApsZfVLLNaEGl.safetensors",
+    "text": "The quick brown fox jumps over the lazy dog, then naps in the warm afternoon sun.",
+    "repeat": {
+      "same_length": true,
+      "samples": 130560,
+      "max_abs_error": 4.3213367462158203e-07,
+      "rmse": 2.8831493545771492e-08,
+      "snr_db": 127.32986338494706
+    },
+    "packed": {
+      "same_length": true,
+      "samples": 130560,
+      "max_abs_error": 7.599592208862305e-07,
+      "rmse": 3.251988797092986e-08,
+      "snr_db": 126.28422537974343
+    },
+    "combined": {
+      "same_length": true,
+      "samples": 130560,
+      "max_abs_error": 7.599592208862305e-07,
+      "rmse": 3.1380577261696145e-08,
+      "snr_db": 126.59398762801467
+    }
+  },
+  {
+    "voice": "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/models/voices/voices/0zLApsZfVLLNaEGl.safetensors",
+    "text": "Your appointment is at 10:30 tomorrow morning, and the total comes to 42 dollars.",
+    "repeat": {
+      "same_length": true,
+      "samples": 134400,
+      "max_abs_error": 5.438923835754395e-07,
+      "rmse": 3.1705209854202163e-08,
+      "snr_db": 128.17415502515385
+    },
+    "packed": {
+      "same_length": true,
+      "samples": 134400,
+      "max_abs_error": 3.725290298461914e-07,
+      "rmse": 2.9567297226392258e-08,
+      "snr_db": 128.78053512528453
+    },
+    "combined": {
+      "same_length": true,
+      "samples": 134400,
+      "max_abs_error": 5.438923835754395e-07,
+      "rmse": 3.089305980760027e-08,
+      "snr_db": 128.399549163162
+    }
+  },
+  {
+    "voice": "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/models/voices/voices/0zLApsZfVLLNaEGl.safetensors",
+    "text": "Please confirm your delivery address. I will then check the available delivery dates for you.",
+    "repeat": {
+      "same_length": true,
+      "samples": 132480,
+      "max_abs_error": 3.129243850708008e-07,
+      "rmse": 2.4086425030121284e-08,
+      "snr_db": 128.86881143683246
+    },
+    "packed": {
+      "same_length": true,
+      "samples": 132480,
+      "max_abs_error": 3.8743019104003906e-07,
+      "rmse": 2.2534844137546944e-08,
+      "snr_db": 129.44716717780642
+    },
+    "combined": {
+      "same_length": true,
+      "samples": 132480,
+      "max_abs_error": 4.023313522338867e-07,
+      "rmse": 2.5112396417693e-08,
+      "snr_db": 128.5064951820259
+    }
+  }
+]

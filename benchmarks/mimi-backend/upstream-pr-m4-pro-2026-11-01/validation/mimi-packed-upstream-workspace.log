@@ -1,0 +1,9 @@
+    Checking xn v0.2.13 (https://github.com/rudrakshkarpe/xn.git?rev=7363979dd2c8ff1c0beb3a023bd176901872922f#7363979d)
+   Compiling ptts-openai-server v0.6.0 (/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/xn-ptts-packed-upstream/ptts-openai-server)
+    Checking ptts-coreml v0.6.0 (/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/xn-ptts-packed-upstream/ptts-coreml)
+    Checking ptts v0.6.0 (/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/xn-ptts-packed-upstream/ptts)
+    Checking ptts-pyo3 v0.6.0 (/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/xn-ptts-packed-upstream/ptts-pyo3)
+    Checking ptts-wasm v0.6.0 (/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/xn-ptts-packed-upstream/ptts-wasm)
+    Checking ptts-ffi v0.6.0 (/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/xn-ptts-packed-upstream/ptts-ffi)
+    Checking ptts-ws-server v0.6.0 (/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/xn-ptts-packed-upstream/ptts-ws-server)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 3.68s

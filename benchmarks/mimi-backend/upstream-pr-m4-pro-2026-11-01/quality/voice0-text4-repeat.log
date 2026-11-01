@@ -1,0 +1,11 @@
+avx: false, neon: true, simd128: false, f16c: false
+
+model /Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/models/phonon-31m-en/model.q8.gguf  threads 4  input 93 chars  audio 5200ms  frames/iter 65
+Synth::stream: flow LM and Mimi on their own threads, as callers run it
+load 40.9ms, voice conditioning 8.9ms (both excluded below)
+
+metric                     n        min      mean       p50       p95       max
+total generate             1      72.22     72.22     72.22     72.22     72.22  ms
+time to first audio        1       4.68      4.68      4.68      4.68      4.68  ms
+per-frame (average)        1      1.111     1.111     1.111     1.111     1.111  ms
+rtf (lower is better)      1     0.0139    0.0139    0.0139    0.0139    0.0139  ratio
