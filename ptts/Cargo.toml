@@ -99,6 +99,10 @@ name = "bench"
 required-features = ["hf"]
 
 [[example]]
+name = "mimi_kernel_probe"
+required-features = ["accelerate", "kai"]
+
+[[example]]
 name = "quantize"
 
 [[example]]
