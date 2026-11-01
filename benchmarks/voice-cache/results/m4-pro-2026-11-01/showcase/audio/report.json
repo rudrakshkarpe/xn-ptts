@@ -1,0 +1,57 @@
+{
+  "text": "Hey Gradium team, this is Rudraksh loving the phonon so far!",
+  "sample_rate_hz": 24000,
+  "format": "mono signed 16-bit PCM WAV",
+  "model_revision": "92741c5b07d085ff840e26fea8ce43110b87852f",
+  "original_source": "31e4e9f80275e432b570e17f5ccbefa895eff109",
+  "optimized_source": "df6aeaa68d318c9ec5684dc6658eb8c0b5304ece",
+  "warmup_for_pressure": "16 catalog voices, followed by Imogen, then the sample in Pippa",
+  "records": {
+    "original-default": {
+      "voice": "default",
+      "pcm_sha256": "73d2a655191f0861a48ca0d5cfc3cedaa6f2c585efc3a8c43c2a5dc56df5e873",
+      "samples": 101760,
+      "first_audio_ms": 23.765625
+    },
+    "original-cache-pressure": {
+      "voice": "Pippa",
+      "pcm_sha256": "614c35f9cb1b6819e03947eef5c30284426bbf4a8b29e1fc4d7370559dc92931",
+      "samples": 105600,
+      "first_audio_ms": 10.583625
+    },
+    "optimized-default": {
+      "voice": "default",
+      "pcm_sha256": "78c646e3e3af74ade7816fe8c4c8e145cf4e3b2edf765829383f47d8d6ba7849",
+      "samples": 101760,
+      "first_audio_ms": 16.203375
+    },
+    "optimized-cache-pressure": {
+      "voice": "Pippa",
+      "pcm_sha256": "d5b9011dfe67ae30c1b51e229f618a7f8420e70d274538804d849c22ce127e01",
+      "samples": 105600,
+      "first_audio_ms": 5.295209
+    }
+  },
+  "comparisons": {
+    "default": {
+      "same_sample_count": true,
+      "max_abs_pcm_steps": 1,
+      "rmse_pcm_steps": 0.020793988003913973,
+      "normalized_rmse": 6.345821534397575e-07,
+      "nonzero_sample_fraction": 0.00043238993710691825,
+      "original_rms": 2505.024445855122,
+      "optimized_rms": 2505.024444132954,
+      "correlation": 0.9999999999655471
+    },
+    "cache-pressure": {
+      "same_sample_count": true,
+      "max_abs_pcm_steps": 1,
+      "rmse_pcm_steps": 0.019462473604038074,
+      "normalized_rmse": 5.939475587169822e-07,
+      "nonzero_sample_fraction": 0.0003787878787878788,
+      "original_rms": 2138.9984309029546,
+      "optimized_rms": 2138.998428742499,
+      "correlation": 0.9999999999586228
+    }
+  }
+}

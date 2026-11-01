@@ -6,6 +6,9 @@ The single-voice control had effectively identical median TTFA. The adverse
 round-robin control was slightly slower. This is evidence for a targeted cache-policy
 change, not a general kernel speedup or a win over published M5 benchmarks.
 
+[Graphs and paired audio samples](showcase/README.md) include all workload controls,
+per-trial dots, a request trace and sample-level audio differences.
+
 ## Paired results
 
 Each cell is the **median of three per-trial statistics**, not a pooled percentile.
