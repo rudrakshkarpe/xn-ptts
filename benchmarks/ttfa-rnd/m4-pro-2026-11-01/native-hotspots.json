@@ -1,0 +1,331 @@
+{
+  "note": "CPU sample weights after first generation stack, including warmup; not wall-time or TTFA attribution. Inclusive stacks overlap.",
+  "first_generation_seconds": 2.785443,
+  "total_sample_weight_ms": 18428.0,
+  "leaf": [
+    {
+      "symbol": "xn::threadpool::worker::ha1e598d482b2116d",
+      "percent": 27.409377034946818
+    },
+    {
+      "symbol": "0x1a06d29cc",
+      "percent": 9.480138919036248
+    },
+    {
+      "symbol": "xn::cpu_backend::_$LT$impl$u20$xn..backend..Backend$u20$for$u20$xn..CpuDevice$GT$::sdpa_decode::_$u7b$$u7b$closure$u7d$$u7d$::hab1083ef986060c7",
+      "percent": 8.476231821141742
+    },
+    {
+      "symbol": "0x1a06892ec",
+      "percent": 7.537443021489039
+    },
+    {
+      "symbol": "xn::simd_math::run::he8b71c6cd57768cf",
+      "percent": 6.652919470371174
+    },
+    {
+      "symbol": "0x102e35198",
+      "percent": 4.368352507054482
+    },
+    {
+      "symbol": "_platform_memmove",
+      "percent": 4.1241588886477105
+    },
+    {
+      "symbol": "0x1a06ad3a4",
+      "percent": 3.923377469068808
+    },
+    {
+      "symbol": "0x1a08eeb3c",
+      "percent": 3.483828955936618
+    },
+    {
+      "symbol": "xn::cpu_backend::col2im1d::_$u7b$$u7b$closure$u7d$$u7d$::h668cf43346f69b29",
+      "percent": 2.9031907966138486
+    },
+    {
+      "symbol": "xn::cpu_backend::_$LT$impl$u20$xn..backend..Backend$u20$for$u20$xn..CpuDevice$GT$::broadcast_binary::h4cab237c5a8976db",
+      "percent": 2.6264380290861733
+    },
+    {
+      "symbol": "xn::cpu_backend::_$LT$impl$u20$xn..backend..Backend$u20$for$u20$xn..CpuDevice$GT$::layer_norm::_$u7b$$u7b$closure$u7d$$u7d$::h9738d590d6caf088",
+      "percent": 1.7147818537008899
+    },
+    {
+      "symbol": "xn::simd_math::softmax_row::hc3987f59133e9964",
+      "percent": 1.6116778814846973
+    },
+    {
+      "symbol": "xn::neon_conv::conv1d::_$u7b$$u7b$closure$u7d$$u7d$::h1f45796492f4c9c1",
+      "percent": 1.085304970696766
+    },
+    {
+      "symbol": "0x1a06ad12c",
+      "percent": 0.8248317777295421
+    },
+    {
+      "symbol": "0x1a05d28e0",
+      "percent": 0.8031256783156067
+    },
+    {
+      "symbol": "expf",
+      "percent": 0.6728890818319948
+    },
+    {
+      "symbol": "xn::threadpool::par_units::_$u7b$$u7b$closure$u7d$$u7d$::he39dc42606aa7342",
+      "percent": 0.6131973084436726
+    },
+    {
+      "symbol": "xn::threadpool::par_chunks_mut_by::h2cf4cfac7492b20c",
+      "percent": 0.6077707835901889
+    },
+    {
+      "symbol": "__psynch_cvwait",
+      "percent": 0.5969177338832212
+    },
+    {
+      "symbol": "0x1a08ed930",
+      "percent": 0.5209463859344476
+    },
+    {
+      "symbol": "__psynch_cvbroad",
+      "percent": 0.47210766225309314
+    },
+    {
+      "symbol": "0x1a06b61c0",
+      "percent": 0.4395485131321901
+    },
+    {
+      "symbol": "_xzm_xzone_malloc_tiny",
+      "percent": 0.39070978945083573
+    },
+    {
+      "symbol": "xn::cpu_backend::_$LT$impl$u20$xn..backend..Backend$u20$for$u20$xn..CpuDevice$GT$::rope_i::_$u7b$$u7b$closure$u7d$$u7d$::h99f388b50df6ded0",
+      "percent": 0.38528326459735185
+    },
+    {
+      "symbol": "_xzm_free_main",
+      "percent": 0.3527241154764489
+    },
+    {
+      "symbol": "<deduplicated_symbol>",
+      "percent": 0.30388539179509444
+    },
+    {
+      "symbol": "xn::threadpool::par_chunks_zip::h20c708b5419f44aa",
+      "percent": 0.23876709355328848
+    },
+    {
+      "symbol": "kai_run_lhs_quant_pack_qai8dxp_f32",
+      "percent": 0.22791404384632083
+    },
+    {
+      "symbol": "mach_absolute_time",
+      "percent": 0.22791404384632083
+    }
+  ],
+  "binaries": [
+    {
+      "symbol": "profile-baseline-bench",
+      "percent": 63.24072064250055
+    },
+    {
+      "symbol": "libBLAS.dylib",
+      "percent": 27.66442370306056
+    },
+    {
+      "symbol": "libsystem_platform.dylib",
+      "percent": 4.422617755589321
+    },
+    {
+      "symbol": "libsystem_kernel.dylib",
+      "percent": 2.197742565660951
+    },
+    {
+      "symbol": "libsystem_malloc.dylib",
+      "percent": 1.3294985891035382
+    },
+    {
+      "symbol": "libsystem_m.dylib",
+      "percent": 0.7651400043412199
+    },
+    {
+      "symbol": "libsystem_pthread.dylib",
+      "percent": 0.2984588669416106
+    },
+    {
+      "symbol": "libdispatch.dylib",
+      "percent": 0.07054482309528978
+    },
+    {
+      "symbol": "libobjc.A.dylib",
+      "percent": 0.010853049706967658
+    }
+  ],
+  "ptts_inclusive": [
+    {
+      "symbol": "ptts::synth::run_backbone::hc89b7327788e898d",
+      "percent": 22.75884523551118
+    },
+    {
+      "symbol": "ptts::mimi::MimiDecoder$LT$Q$GT$::decode_from_latent_step::hdc84bb5bfc84add2",
+      "percent": 22.672020837855435
+    },
+    {
+      "symbol": "ptts::tts_model::TTSModel$LT$Q$GT$::generate_step::h2876b8312786e530",
+      "percent": 22.09680920338615
+    },
+    {
+      "symbol": "ptts::tts_model::TTSModel$LT$Q$GT$::generate_step_parts::hb1eff15a2cf09c13",
+      "percent": 22.091382678532668
+    },
+    {
+      "symbol": "ptts::flow_lm::FlowLM$LT$Q$GT$::sample_next_latent_parts::h3b8cdddcd9bede85",
+      "percent": 22.06967657911873
+    },
+    {
+      "symbol": "ptts::transformer::StreamingTransformer$LT$Q$GT$::forward::h1c0b54e7e5248128",
+      "percent": 11.498806164532233
+    },
+    {
+      "symbol": "ptts::flow_lm::FlowLM$LT$Q$GT$::sample_from::h6ca3344640176042",
+      "percent": 11.173214673323203
+    },
+    {
+      "symbol": "ptts::flow_lm::lsd_decode::hf5a3115daeeacf34",
+      "percent": 11.064684176253527
+    },
+    {
+      "symbol": "ptts::mlp::SimpleMLPAdaLN$LT$T$C$B$GT$::forward::h8906e8776d43cea6",
+      "percent": 11.048404601693075
+    },
+    {
+      "symbol": "ptts::flow_lm::FlowLM$LT$Q$GT$::backbone::h3f5339603bed5184",
+      "percent": 10.836770132407207
+    },
+    {
+      "symbol": "ptts::transformer::ProjectedTransformer$LT$Q$GT$::forward::hc63797f420566c1c",
+      "percent": 9.881701758194053
+    },
+    {
+      "symbol": "ptts::transformer::StreamingTransformer$LT$Q$GT$::forward::hb345082d8e5824a2",
+      "percent": 9.800303885391795
+    },
+    {
+      "symbol": "ptts::conv::StreamingConv1d$LT$T$C$B$GT$::forward::h295fb1e26c233a6c",
+      "percent": 6.121120034729759
+    },
+    {
+      "symbol": "ptts::seanet::SEANetResnetBlock$LT$T$C$B$GT$::forward::heb2e9ab193307089",
+      "percent": 5.404818754069893
+    },
+    {
+      "symbol": "ptts::transformer::MimiStreamingMultiheadAttention$LT$T$C$B$GT$::forward::h4d57c3df4ba4a109",
+      "percent": 5.171478185370089
+    },
+    {
+      "symbol": "ptts::conv::StreamingConvTranspose1d$LT$T$C$B$GT$::forward::h999bd675f8bd6cdb",
+      "percent": 4.536574777512481
+    },
+    {
+      "symbol": "ptts::mlp::TimestepEmbedder$LT$T$C$B$GT$::forward::h27f7c3d366b7e09f",
+      "percent": 1.0256131973084437
+    },
+    {
+      "symbol": "ptts::tts_model::TTSModel$LT$Q$GT$::run_backbone_and_increment::h957d119a337d8219",
+      "percent": 0.6945951812459301
+    },
+    {
+      "symbol": "ptts::tts_model::TTSModel$LT$Q$GT$::prompt_text::h4a27a5ed1ed6cd0c",
+      "percent": 0.6457564575645757
+    },
+    {
+      "symbol": "ptts::rope::RotaryEmbedding$LT$T$C$B$GT$::forward::hf178e8fa824b200c",
+      "percent": 0.49381376166702845
+    },
+    {
+      "symbol": "ptts::synth::SynthOf$LT$Q$GT$::session_at::h4dc2365bfaecf8ef",
+      "percent": 0.189928369871934
+    },
+    {
+      "symbol": "ptts::mlp::modulate::h86215ddb648658fb",
+      "percent": 0.13566312133709574
+    },
+    {
+      "symbol": "ptts::synth::grow::h0832cd01d1f7a479",
+      "percent": 0.12481007163012807
+    },
+    {
+      "symbol": "ptts::transformer::StreamingTransformerState$LT$T$C$B$GT$::with_seq_budget::h9757eb20aac7ef3c",
+      "percent": 0.12481007163012807
+    },
+    {
+      "symbol": "ptts::mlp::TimestepEmbedder$LT$T$C$B$GT$::normalize::h8bb1d1c520375e60",
+      "percent": 0.11395702192316041
+    },
+    {
+      "symbol": "ptts::transformer::KvCache$LT$T$C$B$GT$::append::h0424667725cb78d7",
+      "percent": 0.10853049706967659
+    },
+    {
+      "symbol": "ptts::rope::RotaryEmbedding$LT$T$C$B$GT$::new::h5cbbf9ef0eca2b80",
+      "percent": 0.10853049706967659
+    },
+    {
+      "symbol": "ptts::transformer::StreamingMHAState$LT$T$C$B$GT$::complete_kv::hd57077b1b52da6b2",
+      "percent": 0.09225092250922509
+    },
+    {
+      "symbol": "ptts::transformer::KvCache$LT$T$C$B$GT$::trim::h5b8d118be81b04a2",
+      "percent": 0.07597134794877361
+    },
+    {
+      "symbol": "ptts::tts_model::TTSModel$LT$Q$GT$::prompt_audio::he2723bc660782a04",
+      "percent": 0.05969177338832212
+    },
+    {
+      "symbol": "ptts::plan::chunks::h34e84b3b93d229ee",
+      "percent": 0.03255914912090298
+    },
+    {
+      "symbol": "ptts::synth::plan_chunks::h0dacb795a16fbb1e",
+      "percent": 0.03255914912090298
+    },
+    {
+      "symbol": "ptts::tts_model::split_into_best_sentences::h17ca74157cbc0921",
+      "percent": 0.027132624267419147
+    },
+    {
+      "symbol": "ptts::transformer::StreamingMultiheadAttention$LT$Q$GT$::forward::_$u7b$$u7b$closure$u7d$$u7d$::h2e765687cdb225b3",
+      "percent": 0.021706099413935316
+    },
+    {
+      "symbol": "ptts::transformer::StreamingMHAState$LT$T$C$B$GT$::materialize_causal_mask::h9a2b06ae37cf52bf",
+      "percent": 0.021706099413935316
+    },
+    {
+      "symbol": "ptts::conditioners::LUTConditioner$LT$T$C$B$GT$::embed_tokens::h5a69d32cbad110d8",
+      "percent": 0.010853049706967658
+    },
+    {
+      "symbol": "ptts::flow_lm::FlowLM$LT$Q$GT$::step_embedding::h0544c8bc0b21b9bd",
+      "percent": 0.010853049706967658
+    },
+    {
+      "symbol": "ptts::preprocess::rewrite::rewrite_text::hf4ef07b203c70b35",
+      "percent": 0.005426524853483829
+    },
+    {
+      "symbol": "ptts::preprocess::spell_symbols::hba66f10275b91656",
+      "percent": 0.005426524853483829
+    },
+    {
+      "symbol": "ptts::preprocess::normalize_text::h2cd1f9564584c3e6",
+      "percent": 0.005426524853483829
+    },
+    {
+      "symbol": "ptts::synth::SessionOf$LT$Q$GT$::stream_chunks::h97e821acb3135e5c",
+      "percent": 0.005426524853483829
+    }
+  ]
+}

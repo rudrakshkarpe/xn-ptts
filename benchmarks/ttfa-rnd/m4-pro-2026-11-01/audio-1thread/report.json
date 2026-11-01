@@ -1,0 +1,111 @@
+{
+  "threads": 1,
+  "seed": 42,
+  "results": [
+    {
+      "text": "Hey Gradium team, this is Rudraksh loving the phonon so far!",
+      "candidate": {
+        "same_length": true,
+        "samples": 101760,
+        "different_samples": 67280,
+        "max_abs_error": 1.043081283569336e-06,
+        "rmse": 3.669755070386975e-08,
+        "snr_db": 126.37573957683492,
+        "bit_identical": false
+      },
+      "baseline_repeat": {
+        "same_length": true,
+        "samples": 101760,
+        "different_samples": 65435,
+        "max_abs_error": 8.642673492431641e-07,
+        "rmse": 3.6848550269576325e-08,
+        "snr_db": 126.34007303874073,
+        "bit_identical": false
+      }
+    },
+    {
+      "text": "Hello, how are you?",
+      "candidate": {
+        "same_length": true,
+        "samples": 48000,
+        "different_samples": 13751,
+        "max_abs_error": 5.960464477539063e-08,
+        "rmse": 3.0272193460914016e-09,
+        "snr_db": 146.24118628950217,
+        "bit_identical": false
+      },
+      "baseline_repeat": {
+        "same_length": true,
+        "samples": 48000,
+        "different_samples": 11828,
+        "max_abs_error": 1.1920928955078125e-07,
+        "rmse": 2.875160338652174e-09,
+        "snr_db": 146.68882271437005,
+        "bit_identical": false
+      }
+    },
+    {
+      "text": "The quick brown fox jumps over the lazy dog, then naps in the warm afternoon sun.",
+      "candidate": {
+        "same_length": true,
+        "samples": 124800,
+        "different_samples": 81909,
+        "max_abs_error": 1.259148120880127e-06,
+        "rmse": 4.108062895564231e-08,
+        "snr_db": 126.56087053192192,
+        "bit_identical": false
+      },
+      "baseline_repeat": {
+        "same_length": true,
+        "samples": 124800,
+        "different_samples": 83645,
+        "max_abs_error": 1.1026859283447266e-06,
+        "rmse": 4.0831726509518445e-08,
+        "snr_db": 126.61365733848899,
+        "bit_identical": false
+      }
+    },
+    {
+      "text": "Your appointment is at 10:30 tomorrow morning, and the total comes to 42 dollars.",
+      "candidate": {
+        "same_length": true,
+        "samples": 134400,
+        "different_samples": 31236,
+        "max_abs_error": 9.797513484954834e-07,
+        "rmse": 2.3943958135623467e-08,
+        "snr_db": 130.30363971558998,
+        "bit_identical": false
+      },
+      "baseline_repeat": {
+        "same_length": true,
+        "samples": 134400,
+        "different_samples": 99907,
+        "max_abs_error": 9.98377799987793e-07,
+        "rmse": 3.758024065569035e-08,
+        "snr_db": 126.3883674675438,
+        "bit_identical": false
+      }
+    },
+    {
+      "text": "Please confirm your delivery address. I will then check the available delivery dates for you.",
+      "candidate": {
+        "same_length": true,
+        "samples": 124800,
+        "different_samples": 116950,
+        "max_abs_error": 1.3485550880432129e-06,
+        "rmse": 5.3005271181763365e-08,
+        "snr_db": 122.52615820899152,
+        "bit_identical": false
+      },
+      "baseline_repeat": {
+        "same_length": true,
+        "samples": 124800,
+        "different_samples": 83832,
+        "max_abs_error": 6.332993507385254e-07,
+        "rmse": 2.824737625378312e-08,
+        "snr_db": 127.99297712894757,
+        "bit_identical": false
+      }
+    }
+  ]
+}

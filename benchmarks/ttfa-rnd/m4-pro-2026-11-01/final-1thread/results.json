@@ -1,0 +1,3317 @@
+{
+  "platform": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+  "threads": 1,
+  "seed": 42,
+  "XN_KAI": "default",
+  "texts": {
+    "short": "Hello, how are you?",
+    "release": "The quick brown fox jumps over the lazy dog, then naps in the warm afternoon sun.",
+    "long": "Thank you for calling. I have checked the details of your reservation, and everything is ready for your arrival tomorrow afternoon. Please bring your confirmation number and a photo identification document. If your travel plans change, you can contact us to arrange a different arrival time."
+  },
+  "binaries": {
+    "baseline": {
+      "path": "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/binaries/profile-baseline-bench",
+      "sha256": "09f24dde191041e2a1e27e3ea38d446f6723684553753a6055c653f10cb5f4f7"
+    },
+    "candidate": {
+      "path": "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/binaries/prefill-final-bench",
+      "sha256": "f02cad47a99cf279732f22424ff7c14d516e41839a28a1c6b3a872a658b8932c"
+    }
+  },
+  "runs": [
+    {
+      "text": "short",
+      "trial": 0,
+      "variant": "baseline",
+      "command": [
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/binaries/profile-baseline-bench",
+        "--model",
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/models/phonon-31m-en/model.q8.gguf",
+        "--config",
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/models/phonon-31m-en/config.json",
+        "--voice",
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/models/phonon-31m-en/default-voice.safetensors",
+        "--quant",
+        "q8",
+        "--device",
+        "cpu",
+        "--threads",
+        "1",
+        "--lang",
+        "en",
+        "--seed",
+        "42",
+        "--warmup",
+        "5",
+        "--iters",
+        "30",
+        "--per-iter",
+        "--input",
+        "Hello, how are you?"
+      ],
+      "values": [
+        {
+          "total_ms": 36.17,
+          "ttfa_ms": 3.83,
+          "frames": 25
+        },
+        {
+          "total_ms": 36.24,
+          "ttfa_ms": 3.64,
+          "frames": 25
+        },
+        {
+          "total_ms": 36.57,
+          "ttfa_ms": 3.66,
+          "frames": 25
+        },
+        {
+          "total_ms": 36.74,
+          "ttfa_ms": 3.71,
+          "frames": 25
+        },
+        {
+          "total_ms": 36.25,
+          "ttfa_ms": 3.78,
+          "frames": 25
+        },
+        {
+          "total_ms": 35.15,
+          "ttfa_ms": 3.67,
+          "frames": 25
+        },
+        {
+          "total_ms": 34.97,
+          "ttfa_ms": 3.64,
+          "frames": 25
+        },
+        {
+          "total_ms": 35.95,
+          "ttfa_ms": 3.77,
+          "frames": 25
+        },
+        {
+          "total_ms": 35.56,
+          "ttfa_ms": 3.64,
+          "frames": 25
+        },
+        {
+          "total_ms": 35.53,
+          "ttfa_ms": 3.69,
+          "frames": 25
+        },
+        {
+          "total_ms": 35.83,
+          "ttfa_ms": 3.72,
+          "frames": 25
+        },
+        {
+          "total_ms": 36.16,
+          "ttfa_ms": 3.61,
+          "frames": 25
+        },
+        {
+          "total_ms": 35.66,
+          "ttfa_ms": 3.66,
+          "frames": 25
+        },
+        {
+          "total_ms": 38.26,
+          "ttfa_ms": 3.67,
+          "frames": 25
+        },
+        {
+          "total_ms": 37.03,
+          "ttfa_ms": 3.93,
+          "frames": 25
+        },
+        {
+          "total_ms": 37.79,
+          "ttfa_ms": 3.76,
+          "frames": 25
+        },
+        {
+          "total_ms": 35.99,
+          "ttfa_ms": 3.74,
+          "frames": 25
+        },
+        {
+          "total_ms": 37.03,
+          "ttfa_ms": 3.99,
+          "frames": 25
+        },
+        {
+          "total_ms": 37.38,
+          "ttfa_ms": 3.93,
+          "frames": 25
+        },
+        {
+          "total_ms": 39.25,
+          "ttfa_ms": 3.99,
+          "frames": 25
+        },
+        {
+          "total_ms": 49.68,
+          "ttfa_ms": 3.99,
+          "frames": 25
+        },
+        {
+          "total_ms": 38.34,
+          "ttfa_ms": 4.09,
+          "frames": 25
+        },
+        {
+          "total_ms": 38.93,
+          "ttfa_ms": 3.91,
+          "frames": 25
+        },
+        {
+          "total_ms": 39.53,
+          "ttfa_ms": 3.98,
+          "frames": 25
+        },
+        {
+          "total_ms": 39.44,
+          "ttfa_ms": 3.92,
+          "frames": 25
+        },
+        {
+          "total_ms": 36.43,
+          "ttfa_ms": 3.96,
+          "frames": 25
+        },
+        {
+          "total_ms": 36.14,
+          "ttfa_ms": 3.75,
+          "frames": 25
+        },
+        {
+          "total_ms": 37.52,
+          "ttfa_ms": 3.82,
+          "frames": 25
+        },
+        {
+          "total_ms": 36.69,
+          "ttfa_ms": 3.97,
+          "frames": 25
+        },
+        {
+          "total_ms": 37.12,
+          "ttfa_ms": 3.92,
+          "frames": 25
+        }
+      ]
+    },
+    {
+      "text": "short",
+      "trial": 0,
+      "variant": "candidate",
+      "command": [
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/binaries/prefill-final-bench",
+        "--model",
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/models/phonon-31m-en/model.q8.gguf",
+        "--config",
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/models/phonon-31m-en/config.json",
+        "--voice",
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/models/phonon-31m-en/default-voice.safetensors",
+        "--quant",
+        "q8",
+        "--device",
+        "cpu",
+        "--threads",
+        "1",
+        "--lang",
+        "en",
+        "--seed",
+        "42",
+        "--warmup",
+        "5",
+        "--iters",
+        "30",
+        "--per-iter",
+        "--input",
+        "Hello, how are you?"
+      ],
+      "values": [
+        {
+          "total_ms": 35.99,
+          "ttfa_ms": 3.61,
+          "frames": 25
+        },
+        {
+          "total_ms": 35.74,
+          "ttfa_ms": 3.6,
+          "frames": 25
+        },
+        {
+          "total_ms": 36.29,
+          "ttfa_ms": 3.64,
+          "frames": 25
+        },
+        {
+          "total_ms": 36.57,
+          "ttfa_ms": 3.54,
+          "frames": 25
+        },
+        {
+          "total_ms": 37.79,
+          "ttfa_ms": 3.71,
+          "frames": 25
+        },
+        {
+          "total_ms": 40.34,
+          "ttfa_ms": 4.08,
+          "frames": 25
+        },
+        {
+          "total_ms": 37.46,
+          "ttfa_ms": 3.87,
+          "frames": 25
+        },
+        {
+          "total_ms": 41.11,
+          "ttfa_ms": 4.01,
+          "frames": 25
+        },
+        {
+          "total_ms": 41.44,
+          "ttfa_ms": 3.83,
+          "frames": 25
+        },
+        {
+          "total_ms": 38.07,
+          "ttfa_ms": 3.95,
+          "frames": 25
+        },
+        {
+          "total_ms": 38.82,
+          "ttfa_ms": 4.1,
+          "frames": 25
+        },
+        {
+          "total_ms": 40.09,
+          "ttfa_ms": 3.87,
+          "frames": 25
+        },
+        {
+          "total_ms": 45.65,
+          "ttfa_ms": 4.4,
+          "frames": 25
+        },
+        {
+          "total_ms": 43.31,
+          "ttfa_ms": 4.3,
+          "frames": 25
+        },
+        {
+          "total_ms": 40.08,
+          "ttfa_ms": 4.02,
+          "frames": 25
+        },
+        {
+          "total_ms": 37.36,
+          "ttfa_ms": 3.69,
+          "frames": 25
+        },
+        {
+          "total_ms": 36.26,
+          "ttfa_ms": 3.65,
+          "frames": 25
+        },
+        {
+          "total_ms": 36.29,
+          "ttfa_ms": 3.65,
+          "frames": 25
+        },
+        {
+          "total_ms": 37.9,
+          "ttfa_ms": 3.67,
+          "frames": 25
+        },
+        {
+          "total_ms": 38.22,
+          "ttfa_ms": 3.68,
+          "frames": 25
+        },
+        {
+          "total_ms": 38.57,
+          "ttfa_ms": 3.95,
+          "frames": 25
+        },
+        {
+          "total_ms": 36.49,
+          "ttfa_ms": 3.65,
+          "frames": 25
+        },
+        {
+          "total_ms": 37.75,
+          "ttfa_ms": 3.67,
+          "frames": 25
+        },
+        {
+          "total_ms": 38.75,
+          "ttfa_ms": 3.99,
+          "frames": 25
+        },
+        {
+          "total_ms": 38.53,
+          "ttfa_ms": 4.02,
+          "frames": 25
+        },
+        {
+          "total_ms": 38.15,
+          "ttfa_ms": 3.84,
+          "frames": 25
+        },
+        {
+          "total_ms": 39.13,
+          "ttfa_ms": 3.79,
+          "frames": 25
+        },
+        {
+          "total_ms": 38.21,
+          "ttfa_ms": 3.96,
+          "frames": 25
+        },
+        {
+          "total_ms": 37.51,
+          "ttfa_ms": 3.67,
+          "frames": 25
+        },
+        {
+          "total_ms": 36.72,
+          "ttfa_ms": 3.67,
+          "frames": 25
+        }
+      ]
+    },
+    {
+      "text": "release",
+      "trial": 0,
+      "variant": "baseline",
+      "command": [
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/binaries/profile-baseline-bench",
+        "--model",
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/models/phonon-31m-en/model.q8.gguf",
+        "--config",
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/models/phonon-31m-en/config.json",
+        "--voice",
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/models/phonon-31m-en/default-voice.safetensors",
+        "--quant",
+        "q8",
+        "--device",
+        "cpu",
+        "--threads",
+        "1",
+        "--lang",
+        "en",
+        "--seed",
+        "42",
+        "--warmup",
+        "5",
+        "--iters",
+        "30",
+        "--per-iter",
+        "--input",
+        "The quick brown fox jumps over the lazy dog, then naps in the warm afternoon sun."
+      ],
+      "values": [
+        {
+          "total_ms": 120.06,
+          "ttfa_ms": 5.25,
+          "frames": 65
+        },
+        {
+          "total_ms": 113.54,
+          "ttfa_ms": 5.84,
+          "frames": 65
+        },
+        {
+          "total_ms": 116.29,
+          "ttfa_ms": 5.34,
+          "frames": 65
+        },
+        {
+          "total_ms": 118.11,
+          "ttfa_ms": 6.29,
+          "frames": 65
+        },
+        {
+          "total_ms": 101.96,
+          "ttfa_ms": 5.38,
+          "frames": 65
+        },
+        {
+          "total_ms": 96.02,
+          "ttfa_ms": 5.11,
+          "frames": 65
+        },
+        {
+          "total_ms": 95.2,
+          "ttfa_ms": 5.17,
+          "frames": 65
+        },
+        {
+          "total_ms": 137.77,
+          "ttfa_ms": 5.22,
+          "frames": 65
+        },
+        {
+          "total_ms": 105.71,
+          "ttfa_ms": 5.2,
+          "frames": 65
+        },
+        {
+          "total_ms": 99.78,
+          "ttfa_ms": 5.04,
+          "frames": 65
+        },
+        {
+          "total_ms": 92.71,
+          "ttfa_ms": 5.46,
+          "frames": 65
+        },
+        {
+          "total_ms": 94.76,
+          "ttfa_ms": 4.76,
+          "frames": 65
+        },
+        {
+          "total_ms": 90.19,
+          "ttfa_ms": 5.25,
+          "frames": 65
+        },
+        {
+          "total_ms": 88.65,
+          "ttfa_ms": 5.0,
+          "frames": 65
+        },
+        {
+          "total_ms": 88.35,
+          "ttfa_ms": 4.91,
+          "frames": 65
+        },
+        {
+          "total_ms": 88.51,
+          "ttfa_ms": 4.9,
+          "frames": 65
+        },
+        {
+          "total_ms": 87.4,
+          "ttfa_ms": 4.81,
+          "frames": 65
+        },
+        {
+          "total_ms": 85.84,
+          "ttfa_ms": 4.8,
+          "frames": 65
+        },
+        {
+          "total_ms": 89.12,
+          "ttfa_ms": 4.99,
+          "frames": 65
+        },
+        {
+          "total_ms": 89.05,
+          "ttfa_ms": 4.85,
+          "frames": 65
+        },
+        {
+          "total_ms": 90.17,
+          "ttfa_ms": 4.86,
+          "frames": 65
+        },
+        {
+          "total_ms": 88.47,
+          "ttfa_ms": 5.06,
+          "frames": 65
+        },
+        {
+          "total_ms": 89.78,
+          "ttfa_ms": 5.14,
+          "frames": 65
+        },
+        {
+          "total_ms": 87.23,
+          "ttfa_ms": 4.86,
+          "frames": 65
+        },
+        {
+          "total_ms": 88.58,
+          "ttfa_ms": 4.81,
+          "frames": 65
+        },
+        {
+          "total_ms": 88.11,
+          "ttfa_ms": 4.79,
+          "frames": 65
+        },
+        {
+          "total_ms": 88.24,
+          "ttfa_ms": 4.9,
+          "frames": 65
+        },
+        {
+          "total_ms": 88.37,
+          "ttfa_ms": 4.68,
+          "frames": 65
+        },
+        {
+          "total_ms": 91.21,
+          "ttfa_ms": 4.76,
+          "frames": 65
+        },
+        {
+          "total_ms": 93.75,
+          "ttfa_ms": 5.22,
+          "frames": 65
+        }
+      ]
+    },
+    {
+      "text": "release",
+      "trial": 0,
+      "variant": "candidate",
+      "command": [
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/binaries/prefill-final-bench",
+        "--model",
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/models/phonon-31m-en/model.q8.gguf",
+        "--config",
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/models/phonon-31m-en/config.json",
+        "--voice",
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/models/phonon-31m-en/default-voice.safetensors",
+        "--quant",
+        "q8",
+        "--device",
+        "cpu",
+        "--threads",
+        "1",
+        "--lang",
+        "en",
+        "--seed",
+        "42",
+        "--warmup",
+        "5",
+        "--iters",
+        "30",
+        "--per-iter",
+        "--input",
+        "The quick brown fox jumps over the lazy dog, then naps in the warm afternoon sun."
+      ],
+      "values": [
+        {
+          "total_ms": 88.38,
+          "ttfa_ms": 4.54,
+          "frames": 65
+        },
+        {
+          "total_ms": 91.43,
+          "ttfa_ms": 4.79,
+          "frames": 65
+        },
+        {
+          "total_ms": 86.82,
+          "ttfa_ms": 4.76,
+          "frames": 65
+        },
+        {
+          "total_ms": 86.32,
+          "ttfa_ms": 4.57,
+          "frames": 65
+        },
+        {
+          "total_ms": 91.64,
+          "ttfa_ms": 4.62,
+          "frames": 65
+        },
+        {
+          "total_ms": 87.86,
+          "ttfa_ms": 4.65,
+          "frames": 65
+        },
+        {
+          "total_ms": 91.18,
+          "ttfa_ms": 4.98,
+          "frames": 65
+        },
+        {
+          "total_ms": 89.49,
+          "ttfa_ms": 4.77,
+          "frames": 65
+        },
+        {
+          "total_ms": 88.31,
+          "ttfa_ms": 4.58,
+          "frames": 65
+        },
+        {
+          "total_ms": 87.33,
+          "ttfa_ms": 4.93,
+          "frames": 65
+        },
+        {
+          "total_ms": 86.93,
+          "ttfa_ms": 4.74,
+          "frames": 65
+        },
+        {
+          "total_ms": 90.12,
+          "ttfa_ms": 4.56,
+          "frames": 65
+        },
+        {
+          "total_ms": 87.5,
+          "ttfa_ms": 4.58,
+          "frames": 65
+        },
+        {
+          "total_ms": 91.04,
+          "ttfa_ms": 4.78,
+          "frames": 65
+        },
+        {
+          "total_ms": 91.76,
+          "ttfa_ms": 5.01,
+          "frames": 65
+        },
+        {
+          "total_ms": 88.18,
+          "ttfa_ms": 4.6,
+          "frames": 65
+        },
+        {
+          "total_ms": 91.37,
+          "ttfa_ms": 5.15,
+          "frames": 65
+        },
+        {
+          "total_ms": 88.57,
+          "ttfa_ms": 4.69,
+          "frames": 65
+        },
+        {
+          "total_ms": 86.23,
+          "ttfa_ms": 4.66,
+          "frames": 65
+        },
+        {
+          "total_ms": 84.77,
+          "ttfa_ms": 4.66,
+          "frames": 65
+        },
+        {
+          "total_ms": 86.91,
+          "ttfa_ms": 4.55,
+          "frames": 65
+        },
+        {
+          "total_ms": 86.22,
+          "ttfa_ms": 4.69,
+          "frames": 65
+        },
+        {
+          "total_ms": 87.57,
+          "ttfa_ms": 4.56,
+          "frames": 65
+        },
+        {
+          "total_ms": 86.83,
+          "ttfa_ms": 4.62,
+          "frames": 65
+        },
+        {
+          "total_ms": 86.56,
+          "ttfa_ms": 4.67,
+          "frames": 65
+        },
+        {
+          "total_ms": 86.9,
+          "ttfa_ms": 4.79,
+          "frames": 65
+        },
+        {
+          "total_ms": 89.07,
+          "ttfa_ms": 4.64,
+          "frames": 65
+        },
+        {
+          "total_ms": 90.32,
+          "ttfa_ms": 4.54,
+          "frames": 65
+        },
+        {
+          "total_ms": 88.43,
+          "ttfa_ms": 4.46,
+          "frames": 65
+        },
+        {
+          "total_ms": 89.19,
+          "ttfa_ms": 4.67,
+          "frames": 65
+        }
+      ]
+    },
+    {
+      "text": "long",
+      "trial": 0,
+      "variant": "baseline",
+      "command": [
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/binaries/profile-baseline-bench",
+        "--model",
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/models/phonon-31m-en/model.q8.gguf",
+        "--config",
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/models/phonon-31m-en/config.json",
+        "--voice",
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/models/phonon-31m-en/default-voice.safetensors",
+        "--quant",
+        "q8",
+        "--device",
+        "cpu",
+        "--threads",
+        "1",
+        "--lang",
+        "en",
+        "--seed",
+        "42",
+        "--warmup",
+        "5",
+        "--iters",
+        "30",
+        "--per-iter",
+        "--input",
+        "Thank you for calling. I have checked the details of your reservation, and everything is ready for your arrival tomorrow afternoon. Please bring your confirmation number and a photo identification document. If your travel plans change, you can contact us to arrange a different arrival time."
+      ],
+      "values": [
+        {
+          "total_ms": 263.99,
+          "ttfa_ms": 6.35,
+          "frames": 200
+        },
+        {
+          "total_ms": 262.55,
+          "ttfa_ms": 5.76,
+          "frames": 200
+        },
+        {
+          "total_ms": 258.65,
+          "ttfa_ms": 5.61,
+          "frames": 200
+        },
+        {
+          "total_ms": 260.3,
+          "ttfa_ms": 5.8,
+          "frames": 200
+        },
+        {
+          "total_ms": 261.98,
+          "ttfa_ms": 5.68,
+          "frames": 200
+        },
+        {
+          "total_ms": 264.3,
+          "ttfa_ms": 6.15,
+          "frames": 200
+        },
+        {
+          "total_ms": 261.48,
+          "ttfa_ms": 5.66,
+          "frames": 200
+        },
+        {
+          "total_ms": 260.41,
+          "ttfa_ms": 5.84,
+          "frames": 200
+        },
+        {
+          "total_ms": 262.95,
+          "ttfa_ms": 5.82,
+          "frames": 200
+        },
+        {
+          "total_ms": 263.87,
+          "ttfa_ms": 5.91,
+          "frames": 200
+        },
+        {
+          "total_ms": 263.26,
+          "ttfa_ms": 5.94,
+          "frames": 200
+        },
+        {
+          "total_ms": 262.58,
+          "ttfa_ms": 5.98,
+          "frames": 200
+        },
+        {
+          "total_ms": 262.82,
+          "ttfa_ms": 5.64,
+          "frames": 200
+        },
+        {
+          "total_ms": 269.87,
+          "ttfa_ms": 6.03,
+          "frames": 200
+        },
+        {
+          "total_ms": 260.21,
+          "ttfa_ms": 5.65,
+          "frames": 200
+        },
+        {
+          "total_ms": 258.74,
+          "ttfa_ms": 5.75,
+          "frames": 200
+        },
+        {
+          "total_ms": 262.73,
+          "ttfa_ms": 5.68,
+          "frames": 200
+        },
+        {
+          "total_ms": 258.63,
+          "ttfa_ms": 5.83,
+          "frames": 200
+        },
+        {
+          "total_ms": 260.69,
+          "ttfa_ms": 6.01,
+          "frames": 200
+        },
+        {
+          "total_ms": 262.88,
+          "ttfa_ms": 5.94,
+          "frames": 200
+        },
+        {
+          "total_ms": 257.42,
+          "ttfa_ms": 5.88,
+          "frames": 200
+        },
+        {
+          "total_ms": 259.92,
+          "ttfa_ms": 5.65,
+          "frames": 200
+        },
+        {
+          "total_ms": 262.1,
+          "ttfa_ms": 5.85,
+          "frames": 200
+        },
+        {
+          "total_ms": 259.27,
+          "ttfa_ms": 5.86,
+          "frames": 200
+        },
+        {
+          "total_ms": 291.58,
+          "ttfa_ms": 5.96,
+          "frames": 200
+        },
+        {
+          "total_ms": 296.08,
+          "ttfa_ms": 6.07,
+          "frames": 200
+        },
+        {
+          "total_ms": 271.6,
+          "ttfa_ms": 6.27,
+          "frames": 200
+        },
+        {
+          "total_ms": 353.24,
+          "ttfa_ms": 6.05,
+          "frames": 200
+        },
+        {
+          "total_ms": 275.57,
+          "ttfa_ms": 6.09,
+          "frames": 200
+        },
+        {
+          "total_ms": 274.16,
+          "ttfa_ms": 5.98,
+          "frames": 200
+        }
+      ]
+    },
+    {
+      "text": "long",
+      "trial": 0,
+      "variant": "candidate",
+      "command": [
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/binaries/prefill-final-bench",
+        "--model",
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/models/phonon-31m-en/model.q8.gguf",
+        "--config",
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/models/phonon-31m-en/config.json",
+        "--voice",
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/models/phonon-31m-en/default-voice.safetensors",
+        "--quant",
+        "q8",
+        "--device",
+        "cpu",
+        "--threads",
+        "1",
+        "--lang",
+        "en",
+        "--seed",
+        "42",
+        "--warmup",
+        "5",
+        "--iters",
+        "30",
+        "--per-iter",
+        "--input",
+        "Thank you for calling. I have checked the details of your reservation, and everything is ready for your arrival tomorrow afternoon. Please bring your confirmation number and a photo identification document. If your travel plans change, you can contact us to arrange a different arrival time."
+      ],
+      "values": [
+        {
+          "total_ms": 261.23,
+          "ttfa_ms": 5.7,
+          "frames": 200
+        },
+        {
+          "total_ms": 261.6,
+          "ttfa_ms": 5.36,
+          "frames": 200
+        },
+        {
+          "total_ms": 263.75,
+          "ttfa_ms": 5.65,
+          "frames": 200
+        },
+        {
+          "total_ms": 263.61,
+          "ttfa_ms": 5.56,
+          "frames": 200
+        },
+        {
+          "total_ms": 261.44,
+          "ttfa_ms": 5.36,
+          "frames": 200
+        },
+        {
+          "total_ms": 260.0,
+          "ttfa_ms": 5.38,
+          "frames": 200
+        },
+        {
+          "total_ms": 275.68,
+          "ttfa_ms": 5.61,
+          "frames": 200
+        },
+        {
+          "total_ms": 277.36,
+          "ttfa_ms": 6.67,
+          "frames": 200
+        },
+        {
+          "total_ms": 260.47,
+          "ttfa_ms": 5.57,
+          "frames": 200
+        },
+        {
+          "total_ms": 262.22,
+          "ttfa_ms": 5.33,
+          "frames": 200
+        },
+        {
+          "total_ms": 260.78,
+          "ttfa_ms": 5.38,
+          "frames": 200
+        },
+        {
+          "total_ms": 260.82,
+          "ttfa_ms": 5.5,
+          "frames": 200
+        },
+        {
+          "total_ms": 263.15,
+          "ttfa_ms": 5.52,
+          "frames": 200
+        },
+        {
+          "total_ms": 260.32,
+          "ttfa_ms": 5.37,
+          "frames": 200
+        },
+        {
+          "total_ms": 273.24,
+          "ttfa_ms": 8.11,
+          "frames": 200
+        },
+        {
+          "total_ms": 264.45,
+          "ttfa_ms": 5.69,
+          "frames": 200
+        },
+        {
+          "total_ms": 272.08,
+          "ttfa_ms": 5.34,
+          "frames": 200
+        },
+        {
+          "total_ms": 309.82,
+          "ttfa_ms": 5.46,
+          "frames": 200
+        },
+        {
+          "total_ms": 281.45,
+          "ttfa_ms": 7.93,
+          "frames": 200
+        },
+        {
+          "total_ms": 266.02,
+          "ttfa_ms": 5.64,
+          "frames": 200
+        },
+        {
+          "total_ms": 273.36,
+          "ttfa_ms": 5.41,
+          "frames": 200
+        },
+        {
+          "total_ms": 274.01,
+          "ttfa_ms": 5.92,
+          "frames": 200
+        },
+        {
+          "total_ms": 264.39,
+          "ttfa_ms": 5.6,
+          "frames": 200
+        },
+        {
+          "total_ms": 264.98,
+          "ttfa_ms": 5.47,
+          "frames": 200
+        },
+        {
+          "total_ms": 267.86,
+          "ttfa_ms": 5.51,
+          "frames": 200
+        },
+        {
+          "total_ms": 276.49,
+          "ttfa_ms": 5.62,
+          "frames": 200
+        },
+        {
+          "total_ms": 263.0,
+          "ttfa_ms": 5.46,
+          "frames": 200
+        },
+        {
+          "total_ms": 325.21,
+          "ttfa_ms": 5.42,
+          "frames": 200
+        },
+        {
+          "total_ms": 274.77,
+          "ttfa_ms": 5.75,
+          "frames": 200
+        },
+        {
+          "total_ms": 274.68,
+          "ttfa_ms": 5.74,
+          "frames": 200
+        }
+      ]
+    },
+    {
+      "text": "release",
+      "trial": 1,
+      "variant": "candidate",
+      "command": [
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/binaries/prefill-final-bench",
+        "--model",
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/models/phonon-31m-en/model.q8.gguf",
+        "--config",
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/models/phonon-31m-en/config.json",
+        "--voice",
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/models/phonon-31m-en/default-voice.safetensors",
+        "--quant",
+        "q8",
+        "--device",
+        "cpu",
+        "--threads",
+        "1",
+        "--lang",
+        "en",
+        "--seed",
+        "42",
+        "--warmup",
+        "5",
+        "--iters",
+        "30",
+        "--per-iter",
+        "--input",
+        "The quick brown fox jumps over the lazy dog, then naps in the warm afternoon sun."
+      ],
+      "values": [
+        {
+          "total_ms": 90.0,
+          "ttfa_ms": 4.79,
+          "frames": 65
+        },
+        {
+          "total_ms": 93.3,
+          "ttfa_ms": 4.99,
+          "frames": 65
+        },
+        {
+          "total_ms": 89.98,
+          "ttfa_ms": 4.8,
+          "frames": 65
+        },
+        {
+          "total_ms": 91.73,
+          "ttfa_ms": 4.92,
+          "frames": 65
+        },
+        {
+          "total_ms": 91.58,
+          "ttfa_ms": 5.08,
+          "frames": 65
+        },
+        {
+          "total_ms": 92.78,
+          "ttfa_ms": 4.85,
+          "frames": 65
+        },
+        {
+          "total_ms": 92.74,
+          "ttfa_ms": 5.05,
+          "frames": 65
+        },
+        {
+          "total_ms": 88.76,
+          "ttfa_ms": 5.0,
+          "frames": 65
+        },
+        {
+          "total_ms": 92.13,
+          "ttfa_ms": 4.9,
+          "frames": 65
+        },
+        {
+          "total_ms": 92.83,
+          "ttfa_ms": 4.91,
+          "frames": 65
+        },
+        {
+          "total_ms": 97.61,
+          "ttfa_ms": 4.91,
+          "frames": 65
+        },
+        {
+          "total_ms": 98.43,
+          "ttfa_ms": 5.12,
+          "frames": 65
+        },
+        {
+          "total_ms": 117.3,
+          "ttfa_ms": 10.56,
+          "frames": 65
+        },
+        {
+          "total_ms": 109.61,
+          "ttfa_ms": 5.0,
+          "frames": 65
+        },
+        {
+          "total_ms": 122.23,
+          "ttfa_ms": 5.53,
+          "frames": 65
+        },
+        {
+          "total_ms": 117.64,
+          "ttfa_ms": 5.6,
+          "frames": 65
+        },
+        {
+          "total_ms": 94.05,
+          "ttfa_ms": 5.18,
+          "frames": 65
+        },
+        {
+          "total_ms": 93.16,
+          "ttfa_ms": 4.68,
+          "frames": 65
+        },
+        {
+          "total_ms": 91.87,
+          "ttfa_ms": 4.97,
+          "frames": 65
+        },
+        {
+          "total_ms": 91.34,
+          "ttfa_ms": 5.09,
+          "frames": 65
+        },
+        {
+          "total_ms": 91.04,
+          "ttfa_ms": 5.09,
+          "frames": 65
+        },
+        {
+          "total_ms": 93.59,
+          "ttfa_ms": 4.97,
+          "frames": 65
+        },
+        {
+          "total_ms": 90.26,
+          "ttfa_ms": 4.78,
+          "frames": 65
+        },
+        {
+          "total_ms": 89.66,
+          "ttfa_ms": 5.0,
+          "frames": 65
+        },
+        {
+          "total_ms": 92.06,
+          "ttfa_ms": 5.0,
+          "frames": 65
+        },
+        {
+          "total_ms": 92.45,
+          "ttfa_ms": 4.97,
+          "frames": 65
+        },
+        {
+          "total_ms": 92.36,
+          "ttfa_ms": 5.0,
+          "frames": 65
+        },
+        {
+          "total_ms": 91.41,
+          "ttfa_ms": 4.86,
+          "frames": 65
+        },
+        {
+          "total_ms": 92.23,
+          "ttfa_ms": 5.16,
+          "frames": 65
+        },
+        {
+          "total_ms": 92.94,
+          "ttfa_ms": 4.86,
+          "frames": 65
+        }
+      ]
+    },
+    {
+      "text": "release",
+      "trial": 1,
+      "variant": "baseline",
+      "command": [
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/binaries/profile-baseline-bench",
+        "--model",
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/models/phonon-31m-en/model.q8.gguf",
+        "--config",
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/models/phonon-31m-en/config.json",
+        "--voice",
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/models/phonon-31m-en/default-voice.safetensors",
+        "--quant",
+        "q8",
+        "--device",
+        "cpu",
+        "--threads",
+        "1",
+        "--lang",
+        "en",
+        "--seed",
+        "42",
+        "--warmup",
+        "5",
+        "--iters",
+        "30",
+        "--per-iter",
+        "--input",
+        "The quick brown fox jumps over the lazy dog, then naps in the warm afternoon sun."
+      ],
+      "values": [
+        {
+          "total_ms": 91.48,
+          "ttfa_ms": 5.13,
+          "frames": 65
+        },
+        {
+          "total_ms": 95.6,
+          "ttfa_ms": 5.05,
+          "frames": 65
+        },
+        {
+          "total_ms": 91.34,
+          "ttfa_ms": 4.96,
+          "frames": 65
+        },
+        {
+          "total_ms": 95.03,
+          "ttfa_ms": 5.08,
+          "frames": 65
+        },
+        {
+          "total_ms": 95.01,
+          "ttfa_ms": 5.17,
+          "frames": 65
+        },
+        {
+          "total_ms": 99.19,
+          "ttfa_ms": 5.53,
+          "frames": 65
+        },
+        {
+          "total_ms": 95.64,
+          "ttfa_ms": 5.39,
+          "frames": 65
+        },
+        {
+          "total_ms": 89.66,
+          "ttfa_ms": 5.25,
+          "frames": 65
+        },
+        {
+          "total_ms": 88.59,
+          "ttfa_ms": 5.13,
+          "frames": 65
+        },
+        {
+          "total_ms": 89.98,
+          "ttfa_ms": 5.13,
+          "frames": 65
+        },
+        {
+          "total_ms": 89.09,
+          "ttfa_ms": 5.1,
+          "frames": 65
+        },
+        {
+          "total_ms": 91.2,
+          "ttfa_ms": 5.15,
+          "frames": 65
+        },
+        {
+          "total_ms": 88.03,
+          "ttfa_ms": 5.21,
+          "frames": 65
+        },
+        {
+          "total_ms": 97.59,
+          "ttfa_ms": 4.91,
+          "frames": 65
+        },
+        {
+          "total_ms": 94.09,
+          "ttfa_ms": 4.96,
+          "frames": 65
+        },
+        {
+          "total_ms": 93.09,
+          "ttfa_ms": 5.14,
+          "frames": 65
+        },
+        {
+          "total_ms": 100.35,
+          "ttfa_ms": 5.08,
+          "frames": 65
+        },
+        {
+          "total_ms": 95.6,
+          "ttfa_ms": 5.21,
+          "frames": 65
+        },
+        {
+          "total_ms": 92.92,
+          "ttfa_ms": 5.16,
+          "frames": 65
+        },
+        {
+          "total_ms": 92.13,
+          "ttfa_ms": 5.03,
+          "frames": 65
+        },
+        {
+          "total_ms": 91.53,
+          "ttfa_ms": 5.09,
+          "frames": 65
+        },
+        {
+          "total_ms": 91.04,
+          "ttfa_ms": 5.2,
+          "frames": 65
+        },
+        {
+          "total_ms": 87.53,
+          "ttfa_ms": 5.17,
+          "frames": 65
+        },
+        {
+          "total_ms": 87.7,
+          "ttfa_ms": 4.99,
+          "frames": 65
+        },
+        {
+          "total_ms": 86.96,
+          "ttfa_ms": 4.87,
+          "frames": 65
+        },
+        {
+          "total_ms": 90.28,
+          "ttfa_ms": 5.09,
+          "frames": 65
+        },
+        {
+          "total_ms": 89.16,
+          "ttfa_ms": 5.01,
+          "frames": 65
+        },
+        {
+          "total_ms": 87.51,
+          "ttfa_ms": 5.06,
+          "frames": 65
+        },
+        {
+          "total_ms": 89.03,
+          "ttfa_ms": 5.13,
+          "frames": 65
+        },
+        {
+          "total_ms": 89.97,
+          "ttfa_ms": 4.81,
+          "frames": 65
+        }
+      ]
+    },
+    {
+      "text": "long",
+      "trial": 1,
+      "variant": "candidate",
+      "command": [
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/binaries/prefill-final-bench",
+        "--model",
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/models/phonon-31m-en/model.q8.gguf",
+        "--config",
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/models/phonon-31m-en/config.json",
+        "--voice",
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/models/phonon-31m-en/default-voice.safetensors",
+        "--quant",
+        "q8",
+        "--device",
+        "cpu",
+        "--threads",
+        "1",
+        "--lang",
+        "en",
+        "--seed",
+        "42",
+        "--warmup",
+        "5",
+        "--iters",
+        "30",
+        "--per-iter",
+        "--input",
+        "Thank you for calling. I have checked the details of your reservation, and everything is ready for your arrival tomorrow afternoon. Please bring your confirmation number and a photo identification document. If your travel plans change, you can contact us to arrange a different arrival time."
+      ],
+      "values": [
+        {
+          "total_ms": 262.13,
+          "ttfa_ms": 5.5,
+          "frames": 200
+        },
+        {
+          "total_ms": 264.48,
+          "ttfa_ms": 5.57,
+          "frames": 200
+        },
+        {
+          "total_ms": 270.97,
+          "ttfa_ms": 5.45,
+          "frames": 200
+        },
+        {
+          "total_ms": 265.46,
+          "ttfa_ms": 5.4,
+          "frames": 200
+        },
+        {
+          "total_ms": 262.98,
+          "ttfa_ms": 5.64,
+          "frames": 200
+        },
+        {
+          "total_ms": 263.51,
+          "ttfa_ms": 5.52,
+          "frames": 200
+        },
+        {
+          "total_ms": 272.55,
+          "ttfa_ms": 5.9,
+          "frames": 200
+        },
+        {
+          "total_ms": 268.57,
+          "ttfa_ms": 5.83,
+          "frames": 200
+        },
+        {
+          "total_ms": 263.6,
+          "ttfa_ms": 5.66,
+          "frames": 200
+        },
+        {
+          "total_ms": 261.15,
+          "ttfa_ms": 5.43,
+          "frames": 200
+        },
+        {
+          "total_ms": 265.08,
+          "ttfa_ms": 5.52,
+          "frames": 200
+        },
+        {
+          "total_ms": 274.3,
+          "ttfa_ms": 5.52,
+          "frames": 200
+        },
+        {
+          "total_ms": 266.89,
+          "ttfa_ms": 5.41,
+          "frames": 200
+        },
+        {
+          "total_ms": 261.23,
+          "ttfa_ms": 5.37,
+          "frames": 200
+        },
+        {
+          "total_ms": 261.66,
+          "ttfa_ms": 5.61,
+          "frames": 200
+        },
+        {
+          "total_ms": 264.73,
+          "ttfa_ms": 5.57,
+          "frames": 200
+        },
+        {
+          "total_ms": 266.43,
+          "ttfa_ms": 5.6,
+          "frames": 200
+        },
+        {
+          "total_ms": 272.26,
+          "ttfa_ms": 5.28,
+          "frames": 200
+        },
+        {
+          "total_ms": 270.85,
+          "ttfa_ms": 5.87,
+          "frames": 200
+        },
+        {
+          "total_ms": 262.2,
+          "ttfa_ms": 5.63,
+          "frames": 200
+        },
+        {
+          "total_ms": 264.89,
+          "ttfa_ms": 5.38,
+          "frames": 200
+        },
+        {
+          "total_ms": 274.7,
+          "ttfa_ms": 5.67,
+          "frames": 200
+        },
+        {
+          "total_ms": 262.47,
+          "ttfa_ms": 5.6,
+          "frames": 200
+        },
+        {
+          "total_ms": 309.54,
+          "ttfa_ms": 5.85,
+          "frames": 200
+        },
+        {
+          "total_ms": 271.98,
+          "ttfa_ms": 5.64,
+          "frames": 200
+        },
+        {
+          "total_ms": 261.45,
+          "ttfa_ms": 5.69,
+          "frames": 200
+        },
+        {
+          "total_ms": 271.29,
+          "ttfa_ms": 5.6,
+          "frames": 200
+        },
+        {
+          "total_ms": 264.8,
+          "ttfa_ms": 5.76,
+          "frames": 200
+        },
+        {
+          "total_ms": 272.09,
+          "ttfa_ms": 5.64,
+          "frames": 200
+        },
+        {
+          "total_ms": 271.12,
+          "ttfa_ms": 6.01,
+          "frames": 200
+        }
+      ]
+    },
+    {
+      "text": "long",
+      "trial": 1,
+      "variant": "baseline",
+      "command": [
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/binaries/profile-baseline-bench",
+        "--model",
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/models/phonon-31m-en/model.q8.gguf",
+        "--config",
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/models/phonon-31m-en/config.json",
+        "--voice",
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/models/phonon-31m-en/default-voice.safetensors",
+        "--quant",
+        "q8",
+        "--device",
+        "cpu",
+        "--threads",
+        "1",
+        "--lang",
+        "en",
+        "--seed",
+        "42",
+        "--warmup",
+        "5",
+        "--iters",
+        "30",
+        "--per-iter",
+        "--input",
+        "Thank you for calling. I have checked the details of your reservation, and everything is ready for your arrival tomorrow afternoon. Please bring your confirmation number and a photo identification document. If your travel plans change, you can contact us to arrange a different arrival time."
+      ],
+      "values": [
+        {
+          "total_ms": 264.18,
+          "ttfa_ms": 5.95,
+          "frames": 200
+        },
+        {
+          "total_ms": 265.01,
+          "ttfa_ms": 5.95,
+          "frames": 200
+        },
+        {
+          "total_ms": 263.03,
+          "ttfa_ms": 5.75,
+          "frames": 200
+        },
+        {
+          "total_ms": 260.96,
+          "ttfa_ms": 5.68,
+          "frames": 200
+        },
+        {
+          "total_ms": 269.09,
+          "ttfa_ms": 5.72,
+          "frames": 200
+        },
+        {
+          "total_ms": 260.59,
+          "ttfa_ms": 5.81,
+          "frames": 200
+        },
+        {
+          "total_ms": 260.22,
+          "ttfa_ms": 5.64,
+          "frames": 200
+        },
+        {
+          "total_ms": 263.89,
+          "ttfa_ms": 5.99,
+          "frames": 200
+        },
+        {
+          "total_ms": 283.89,
+          "ttfa_ms": 5.73,
+          "frames": 200
+        },
+        {
+          "total_ms": 263.97,
+          "ttfa_ms": 6.41,
+          "frames": 200
+        },
+        {
+          "total_ms": 262.32,
+          "ttfa_ms": 5.86,
+          "frames": 200
+        },
+        {
+          "total_ms": 260.27,
+          "ttfa_ms": 5.68,
+          "frames": 200
+        },
+        {
+          "total_ms": 266.26,
+          "ttfa_ms": 5.83,
+          "frames": 200
+        },
+        {
+          "total_ms": 261.62,
+          "ttfa_ms": 5.75,
+          "frames": 200
+        },
+        {
+          "total_ms": 265.47,
+          "ttfa_ms": 5.68,
+          "frames": 200
+        },
+        {
+          "total_ms": 266.47,
+          "ttfa_ms": 5.86,
+          "frames": 200
+        },
+        {
+          "total_ms": 290.25,
+          "ttfa_ms": 6.01,
+          "frames": 200
+        },
+        {
+          "total_ms": 292.44,
+          "ttfa_ms": 26.22,
+          "frames": 200
+        },
+        {
+          "total_ms": 299.02,
+          "ttfa_ms": 6.16,
+          "frames": 200
+        },
+        {
+          "total_ms": 265.61,
+          "ttfa_ms": 5.95,
+          "frames": 200
+        },
+        {
+          "total_ms": 273.5,
+          "ttfa_ms": 6.1,
+          "frames": 200
+        },
+        {
+          "total_ms": 264.26,
+          "ttfa_ms": 6.32,
+          "frames": 200
+        },
+        {
+          "total_ms": 269.54,
+          "ttfa_ms": 5.77,
+          "frames": 200
+        },
+        {
+          "total_ms": 273.42,
+          "ttfa_ms": 5.85,
+          "frames": 200
+        },
+        {
+          "total_ms": 264.69,
+          "ttfa_ms": 5.82,
+          "frames": 200
+        },
+        {
+          "total_ms": 261.64,
+          "ttfa_ms": 5.8,
+          "frames": 200
+        },
+        {
+          "total_ms": 263.82,
+          "ttfa_ms": 5.86,
+          "frames": 200
+        },
+        {
+          "total_ms": 262.0,
+          "ttfa_ms": 5.93,
+          "frames": 200
+        },
+        {
+          "total_ms": 266.4,
+          "ttfa_ms": 5.73,
+          "frames": 200
+        },
+        {
+          "total_ms": 263.05,
+          "ttfa_ms": 5.85,
+          "frames": 200
+        }
+      ]
+    },
+    {
+      "text": "short",
+      "trial": 1,
+      "variant": "candidate",
+      "command": [
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/binaries/prefill-final-bench",
+        "--model",
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/models/phonon-31m-en/model.q8.gguf",
+        "--config",
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/models/phonon-31m-en/config.json",
+        "--voice",
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/models/phonon-31m-en/default-voice.safetensors",
+        "--quant",
+        "q8",
+        "--device",
+        "cpu",
+        "--threads",
+        "1",
+        "--lang",
+        "en",
+        "--seed",
+        "42",
+        "--warmup",
+        "5",
+        "--iters",
+        "30",
+        "--per-iter",
+        "--input",
+        "Hello, how are you?"
+      ],
+      "values": [
+        {
+          "total_ms": 38.81,
+          "ttfa_ms": 3.93,
+          "frames": 25
+        },
+        {
+          "total_ms": 40.46,
+          "ttfa_ms": 3.9,
+          "frames": 25
+        },
+        {
+          "total_ms": 39.48,
+          "ttfa_ms": 4.02,
+          "frames": 25
+        },
+        {
+          "total_ms": 37.65,
+          "ttfa_ms": 3.91,
+          "frames": 25
+        },
+        {
+          "total_ms": 38.84,
+          "ttfa_ms": 3.85,
+          "frames": 25
+        },
+        {
+          "total_ms": 37.85,
+          "ttfa_ms": 3.94,
+          "frames": 25
+        },
+        {
+          "total_ms": 38.02,
+          "ttfa_ms": 3.81,
+          "frames": 25
+        },
+        {
+          "total_ms": 36.41,
+          "ttfa_ms": 3.64,
+          "frames": 25
+        },
+        {
+          "total_ms": 36.71,
+          "ttfa_ms": 3.61,
+          "frames": 25
+        },
+        {
+          "total_ms": 37.36,
+          "ttfa_ms": 3.68,
+          "frames": 25
+        },
+        {
+          "total_ms": 38.25,
+          "ttfa_ms": 3.76,
+          "frames": 25
+        },
+        {
+          "total_ms": 37.03,
+          "ttfa_ms": 3.88,
+          "frames": 25
+        },
+        {
+          "total_ms": 37.96,
+          "ttfa_ms": 3.85,
+          "frames": 25
+        },
+        {
+          "total_ms": 36.43,
+          "ttfa_ms": 3.68,
+          "frames": 25
+        },
+        {
+          "total_ms": 38.86,
+          "ttfa_ms": 3.71,
+          "frames": 25
+        },
+        {
+          "total_ms": 40.32,
+          "ttfa_ms": 3.93,
+          "frames": 25
+        },
+        {
+          "total_ms": 38.98,
+          "ttfa_ms": 3.79,
+          "frames": 25
+        },
+        {
+          "total_ms": 38.27,
+          "ttfa_ms": 3.78,
+          "frames": 25
+        },
+        {
+          "total_ms": 36.04,
+          "ttfa_ms": 3.59,
+          "frames": 25
+        },
+        {
+          "total_ms": 38.5,
+          "ttfa_ms": 3.86,
+          "frames": 25
+        },
+        {
+          "total_ms": 37.77,
+          "ttfa_ms": 3.84,
+          "frames": 25
+        },
+        {
+          "total_ms": 38.24,
+          "ttfa_ms": 4.01,
+          "frames": 25
+        },
+        {
+          "total_ms": 39.17,
+          "ttfa_ms": 3.72,
+          "frames": 25
+        },
+        {
+          "total_ms": 38.04,
+          "ttfa_ms": 4.55,
+          "frames": 25
+        },
+        {
+          "total_ms": 37.8,
+          "ttfa_ms": 3.69,
+          "frames": 25
+        },
+        {
+          "total_ms": 36.59,
+          "ttfa_ms": 3.63,
+          "frames": 25
+        },
+        {
+          "total_ms": 36.08,
+          "ttfa_ms": 3.71,
+          "frames": 25
+        },
+        {
+          "total_ms": 35.71,
+          "ttfa_ms": 3.59,
+          "frames": 25
+        },
+        {
+          "total_ms": 38.25,
+          "ttfa_ms": 3.7,
+          "frames": 25
+        },
+        {
+          "total_ms": 37.9,
+          "ttfa_ms": 3.66,
+          "frames": 25
+        }
+      ]
+    },
+    {
+      "text": "short",
+      "trial": 1,
+      "variant": "baseline",
+      "command": [
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/binaries/profile-baseline-bench",
+        "--model",
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/models/phonon-31m-en/model.q8.gguf",
+        "--config",
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/models/phonon-31m-en/config.json",
+        "--voice",
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/models/phonon-31m-en/default-voice.safetensors",
+        "--quant",
+        "q8",
+        "--device",
+        "cpu",
+        "--threads",
+        "1",
+        "--lang",
+        "en",
+        "--seed",
+        "42",
+        "--warmup",
+        "5",
+        "--iters",
+        "30",
+        "--per-iter",
+        "--input",
+        "Hello, how are you?"
+      ],
+      "values": [
+        {
+          "total_ms": 36.6,
+          "ttfa_ms": 3.81,
+          "frames": 25
+        },
+        {
+          "total_ms": 37.41,
+          "ttfa_ms": 3.81,
+          "frames": 25
+        },
+        {
+          "total_ms": 36.61,
+          "ttfa_ms": 3.93,
+          "frames": 25
+        },
+        {
+          "total_ms": 38.66,
+          "ttfa_ms": 4.03,
+          "frames": 25
+        },
+        {
+          "total_ms": 37.9,
+          "ttfa_ms": 3.88,
+          "frames": 25
+        },
+        {
+          "total_ms": 35.52,
+          "ttfa_ms": 3.87,
+          "frames": 25
+        },
+        {
+          "total_ms": 36.74,
+          "ttfa_ms": 3.73,
+          "frames": 25
+        },
+        {
+          "total_ms": 35.84,
+          "ttfa_ms": 3.71,
+          "frames": 25
+        },
+        {
+          "total_ms": 35.49,
+          "ttfa_ms": 3.72,
+          "frames": 25
+        },
+        {
+          "total_ms": 37.5,
+          "ttfa_ms": 3.7,
+          "frames": 25
+        },
+        {
+          "total_ms": 36.6,
+          "ttfa_ms": 3.74,
+          "frames": 25
+        },
+        {
+          "total_ms": 35.42,
+          "ttfa_ms": 3.71,
+          "frames": 25
+        },
+        {
+          "total_ms": 34.52,
+          "ttfa_ms": 3.64,
+          "frames": 25
+        },
+        {
+          "total_ms": 53.43,
+          "ttfa_ms": 3.8,
+          "frames": 25
+        },
+        {
+          "total_ms": 45.9,
+          "ttfa_ms": 5.11,
+          "frames": 25
+        },
+        {
+          "total_ms": 50.03,
+          "ttfa_ms": 5.21,
+          "frames": 25
+        },
+        {
+          "total_ms": 47.12,
+          "ttfa_ms": 5.02,
+          "frames": 25
+        },
+        {
+          "total_ms": 47.91,
+          "ttfa_ms": 4.15,
+          "frames": 25
+        },
+        {
+          "total_ms": 45.91,
+          "ttfa_ms": 5.12,
+          "frames": 25
+        },
+        {
+          "total_ms": 54.39,
+          "ttfa_ms": 4.68,
+          "frames": 25
+        },
+        {
+          "total_ms": 42.56,
+          "ttfa_ms": 4.14,
+          "frames": 25
+        },
+        {
+          "total_ms": 38.06,
+          "ttfa_ms": 4.01,
+          "frames": 25
+        },
+        {
+          "total_ms": 38.69,
+          "ttfa_ms": 4.05,
+          "frames": 25
+        },
+        {
+          "total_ms": 36.98,
+          "ttfa_ms": 3.98,
+          "frames": 25
+        },
+        {
+          "total_ms": 42.82,
+          "ttfa_ms": 3.87,
+          "frames": 25
+        },
+        {
+          "total_ms": 41.11,
+          "ttfa_ms": 4.59,
+          "frames": 25
+        },
+        {
+          "total_ms": 39.31,
+          "ttfa_ms": 4.05,
+          "frames": 25
+        },
+        {
+          "total_ms": 39.5,
+          "ttfa_ms": 3.9,
+          "frames": 25
+        },
+        {
+          "total_ms": 39.01,
+          "ttfa_ms": 3.9,
+          "frames": 25
+        },
+        {
+          "total_ms": 38.32,
+          "ttfa_ms": 3.91,
+          "frames": 25
+        }
+      ]
+    },
+    {
+      "text": "long",
+      "trial": 2,
+      "variant": "baseline",
+      "command": [
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/binaries/profile-baseline-bench",
+        "--model",
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/models/phonon-31m-en/model.q8.gguf",
+        "--config",
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/models/phonon-31m-en/config.json",
+        "--voice",
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/models/phonon-31m-en/default-voice.safetensors",
+        "--quant",
+        "q8",
+        "--device",
+        "cpu",
+        "--threads",
+        "1",
+        "--lang",
+        "en",
+        "--seed",
+        "42",
+        "--warmup",
+        "5",
+        "--iters",
+        "30",
+        "--per-iter",
+        "--input",
+        "Thank you for calling. I have checked the details of your reservation, and everything is ready for your arrival tomorrow afternoon. Please bring your confirmation number and a photo identification document. If your travel plans change, you can contact us to arrange a different arrival time."
+      ],
+      "values": [
+        {
+          "total_ms": 307.74,
+          "ttfa_ms": 6.07,
+          "frames": 200
+        },
+        {
+          "total_ms": 265.16,
+          "ttfa_ms": 5.79,
+          "frames": 200
+        },
+        {
+          "total_ms": 266.67,
+          "ttfa_ms": 5.8,
+          "frames": 200
+        },
+        {
+          "total_ms": 266.2,
+          "ttfa_ms": 5.79,
+          "frames": 200
+        },
+        {
+          "total_ms": 261.6,
+          "ttfa_ms": 5.72,
+          "frames": 200
+        },
+        {
+          "total_ms": 265.08,
+          "ttfa_ms": 6.0,
+          "frames": 200
+        },
+        {
+          "total_ms": 260.11,
+          "ttfa_ms": 5.61,
+          "frames": 200
+        },
+        {
+          "total_ms": 260.54,
+          "ttfa_ms": 5.97,
+          "frames": 200
+        },
+        {
+          "total_ms": 260.09,
+          "ttfa_ms": 5.68,
+          "frames": 200
+        },
+        {
+          "total_ms": 260.39,
+          "ttfa_ms": 6.06,
+          "frames": 200
+        },
+        {
+          "total_ms": 264.32,
+          "ttfa_ms": 5.61,
+          "frames": 200
+        },
+        {
+          "total_ms": 258.69,
+          "ttfa_ms": 5.65,
+          "frames": 200
+        },
+        {
+          "total_ms": 264.59,
+          "ttfa_ms": 5.78,
+          "frames": 200
+        },
+        {
+          "total_ms": 260.31,
+          "ttfa_ms": 5.78,
+          "frames": 200
+        },
+        {
+          "total_ms": 268.32,
+          "ttfa_ms": 5.97,
+          "frames": 200
+        },
+        {
+          "total_ms": 264.35,
+          "ttfa_ms": 6.15,
+          "frames": 200
+        },
+        {
+          "total_ms": 267.18,
+          "ttfa_ms": 5.94,
+          "frames": 200
+        },
+        {
+          "total_ms": 273.57,
+          "ttfa_ms": 6.14,
+          "frames": 200
+        },
+        {
+          "total_ms": 274.91,
+          "ttfa_ms": 6.3,
+          "frames": 200
+        },
+        {
+          "total_ms": 283.69,
+          "ttfa_ms": 6.05,
+          "frames": 200
+        },
+        {
+          "total_ms": 266.41,
+          "ttfa_ms": 5.82,
+          "frames": 200
+        },
+        {
+          "total_ms": 267.84,
+          "ttfa_ms": 5.86,
+          "frames": 200
+        },
+        {
+          "total_ms": 266.46,
+          "ttfa_ms": 5.71,
+          "frames": 200
+        },
+        {
+          "total_ms": 279.85,
+          "ttfa_ms": 6.1,
+          "frames": 200
+        },
+        {
+          "total_ms": 267.45,
+          "ttfa_ms": 5.84,
+          "frames": 200
+        },
+        {
+          "total_ms": 277.59,
+          "ttfa_ms": 5.98,
+          "frames": 200
+        },
+        {
+          "total_ms": 267.68,
+          "ttfa_ms": 6.08,
+          "frames": 200
+        },
+        {
+          "total_ms": 280.37,
+          "ttfa_ms": 6.28,
+          "frames": 200
+        },
+        {
+          "total_ms": 275.31,
+          "ttfa_ms": 6.08,
+          "frames": 200
+        },
+        {
+          "total_ms": 270.09,
+          "ttfa_ms": 5.79,
+          "frames": 200
+        }
+      ]
+    },
+    {
+      "text": "long",
+      "trial": 2,
+      "variant": "candidate",
+      "command": [
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/binaries/prefill-final-bench",
+        "--model",
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/models/phonon-31m-en/model.q8.gguf",
+        "--config",
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/models/phonon-31m-en/config.json",
+        "--voice",
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/models/phonon-31m-en/default-voice.safetensors",
+        "--quant",
+        "q8",
+        "--device",
+        "cpu",
+        "--threads",
+        "1",
+        "--lang",
+        "en",
+        "--seed",
+        "42",
+        "--warmup",
+        "5",
+        "--iters",
+        "30",
+        "--per-iter",
+        "--input",
+        "Thank you for calling. I have checked the details of your reservation, and everything is ready for your arrival tomorrow afternoon. Please bring your confirmation number and a photo identification document. If your travel plans change, you can contact us to arrange a different arrival time."
+      ],
+      "values": [
+        {
+          "total_ms": 272.29,
+          "ttfa_ms": 5.41,
+          "frames": 200
+        },
+        {
+          "total_ms": 266.81,
+          "ttfa_ms": 5.71,
+          "frames": 200
+        },
+        {
+          "total_ms": 269.51,
+          "ttfa_ms": 5.66,
+          "frames": 200
+        },
+        {
+          "total_ms": 265.83,
+          "ttfa_ms": 5.49,
+          "frames": 200
+        },
+        {
+          "total_ms": 288.4,
+          "ttfa_ms": 6.04,
+          "frames": 200
+        },
+        {
+          "total_ms": 277.04,
+          "ttfa_ms": 5.7,
+          "frames": 200
+        },
+        {
+          "total_ms": 265.66,
+          "ttfa_ms": 5.78,
+          "frames": 200
+        },
+        {
+          "total_ms": 258.38,
+          "ttfa_ms": 5.33,
+          "frames": 200
+        },
+        {
+          "total_ms": 261.6,
+          "ttfa_ms": 5.7,
+          "frames": 200
+        },
+        {
+          "total_ms": 263.24,
+          "ttfa_ms": 5.69,
+          "frames": 200
+        },
+        {
+          "total_ms": 261.05,
+          "ttfa_ms": 5.71,
+          "frames": 200
+        },
+        {
+          "total_ms": 259.84,
+          "ttfa_ms": 5.51,
+          "frames": 200
+        },
+        {
+          "total_ms": 259.6,
+          "ttfa_ms": 5.5,
+          "frames": 200
+        },
+        {
+          "total_ms": 259.86,
+          "ttfa_ms": 5.34,
+          "frames": 200
+        },
+        {
+          "total_ms": 262.33,
+          "ttfa_ms": 5.34,
+          "frames": 200
+        },
+        {
+          "total_ms": 269.5,
+          "ttfa_ms": 5.42,
+          "frames": 200
+        },
+        {
+          "total_ms": 266.71,
+          "ttfa_ms": 5.65,
+          "frames": 200
+        },
+        {
+          "total_ms": 261.13,
+          "ttfa_ms": 5.35,
+          "frames": 200
+        },
+        {
+          "total_ms": 260.16,
+          "ttfa_ms": 5.6,
+          "frames": 200
+        },
+        {
+          "total_ms": 261.17,
+          "ttfa_ms": 5.31,
+          "frames": 200
+        },
+        {
+          "total_ms": 258.37,
+          "ttfa_ms": 5.41,
+          "frames": 200
+        },
+        {
+          "total_ms": 262.93,
+          "ttfa_ms": 5.31,
+          "frames": 200
+        },
+        {
+          "total_ms": 261.15,
+          "ttfa_ms": 5.45,
+          "frames": 200
+        },
+        {
+          "total_ms": 264.7,
+          "ttfa_ms": 5.84,
+          "frames": 200
+        },
+        {
+          "total_ms": 268.54,
+          "ttfa_ms": 5.87,
+          "frames": 200
+        },
+        {
+          "total_ms": 263.32,
+          "ttfa_ms": 5.56,
+          "frames": 200
+        },
+        {
+          "total_ms": 260.63,
+          "ttfa_ms": 5.48,
+          "frames": 200
+        },
+        {
+          "total_ms": 269.49,
+          "ttfa_ms": 5.82,
+          "frames": 200
+        },
+        {
+          "total_ms": 266.82,
+          "ttfa_ms": 5.73,
+          "frames": 200
+        },
+        {
+          "total_ms": 262.3,
+          "ttfa_ms": 5.42,
+          "frames": 200
+        }
+      ]
+    },
+    {
+      "text": "short",
+      "trial": 2,
+      "variant": "baseline",
+      "command": [
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/binaries/profile-baseline-bench",
+        "--model",
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/models/phonon-31m-en/model.q8.gguf",
+        "--config",
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/models/phonon-31m-en/config.json",
+        "--voice",
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/models/phonon-31m-en/default-voice.safetensors",
+        "--quant",
+        "q8",
+        "--device",
+        "cpu",
+        "--threads",
+        "1",
+        "--lang",
+        "en",
+        "--seed",
+        "42",
+        "--warmup",
+        "5",
+        "--iters",
+        "30",
+        "--per-iter",
+        "--input",
+        "Hello, how are you?"
+      ],
+      "values": [
+        {
+          "total_ms": 36.26,
+          "ttfa_ms": 3.55,
+          "frames": 25
+        },
+        {
+          "total_ms": 35.27,
+          "ttfa_ms": 3.69,
+          "frames": 25
+        },
+        {
+          "total_ms": 36.6,
+          "ttfa_ms": 3.76,
+          "frames": 25
+        },
+        {
+          "total_ms": 37.89,
+          "ttfa_ms": 4.07,
+          "frames": 25
+        },
+        {
+          "total_ms": 40.01,
+          "ttfa_ms": 5.16,
+          "frames": 25
+        },
+        {
+          "total_ms": 37.02,
+          "ttfa_ms": 4.07,
+          "frames": 25
+        },
+        {
+          "total_ms": 40.03,
+          "ttfa_ms": 3.83,
+          "frames": 25
+        },
+        {
+          "total_ms": 35.11,
+          "ttfa_ms": 3.83,
+          "frames": 25
+        },
+        {
+          "total_ms": 35.41,
+          "ttfa_ms": 3.66,
+          "frames": 25
+        },
+        {
+          "total_ms": 37.22,
+          "ttfa_ms": 3.75,
+          "frames": 25
+        },
+        {
+          "total_ms": 37.34,
+          "ttfa_ms": 3.68,
+          "frames": 25
+        },
+        {
+          "total_ms": 35.72,
+          "ttfa_ms": 3.74,
+          "frames": 25
+        },
+        {
+          "total_ms": 35.42,
+          "ttfa_ms": 3.67,
+          "frames": 25
+        },
+        {
+          "total_ms": 35.77,
+          "ttfa_ms": 3.64,
+          "frames": 25
+        },
+        {
+          "total_ms": 37.96,
+          "ttfa_ms": 3.61,
+          "frames": 25
+        },
+        {
+          "total_ms": 35.81,
+          "ttfa_ms": 3.76,
+          "frames": 25
+        },
+        {
+          "total_ms": 36.33,
+          "ttfa_ms": 3.74,
+          "frames": 25
+        },
+        {
+          "total_ms": 36.04,
+          "ttfa_ms": 3.7,
+          "frames": 25
+        },
+        {
+          "total_ms": 36.09,
+          "ttfa_ms": 3.68,
+          "frames": 25
+        },
+        {
+          "total_ms": 37.38,
+          "ttfa_ms": 3.8,
+          "frames": 25
+        },
+        {
+          "total_ms": 37.96,
+          "ttfa_ms": 3.81,
+          "frames": 25
+        },
+        {
+          "total_ms": 39.08,
+          "ttfa_ms": 3.75,
+          "frames": 25
+        },
+        {
+          "total_ms": 37.41,
+          "ttfa_ms": 4.06,
+          "frames": 25
+        },
+        {
+          "total_ms": 36.73,
+          "ttfa_ms": 3.82,
+          "frames": 25
+        },
+        {
+          "total_ms": 37.91,
+          "ttfa_ms": 3.75,
+          "frames": 25
+        },
+        {
+          "total_ms": 38.15,
+          "ttfa_ms": 3.84,
+          "frames": 25
+        },
+        {
+          "total_ms": 37.83,
+          "ttfa_ms": 3.93,
+          "frames": 25
+        },
+        {
+          "total_ms": 37.75,
+          "ttfa_ms": 3.68,
+          "frames": 25
+        },
+        {
+          "total_ms": 36.46,
+          "ttfa_ms": 3.83,
+          "frames": 25
+        },
+        {
+          "total_ms": 39.6,
+          "ttfa_ms": 4.23,
+          "frames": 25
+        }
+      ]
+    },
+    {
+      "text": "short",
+      "trial": 2,
+      "variant": "candidate",
+      "command": [
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/binaries/prefill-final-bench",
+        "--model",
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/models/phonon-31m-en/model.q8.gguf",
+        "--config",
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/models/phonon-31m-en/config.json",
+        "--voice",
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/models/phonon-31m-en/default-voice.safetensors",
+        "--quant",
+        "q8",
+        "--device",
+        "cpu",
+        "--threads",
+        "1",
+        "--lang",
+        "en",
+        "--seed",
+        "42",
+        "--warmup",
+        "5",
+        "--iters",
+        "30",
+        "--per-iter",
+        "--input",
+        "Hello, how are you?"
+      ],
+      "values": [
+        {
+          "total_ms": 36.74,
+          "ttfa_ms": 3.72,
+          "frames": 25
+        },
+        {
+          "total_ms": 36.65,
+          "ttfa_ms": 3.7,
+          "frames": 25
+        },
+        {
+          "total_ms": 38.74,
+          "ttfa_ms": 4.09,
+          "frames": 25
+        },
+        {
+          "total_ms": 37.11,
+          "ttfa_ms": 3.89,
+          "frames": 25
+        },
+        {
+          "total_ms": 37.91,
+          "ttfa_ms": 4.2,
+          "frames": 25
+        },
+        {
+          "total_ms": 38.61,
+          "ttfa_ms": 3.69,
+          "frames": 25
+        },
+        {
+          "total_ms": 38.23,
+          "ttfa_ms": 3.59,
+          "frames": 25
+        },
+        {
+          "total_ms": 38.65,
+          "ttfa_ms": 3.85,
+          "frames": 25
+        },
+        {
+          "total_ms": 37.3,
+          "ttfa_ms": 4.08,
+          "frames": 25
+        },
+        {
+          "total_ms": 36.36,
+          "ttfa_ms": 3.57,
+          "frames": 25
+        },
+        {
+          "total_ms": 36.67,
+          "ttfa_ms": 3.73,
+          "frames": 25
+        },
+        {
+          "total_ms": 38.18,
+          "ttfa_ms": 4.03,
+          "frames": 25
+        },
+        {
+          "total_ms": 36.74,
+          "ttfa_ms": 3.88,
+          "frames": 25
+        },
+        {
+          "total_ms": 37.62,
+          "ttfa_ms": 3.72,
+          "frames": 25
+        },
+        {
+          "total_ms": 37.94,
+          "ttfa_ms": 3.75,
+          "frames": 25
+        },
+        {
+          "total_ms": 37.49,
+          "ttfa_ms": 3.76,
+          "frames": 25
+        },
+        {
+          "total_ms": 38.76,
+          "ttfa_ms": 3.98,
+          "frames": 25
+        },
+        {
+          "total_ms": 39.72,
+          "ttfa_ms": 4.05,
+          "frames": 25
+        },
+        {
+          "total_ms": 37.81,
+          "ttfa_ms": 3.73,
+          "frames": 25
+        },
+        {
+          "total_ms": 38.28,
+          "ttfa_ms": 3.95,
+          "frames": 25
+        },
+        {
+          "total_ms": 36.9,
+          "ttfa_ms": 3.75,
+          "frames": 25
+        },
+        {
+          "total_ms": 39.22,
+          "ttfa_ms": 3.94,
+          "frames": 25
+        },
+        {
+          "total_ms": 36.99,
+          "ttfa_ms": 3.87,
+          "frames": 25
+        },
+        {
+          "total_ms": 37.15,
+          "ttfa_ms": 3.82,
+          "frames": 25
+        },
+        {
+          "total_ms": 39.15,
+          "ttfa_ms": 3.9,
+          "frames": 25
+        },
+        {
+          "total_ms": 36.97,
+          "ttfa_ms": 3.98,
+          "frames": 25
+        },
+        {
+          "total_ms": 36.79,
+          "ttfa_ms": 3.82,
+          "frames": 25
+        },
+        {
+          "total_ms": 37.66,
+          "ttfa_ms": 3.59,
+          "frames": 25
+        },
+        {
+          "total_ms": 38.27,
+          "ttfa_ms": 3.8,
+          "frames": 25
+        },
+        {
+          "total_ms": 38.15,
+          "ttfa_ms": 3.57,
+          "frames": 25
+        }
+      ]
+    },
+    {
+      "text": "release",
+      "trial": 2,
+      "variant": "baseline",
+      "command": [
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/binaries/profile-baseline-bench",
+        "--model",
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/models/phonon-31m-en/model.q8.gguf",
+        "--config",
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/models/phonon-31m-en/config.json",
+        "--voice",
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/models/phonon-31m-en/default-voice.safetensors",
+        "--quant",
+        "q8",
+        "--device",
+        "cpu",
+        "--threads",
+        "1",
+        "--lang",
+        "en",
+        "--seed",
+        "42",
+        "--warmup",
+        "5",
+        "--iters",
+        "30",
+        "--per-iter",
+        "--input",
+        "The quick brown fox jumps over the lazy dog, then naps in the warm afternoon sun."
+      ],
+      "values": [
+        {
+          "total_ms": 92.33,
+          "ttfa_ms": 4.82,
+          "frames": 65
+        },
+        {
+          "total_ms": 87.5,
+          "ttfa_ms": 5.16,
+          "frames": 65
+        },
+        {
+          "total_ms": 89.07,
+          "ttfa_ms": 4.8,
+          "frames": 65
+        },
+        {
+          "total_ms": 91.42,
+          "ttfa_ms": 5.02,
+          "frames": 65
+        },
+        {
+          "total_ms": 88.15,
+          "ttfa_ms": 4.78,
+          "frames": 65
+        },
+        {
+          "total_ms": 88.71,
+          "ttfa_ms": 4.85,
+          "frames": 65
+        },
+        {
+          "total_ms": 86.23,
+          "ttfa_ms": 5.0,
+          "frames": 65
+        },
+        {
+          "total_ms": 90.93,
+          "ttfa_ms": 5.17,
+          "frames": 65
+        },
+        {
+          "total_ms": 87.38,
+          "ttfa_ms": 4.78,
+          "frames": 65
+        },
+        {
+          "total_ms": 91.04,
+          "ttfa_ms": 5.04,
+          "frames": 65
+        },
+        {
+          "total_ms": 90.33,
+          "ttfa_ms": 5.18,
+          "frames": 65
+        },
+        {
+          "total_ms": 87.26,
+          "ttfa_ms": 5.03,
+          "frames": 65
+        },
+        {
+          "total_ms": 89.62,
+          "ttfa_ms": 5.05,
+          "frames": 65
+        },
+        {
+          "total_ms": 88.8,
+          "ttfa_ms": 5.08,
+          "frames": 65
+        },
+        {
+          "total_ms": 87.26,
+          "ttfa_ms": 4.77,
+          "frames": 65
+        },
+        {
+          "total_ms": 87.38,
+          "ttfa_ms": 4.94,
+          "frames": 65
+        },
+        {
+          "total_ms": 87.46,
+          "ttfa_ms": 4.82,
+          "frames": 65
+        },
+        {
+          "total_ms": 87.16,
+          "ttfa_ms": 4.88,
+          "frames": 65
+        },
+        {
+          "total_ms": 85.92,
+          "ttfa_ms": 4.72,
+          "frames": 65
+        },
+        {
+          "total_ms": 86.97,
+          "ttfa_ms": 4.87,
+          "frames": 65
+        },
+        {
+          "total_ms": 86.64,
+          "ttfa_ms": 4.98,
+          "frames": 65
+        },
+        {
+          "total_ms": 93.51,
+          "ttfa_ms": 5.04,
+          "frames": 65
+        },
+        {
+          "total_ms": 95.76,
+          "ttfa_ms": 5.52,
+          "frames": 65
+        },
+        {
+          "total_ms": 90.58,
+          "ttfa_ms": 5.15,
+          "frames": 65
+        },
+        {
+          "total_ms": 89.62,
+          "ttfa_ms": 4.99,
+          "frames": 65
+        },
+        {
+          "total_ms": 89.64,
+          "ttfa_ms": 5.0,
+          "frames": 65
+        },
+        {
+          "total_ms": 89.18,
+          "ttfa_ms": 5.04,
+          "frames": 65
+        },
+        {
+          "total_ms": 91.42,
+          "ttfa_ms": 5.02,
+          "frames": 65
+        },
+        {
+          "total_ms": 92.18,
+          "ttfa_ms": 5.18,
+          "frames": 65
+        },
+        {
+          "total_ms": 88.15,
+          "ttfa_ms": 4.81,
+          "frames": 65
+        }
+      ]
+    },
+    {
+      "text": "release",
+      "trial": 2,
+      "variant": "candidate",
+      "command": [
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/binaries/prefill-final-bench",
+        "--model",
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/models/phonon-31m-en/model.q8.gguf",
+        "--config",
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/models/phonon-31m-en/config.json",
+        "--voice",
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/models/phonon-31m-en/default-voice.safetensors",
+        "--quant",
+        "q8",
+        "--device",
+        "cpu",
+        "--threads",
+        "1",
+        "--lang",
+        "en",
+        "--seed",
+        "42",
+        "--warmup",
+        "5",
+        "--iters",
+        "30",
+        "--per-iter",
+        "--input",
+        "The quick brown fox jumps over the lazy dog, then naps in the warm afternoon sun."
+      ],
+      "values": [
+        {
+          "total_ms": 90.37,
+          "ttfa_ms": 4.78,
+          "frames": 65
+        },
+        {
+          "total_ms": 88.9,
+          "ttfa_ms": 5.1,
+          "frames": 65
+        },
+        {
+          "total_ms": 91.3,
+          "ttfa_ms": 4.89,
+          "frames": 65
+        },
+        {
+          "total_ms": 90.61,
+          "ttfa_ms": 4.63,
+          "frames": 65
+        },
+        {
+          "total_ms": 89.12,
+          "ttfa_ms": 4.9,
+          "frames": 65
+        },
+        {
+          "total_ms": 88.34,
+          "ttfa_ms": 4.77,
+          "frames": 65
+        },
+        {
+          "total_ms": 88.45,
+          "ttfa_ms": 4.96,
+          "frames": 65
+        },
+        {
+          "total_ms": 87.18,
+          "ttfa_ms": 4.87,
+          "frames": 65
+        },
+        {
+          "total_ms": 89.42,
+          "ttfa_ms": 4.89,
+          "frames": 65
+        },
+        {
+          "total_ms": 90.1,
+          "ttfa_ms": 4.91,
+          "frames": 65
+        },
+        {
+          "total_ms": 90.16,
+          "ttfa_ms": 4.67,
+          "frames": 65
+        },
+        {
+          "total_ms": 87.99,
+          "ttfa_ms": 4.63,
+          "frames": 65
+        },
+        {
+          "total_ms": 87.64,
+          "ttfa_ms": 4.56,
+          "frames": 65
+        },
+        {
+          "total_ms": 89.52,
+          "ttfa_ms": 5.0,
+          "frames": 65
+        },
+        {
+          "total_ms": 89.35,
+          "ttfa_ms": 4.64,
+          "frames": 65
+        },
+        {
+          "total_ms": 86.56,
+          "ttfa_ms": 4.66,
+          "frames": 65
+        },
+        {
+          "total_ms": 85.89,
+          "ttfa_ms": 4.56,
+          "frames": 65
+        },
+        {
+          "total_ms": 88.91,
+          "ttfa_ms": 4.62,
+          "frames": 65
+        },
+        {
+          "total_ms": 88.07,
+          "ttfa_ms": 4.92,
+          "frames": 65
+        },
+        {
+          "total_ms": 86.93,
+          "ttfa_ms": 4.66,
+          "frames": 65
+        },
+        {
+          "total_ms": 88.62,
+          "ttfa_ms": 4.6,
+          "frames": 65
+        },
+        {
+          "total_ms": 95.01,
+          "ttfa_ms": 4.81,
+          "frames": 65
+        },
+        {
+          "total_ms": 88.29,
+          "ttfa_ms": 4.73,
+          "frames": 65
+        },
+        {
+          "total_ms": 89.34,
+          "ttfa_ms": 4.78,
+          "frames": 65
+        },
+        {
+          "total_ms": 87.08,
+          "ttfa_ms": 4.82,
+          "frames": 65
+        },
+        {
+          "total_ms": 87.62,
+          "ttfa_ms": 4.65,
+          "frames": 65
+        },
+        {
+          "total_ms": 88.03,
+          "ttfa_ms": 4.87,
+          "frames": 65
+        },
+        {
+          "total_ms": 88.43,
+          "ttfa_ms": 5.08,
+          "frames": 65
+        },
+        {
+          "total_ms": 90.13,
+          "ttfa_ms": 4.67,
+          "frames": 65
+        },
+        {
+          "total_ms": 88.91,
+          "ttfa_ms": 4.54,
+          "frames": 65
+        }
+      ]
+    }
+  ]
+}

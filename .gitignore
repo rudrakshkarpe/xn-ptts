@@ -24,6 +24,8 @@ ptts-wasm/site/
 
 tmp/
 *.wav
+!benchmarks/ttfa-rnd/m4-pro-2026-11-01/audio-4threads/sample-baseline.wav
+!benchmarks/ttfa-rnd/m4-pro-2026-11-01/audio-4threads/sample-candidate.wav
 # Model weights. Checkpoints are downloaded or kept outside the repo, never committed.
 *.safetensors
 *.gguf

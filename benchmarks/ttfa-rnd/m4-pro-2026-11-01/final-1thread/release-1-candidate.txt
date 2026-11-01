@@ -1,0 +1,42 @@
+avx: false, neon: true, simd128: false, f16c: false
+backend: cpu; weight format: Q80
+iter   0: total    90.00ms  ttfa    4.79ms  frames   65
+iter   1: total    93.30ms  ttfa    4.99ms  frames   65
+iter   2: total    89.98ms  ttfa    4.80ms  frames   65
+iter   3: total    91.73ms  ttfa    4.92ms  frames   65
+iter   4: total    91.58ms  ttfa    5.08ms  frames   65
+iter   5: total    92.78ms  ttfa    4.85ms  frames   65
+iter   6: total    92.74ms  ttfa    5.05ms  frames   65
+iter   7: total    88.76ms  ttfa    5.00ms  frames   65
+iter   8: total    92.13ms  ttfa    4.90ms  frames   65
+iter   9: total    92.83ms  ttfa    4.91ms  frames   65
+iter  10: total    97.61ms  ttfa    4.91ms  frames   65
+iter  11: total    98.43ms  ttfa    5.12ms  frames   65
+iter  12: total   117.30ms  ttfa   10.56ms  frames   65
+iter  13: total   109.61ms  ttfa    5.00ms  frames   65
+iter  14: total   122.23ms  ttfa    5.53ms  frames   65
+iter  15: total   117.64ms  ttfa    5.60ms  frames   65
+iter  16: total    94.05ms  ttfa    5.18ms  frames   65
+iter  17: total    93.16ms  ttfa    4.68ms  frames   65
+iter  18: total    91.87ms  ttfa    4.97ms  frames   65
+iter  19: total    91.34ms  ttfa    5.09ms  frames   65
+iter  20: total    91.04ms  ttfa    5.09ms  frames   65
+iter  21: total    93.59ms  ttfa    4.97ms  frames   65
+iter  22: total    90.26ms  ttfa    4.78ms  frames   65
+iter  23: total    89.66ms  ttfa    5.00ms  frames   65
+iter  24: total    92.06ms  ttfa    5.00ms  frames   65
+iter  25: total    92.45ms  ttfa    4.97ms  frames   65
+iter  26: total    92.36ms  ttfa    5.00ms  frames   65
+iter  27: total    91.41ms  ttfa    4.86ms  frames   65
+iter  28: total    92.23ms  ttfa    5.16ms  frames   65
+iter  29: total    92.94ms  ttfa    4.86ms  frames   65
+
+model /Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/models/phonon-31m-en/model.q8.gguf  threads 1  input 81 chars  audio 5200ms  frames/iter 65
+Synth::stream: flow LM and Mimi on their own threads, as callers run it
+load 42.1ms, voice conditioning 9.3ms (both excluded below)
+
+metric                     n        min      mean       p50       p95       max
+total generate            30      88.76     95.57     92.45    117.64    122.23  ms
+time to first audio       30       4.68      5.19      5.00      5.60     10.56  ms
+per-frame (average)       30      1.365     1.470     1.422     1.810     1.880  ms
+rtf (lower is better)     30     0.0171    0.0184    0.0178    0.0226    0.0235  ratio

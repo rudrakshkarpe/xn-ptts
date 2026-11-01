@@ -1,0 +1,27 @@
+{
+  "regular_tests_and_doctests_passed": 142,
+  "ignored_tests": 2,
+  "checkpoint_runs": [
+    {
+      "threads": 4,
+      "kai": "enabled",
+      "passed": true
+    },
+    {
+      "threads": 1,
+      "kai": "disabled",
+      "passed": true
+    }
+  ],
+  "fmt": "passed",
+  "workspace_check": "passed",
+  "clippy": "passed with pre-existing upstream clippy::nonminimal_bool exempted on command line",
+  "commands": [
+    "cargo test --locked -p ptts --features hf,accelerate,kai",
+    "PTTS_TEST_MODEL=MODEL_DIRECTORY RAYON_NUM_THREADS=4 cargo test --locked --release -p ptts --features hf,accelerate,kai --test prefill_checkpoint -- --ignored --test-threads=1",
+    "XN_KAI=0 RAYON_NUM_THREADS=1 PTTS_TEST_MODEL=MODEL_DIRECTORY SAVED_CHECKPOINT_TEST_BINARY --ignored --test-threads=1",
+    "cargo fmt --all -- --check",
+    "cargo check --locked --workspace",
+    "cargo clippy --locked -p ptts --all-targets --features hf,accelerate,kai -- -D warnings -A clippy::nonminimal_bool"
+  ]
+}

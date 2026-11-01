@@ -1,0 +1,17 @@
+{
+  "base_upstream": "31e4e9f80275e432b570e17f5ccbefa895eff109",
+  "baseline_instrumentation": "d62c54c62317f38c9c7ea104c13f89cec0b36c1c",
+  "model_revision": "92741c5b07d085ff840e26fea8ce43110b87852f",
+  "model_sha256": "a7d9aad2cd6dc66473f24a08bc6d2939030ef4d751ef82349361fbef3272dbae",
+  "machine": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+  "feature_flags": [
+    "hf",
+    "accelerate",
+    "kai"
+  ],
+  "measured_requests_final": 1080,
+  "warmups_final": 180,
+  "rejected_as_final_result": "paired-4threads is the exploratory prototype; use final-* for final numbers",
+  "candidate_implementation_commit": "5c8ecb46969d733d2751a44f47e857881f7dff90",
+  "source_note": "Timing binaries were saved before test additions and lint-only cleanup; decoder substage instrumentation and trace-level filtering were added afterwards. Runtime algorithm is the candidate implementation commit. Exact binary hashes are in each results.json."
+}
