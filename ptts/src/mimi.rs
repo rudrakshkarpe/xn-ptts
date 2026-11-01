@@ -236,12 +236,18 @@ impl<Q: BackendQ> MimiDecoder<Q> {
         state: &mut MimiDecoderState<Q::T, Q::B>,
     ) -> Result<Tensor<Q::T, Q::B>> {
         // Upsample to encoder frame rate
-        let emb = match (&self.upsample, &mut state.upsample_state) {
-            (Some(us), Some(us_state)) => us.forward(latent, us_state)?,
-            _ => latent.clone(),
-        };
+        let emb = tracing::trace_span!(target: "ptts_profile", "mimi_latent_upsample").in_scope(
+            || match (&self.upsample, &mut state.upsample_state) {
+                (Some(us), Some(us_state)) => us.forward(latent, us_state),
+                _ => Ok(latent.clone()),
+            },
+        )?;
 
-        let outs = self.decoder_transformer.forward(&emb, &mut state.decoder_transformer_state)?;
-        self.decoder.forward(&outs[0], &mut state.decoder_state)
+        let outs =
+            tracing::trace_span!(target: "ptts_profile", "mimi_transformer").in_scope(|| {
+                self.decoder_transformer.forward(&emb, &mut state.decoder_transformer_state)
+            })?;
+        tracing::trace_span!(target: "ptts_profile", "mimi_waveform_decoder")
+            .in_scope(|| self.decoder.forward(&outs[0], &mut state.decoder_state))
     }
 }

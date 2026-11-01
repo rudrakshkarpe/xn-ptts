@@ -282,7 +282,12 @@ impl<Q: BackendQ> FlowLM<Q> {
     }
 
     /// Run the backbone: concat text_embeddings + input, run transformer, strip prefix.
-    #[tracing::instrument(target = "ptts_profile", name = "flow_transformer", skip_all)]
+    #[tracing::instrument(
+        level = "trace",
+        target = "ptts_profile",
+        name = "flow_transformer",
+        skip_all
+    )]
     fn backbone(
         &self,
         input: &Tensor<Q::T, Q::B>,
@@ -320,7 +325,12 @@ impl<Q: BackendQ> FlowLM<Q> {
 
     /// The tail both samplers share. `t_out` is the backbone's last position, `[b, dim]`.
     #[allow(clippy::type_complexity)]
-    #[tracing::instrument(target = "ptts_profile", name = "flow_sampling", skip_all)]
+    #[tracing::instrument(
+        level = "trace",
+        target = "ptts_profile",
+        name = "flow_sampling",
+        skip_all
+    )]
     fn sample_from(
         &self,
         t_out: &Tensor<Q::T, Q::B>,

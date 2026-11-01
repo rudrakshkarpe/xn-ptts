@@ -21,7 +21,10 @@ def summarize(events):
         elif phase == "E":
             start = stacks[event["tid"]].pop()
             assert start["name"] == event["name"]
-            spans.append((start["name"], start["ts"], event["ts"]))
+            name = start["name"]
+            if "stage" in start.get("args", {}):
+                name += "[" + str(start["args"]["stage"]) + "]"
+            spans.append((name, start["ts"], event["ts"]))
         elif event.get("args", {}).get("message") == "first_audio_received":
             markers.append(event["ts"])
     assert not any(stacks.values()), "incomplete trace"

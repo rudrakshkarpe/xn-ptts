@@ -342,9 +342,14 @@ impl<T: WithDTypeF, B: Backend> SEANetDecoder<T, B> {
         z: &Tensor<T, B>,
         state: &mut SEANetDecoderState<T, B>,
     ) -> Result<Tensor<T, B>> {
-        let mut z = self.init_conv.forward(z, &mut state.init_conv_state)?;
-        for (layer, (up_state, res_states)) in self.layers.iter().zip(state.layer_states.iter_mut())
+        let mut z = tracing::trace_span!(target: "ptts_profile", "mimi_initial_conv")
+            .in_scope(|| self.init_conv.forward(z, &mut state.init_conv_state))?;
+        for (index, (layer, (up_state, res_states))) in
+            self.layers.iter().zip(state.layer_states.iter_mut()).enumerate()
         {
+            let _stage =
+                tracing::trace_span!(target: "ptts_profile", "mimi_waveform_stage", stage = index)
+                    .entered();
             z = z.elu(1.0)?;
             z = layer.upsample.forward(&z, up_state)?;
             for (res, rs) in layer.residuals.iter().zip(res_states.iter_mut()) {
@@ -352,7 +357,8 @@ impl<T: WithDTypeF, B: Backend> SEANetDecoder<T, B> {
             }
         }
         z = z.elu(1.0)?;
-        self.final_conv.forward(&z, &mut state.final_conv_state)
+        tracing::trace_span!(target: "ptts_profile", "mimi_final_conv")
+            .in_scope(|| self.final_conv.forward(&z, &mut state.final_conv_state))
     }
 }
 
