@@ -64,6 +64,10 @@ struct Args {
     #[arg(long, conflicts_with = "breakdown")]
     pcm_output: Option<std::path::PathBuf>,
 
+    /// Save per-request arrival times, including 20/80 ms and amplitude-onset controls.
+    #[arg(long, conflicts_with = "breakdown")]
+    metrics_json: Option<std::path::PathBuf>,
+
     /// Number of CPU threads for tensor ops.
     #[arg(long)]
     threads: Option<usize>,
@@ -132,6 +136,8 @@ struct Run {
     nframes: usize,
     total: Duration,
     samples: usize,
+    delivery: Vec<(f64, usize)>,
+    onset_ms: Option<f64>,
 }
 
 /// Generates the utterance once through `Synth`, as any caller would.
@@ -140,14 +146,24 @@ fn one_synth(tts: &Synth, opts: &SpeechOptions, args: &Args) -> Result<Run> {
     let mut ttfa = None;
     let mut samples = 0usize;
     let mut recorded = args.pcm_output.as_ref().map(|_| Vec::new());
+    let mut delivery = Vec::new();
+    let mut onset_ms = None;
     for pcm in tts.stream_with(&args.input, opts)? {
         let pcm = pcm?;
         if !pcm.is_empty() {
+            let received = start.elapsed();
             if ttfa.is_none() {
                 tracing::info!(target: "ptts_profile", samples = pcm.len(), "first_audio_received");
             }
-            ttfa.get_or_insert_with(|| start.elapsed());
+            ttfa.get_or_insert(received);
             samples += pcm.len();
+            if args.metrics_json.is_some() {
+                delivery.push((ms(received), samples));
+                // Fixed -60 dBFS amplitude threshold; a diagnostic, not perceived speech onset.
+                if onset_ms.is_none() && pcm.iter().any(|v| v.abs() >= 0.001) {
+                    onset_ms = Some(ms(received));
+                }
+            }
             if let Some(recorded) = &mut recorded {
                 recorded.extend_from_slice(&pcm);
             }
@@ -161,7 +177,17 @@ fn one_synth(tts: &Synth, opts: &SpeechOptions, args: &Args) -> Result<Run> {
     }
     let frame_samples = tts.sample_rate() as f64 / tts.config().mimi.frame_rate;
     let nframes = (samples as f64 / frame_samples).round() as usize;
-    Ok(Run { ttfa, frames: vec![], sample_t: vec![], decode_t: vec![], nframes, total, samples })
+    Ok(Run {
+        ttfa,
+        frames: vec![],
+        sample_t: vec![],
+        decode_t: vec![],
+        nframes,
+        total,
+        samples,
+        delivery,
+        onset_ms,
+    })
 }
 
 /// Generates the utterance once, reusing the voice-conditioned state.
@@ -217,7 +243,17 @@ fn one<Q: BackendQ>(
     let total = start.elapsed();
     let ttfa = ttfa.context("no audio produced")?;
     let nframes = frames.len();
-    Ok(Run { ttfa, frames, sample_t, decode_t, nframes, total, samples })
+    Ok(Run {
+        ttfa,
+        frames,
+        sample_t,
+        decode_t,
+        nframes,
+        total,
+        samples,
+        delivery: vec![],
+        onset_ms: None,
+    })
 }
 
 fn ms(d: Duration) -> f64 {
@@ -484,6 +520,52 @@ fn bench_synth(args: &Args, normalize: Normalize, quant: Quant) -> Result<()> {
 
     let runs = measure(args, || one_synth(&tts, &opts, args))?;
     report(args, normalize, &runs, tts.sample_rate() as f64, load_ms, voice_ms);
+    if let Some(path) = &args.metrics_json {
+        let rate = tts.sample_rate() as f64;
+        let rows: Vec<_> = runs
+            .iter()
+            .map(|r| {
+                let arrival = |duration_ms: f64| {
+                    r.delivery
+                        .iter()
+                        .find(|(_, n)| *n as f64 >= rate * duration_ms / 1000.)
+                        .map(|(t, _)| *t)
+                };
+                let t20 = arrival(20.);
+                // Offline FIFO simulation: begin after receiving 20 ms and accumulate actual
+                // underruns when playback catches the available PCM, without counting them twice.
+                let mut exhausted_at = t20.unwrap_or(0.);
+                let mut played_samples = 0;
+                let mut underrun_ms = 0.;
+                for &(t, count) in &r.delivery {
+                    if let Some(start) = t20 {
+                        if t <= start {
+                            exhausted_at = start + count as f64 / rate * 1000.;
+                        } else {
+                            if t > exhausted_at {
+                                underrun_ms += t - exhausted_at;
+                                exhausted_at = t;
+                            }
+                            exhausted_at += (count - played_samples) as f64 / rate * 1000.;
+                        }
+                    }
+                    played_samples = count;
+                }
+                serde_json::json!({"ttfa_ms": ms(r.ttfa), "t20_ms": t20, "t80_ms": arrival(80.),
+                "amplitude_onset_ms": r.onset_ms, "total_ms": ms(r.total),
+                "samples": r.samples, "audio_seconds": r.samples as f64/rate,
+                "rtfx": (r.samples as f64/rate)/r.total.as_secs_f64(),
+                "simulated_underrun_ms": underrun_ms, "delivery": r.delivery})
+            })
+            .collect();
+        std::fs::write(
+            path,
+            serde_json::to_vec_pretty(&serde_json::json!({
+                "sample_rate": tts.sample_rate(), "onset_threshold": 0.001,
+                "backend": tts.device_name(), "runs": rows
+            }))?,
+        )?;
+    }
     Ok(())
 }
 

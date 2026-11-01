@@ -235,6 +235,48 @@ impl<Q: BackendQ> MimiDecoder<Q> {
         latent: &Tensor<Q::T, Q::B>,
         state: &mut MimiDecoderState<Q::T, Q::B>,
     ) -> Result<Tensor<Q::T, Q::B>> {
+        let emb = self.upsample_latent(latent, state)?;
+        self.decode_embedding(&emb, state)
+    }
+
+    /// Deliver an initial portion before decoding the remaining internal codec steps.
+    /// `emit` returning false cancels generation; the caller must discard that state.
+    /// Zero steps preserves the original unsplit computation.
+    pub fn decode_from_latent_step_split(
+        &self,
+        latent: &Tensor<Q::T, Q::B>,
+        state: &mut MimiDecoderState<Q::T, Q::B>,
+        first_steps: usize,
+        waveform_only: bool,
+        mut emit: impl FnMut(Tensor<Q::T, Q::B>) -> Result<bool>,
+    ) -> Result<bool> {
+        let emb = self.upsample_latent(latent, state)?;
+        let len = emb.dim(2usize)?;
+        if first_steps == 0 || first_steps >= len {
+            return emit(self.decode_embedding(&emb, state)?);
+        }
+        if waveform_only {
+            let projected = self.project_embedding(&emb, state)?;
+            let first = projected.narrow(2, 0..first_steps)?.contiguous()?;
+            if !emit(self.decoder.forward(&first, &mut state.decoder_state)?)? {
+                return Ok(false);
+            }
+            let rest = projected.narrow(2, first_steps..len)?.contiguous()?;
+            return emit(self.decoder.forward(&rest, &mut state.decoder_state)?);
+        }
+        let first = emb.narrow(2, 0..first_steps)?.contiguous()?;
+        if !emit(self.decode_embedding(&first, state)?)? {
+            return Ok(false);
+        }
+        let rest = emb.narrow(2, first_steps..len)?.contiguous()?;
+        emit(self.decode_embedding(&rest, state)?)
+    }
+
+    fn upsample_latent(
+        &self,
+        latent: &Tensor<Q::T, Q::B>,
+        state: &mut MimiDecoderState<Q::T, Q::B>,
+    ) -> Result<Tensor<Q::T, Q::B>> {
         // Upsample to encoder frame rate
         let emb = tracing::trace_span!(target: "ptts_profile", "mimi_latent_upsample").in_scope(
             || match (&self.upsample, &mut state.upsample_state) {
@@ -242,12 +284,28 @@ impl<Q: BackendQ> MimiDecoder<Q> {
                 _ => Ok(latent.clone()),
             },
         )?;
+        Ok(emb)
+    }
 
-        let outs =
-            tracing::trace_span!(target: "ptts_profile", "mimi_transformer").in_scope(|| {
-                self.decoder_transformer.forward(&emb, &mut state.decoder_transformer_state)
-            })?;
+    fn decode_embedding(
+        &self,
+        emb: &Tensor<Q::T, Q::B>,
+        state: &mut MimiDecoderState<Q::T, Q::B>,
+    ) -> Result<Tensor<Q::T, Q::B>> {
+        let projected = self.project_embedding(emb, state)?;
         tracing::trace_span!(target: "ptts_profile", "mimi_waveform_decoder")
-            .in_scope(|| self.decoder.forward(&outs[0], &mut state.decoder_state))
+            .in_scope(|| self.decoder.forward(&projected, &mut state.decoder_state))
+    }
+
+    fn project_embedding(
+        &self,
+        emb: &Tensor<Q::T, Q::B>,
+        state: &mut MimiDecoderState<Q::T, Q::B>,
+    ) -> Result<Tensor<Q::T, Q::B>> {
+        let mut outs =
+            tracing::trace_span!(target: "ptts_profile", "mimi_transformer").in_scope(|| {
+                self.decoder_transformer.forward(emb, &mut state.decoder_transformer_state)
+            })?;
+        Ok(outs.remove(0))
     }
 }

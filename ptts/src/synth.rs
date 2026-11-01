@@ -928,14 +928,32 @@ impl<Q: BackendQ> SessionOf<Q> {
         let mimi_init = self.model.init_mimi_state(1)?;
         let mut post = Chain::from_modules(self.sample_rate(), &self.post_process);
 
+        // Research switches, disabled by default. They are not a supported serving API.
+        let first_steps = std::env::var("PTTS_EXPERIMENT_FIRST_STEPS")
+            .ok()
+            .map(|v| v.parse::<usize>())
+            .transpose()
+            .map_err(|_| Error::unsupported("PTTS_EXPERIMENT_FIRST_STEPS must be an integer"))?
+            .unwrap_or(0);
+        let early_release = std::env::var("PTTS_EXPERIMENT_EARLY_RELEASE").as_deref() == Ok("1");
+        let waveform_only = std::env::var("PTTS_EXPERIMENT_WAVEFORM_ONLY").as_deref() == Ok("1");
+        let inline_decode =
+            self.inline_decode || std::env::var("PTTS_EXPERIMENT_INLINE").as_deref() == Ok("1");
+        if inline_decode && first_steps != 0 {
+            return Err(Error::unsupported(
+                "split-decode experiment requires the threaded CPU path",
+            ));
+        }
+
         let (pcm_tx, pcm_rx) = std::sync::mpsc::sync_channel::<Result<Vec<f32>>>(PCM_QUEUE);
 
-        let workers = if self.inline_decode {
+        let workers = if inline_decode {
             // One shared command queue (CUDA, Metal): a second thread has no second execution
             // unit to overlap onto, and only adds cross-thread contention for that queue. Decode
             // each frame inline, on the flow-LM's own thread, instead -- see `inline_decode`.
             let model = Arc::clone(&self.model);
             let handle = std::thread::spawn(move || {
+                experiment_worker_qos();
                 let _in_flight = in_flight;
                 let result =
                     run_inline(&model, chunks, base_state, cfg_base, rng, mimi_init, &pcm_tx, post);
@@ -957,6 +975,7 @@ impl<Q: BackendQ> SessionOf<Q> {
             let decode_model = Arc::clone(&self.model);
             let decode_tx = pcm_tx.clone();
             let decode_handle = std::thread::spawn(move || {
+                experiment_worker_qos();
                 let mut first_tx = Some(first_tx);
                 let mut state = mimi_init.clone();
                 // The post-processing chain delays its output: its first `skip` samples are the
@@ -999,6 +1018,47 @@ impl<Q: BackendQ> SessionOf<Q> {
                             }
                         },
                     };
+                    if first_steps > 0 && first_tx.is_some() {
+                        let emitted = decode_model.decode_latent_split(
+                            &latent,
+                            &mut state,
+                            first_steps,
+                            waveform_only,
+                            |audio| {
+                                let mut pcm = audio.narrow(0, ..1)?.contiguous()?.to_vec()?;
+                                post.process(&mut pcm);
+                                let n = skip.min(pcm.len());
+                                skip -= n;
+                                pcm.drain(..n);
+                                let audible_chunk = !pcm.is_empty();
+                                if decode_tx.send(Ok(pcm)).is_err() {
+                                    return Ok(false);
+                                }
+                                if early_release
+                                    && audible_chunk
+                                    && let Some(first_tx) = first_tx.take()
+                                {
+                                    let _ = first_tx.send(());
+                                }
+                                Ok(true)
+                            },
+                        );
+                        match emitted {
+                            Ok(true) => {}
+                            Ok(false) => return,
+                            Err(e) => {
+                                let _ = decode_tx.send(Err(e.into()));
+                                return;
+                            }
+                        }
+                        if let Some(first_tx) = first_tx.take() {
+                            let _ = first_tx.send(());
+                        }
+                        if reset_after {
+                            state = mimi_init.clone();
+                        }
+                        continue;
+                    }
                     let pcm = decode_model
                         .decode_latent(&latent, &mut state)
                         .and_then(|audio| {
@@ -1038,6 +1098,7 @@ impl<Q: BackendQ> SessionOf<Q> {
             // Flow-LM: text in, latents out.
             let model = Arc::clone(&self.model);
             let backbone_handle = std::thread::spawn(move || {
+                experiment_worker_qos();
                 // Dropped when this thread ends, which is after its last write.
                 let _in_flight = in_flight;
                 let result =
@@ -1151,6 +1212,22 @@ impl Drop for InFlight {
 const PCM_QUEUE: usize = 4;
 const LATENT_QUEUE: usize = 16;
 const DECODE_BATCH: usize = LATENT_QUEUE;
+
+// OS scheduling hint for an isolated research ablation; default scheduling stays intact.
+fn experiment_worker_qos() {
+    #[cfg(target_os = "macos")]
+    if std::env::var("PTTS_EXPERIMENT_QOS").as_deref() == Ok("initiated") {
+        unsafe extern "C" {
+            fn pthread_set_qos_class_self_np(class: u32, relative_priority: i32) -> i32;
+        }
+        // SAFETY: changes only this worker's QoS, using the SDK's USER_INITIATED class
+        // and a valid relative priority. It neither pins cores nor requests real-time policy.
+        let error = unsafe { pthread_set_qos_class_self_np(0x19, 0) };
+        if error != 0 {
+            eprintln!("experimental worker QoS failed: {error}");
+        }
+    }
+}
 
 /// Messages from the flow-LM thread to the decoder thread.
 enum Frame<Q: BackendQ> {

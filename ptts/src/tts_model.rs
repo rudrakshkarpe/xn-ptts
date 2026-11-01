@@ -359,6 +359,30 @@ impl<Q: BackendQ> TTSModel<Q> {
         latent: &Tensor<Q::T, Q::B>,
         mimi_state: &mut MimiDecoderState<f32, Q::B>,
     ) -> Result<Tensor<f32, Q::B>> {
+        let quantized = self.decode_input(latent)?;
+        self.mimi.decode_from_latent_step(&quantized, mimi_state)
+    }
+
+    /// Split only the requested codec call; subsequent calls use the updated streaming state.
+    pub fn decode_latent_split(
+        &self,
+        latent: &Tensor<Q::T, Q::B>,
+        mimi_state: &mut MimiDecoderState<f32, Q::B>,
+        first_steps: usize,
+        waveform_only: bool,
+        emit: impl FnMut(Tensor<f32, Q::B>) -> Result<bool>,
+    ) -> Result<bool> {
+        let quantized = self.decode_input(latent)?;
+        self.mimi.decode_from_latent_step_split(
+            &quantized,
+            mimi_state,
+            first_steps,
+            waveform_only,
+            emit,
+        )
+    }
+
+    fn decode_input(&self, latent: &Tensor<Q::T, Q::B>) -> Result<Tensor<f32, Q::B>> {
         let denorm =
             latent.broadcast_mul(&self.flow_lm.emb_std)?.broadcast_add(&self.flow_lm.emb_mean)?;
 
@@ -366,8 +390,7 @@ impl<Q: BackendQ> TTSModel<Q> {
         let transposed = denorm.transpose(1, 2)?.contiguous()?;
         // Convert from Q::T to f32 for mimi
         let f32_transposed = transposed.to()?;
-        let quantized = self.mimi.quantizer.forward(&f32_transposed)?;
-        self.mimi.decode_from_latent_step(&quantized, mimi_state)
+        self.mimi.quantizer.forward(&f32_transposed)
     }
 
     /// Initialize mimi streaming state.
