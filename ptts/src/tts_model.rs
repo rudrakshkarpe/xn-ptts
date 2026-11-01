@@ -390,8 +390,7 @@ impl<Q: BackendQ> TTSModel<Q> {
     ) -> Result<()> {
         let input = self.flow_lm.input_linear.forward(backbone_input_latents)?;
         let input = Tensor::cat(&[text_embeddings, &input], 1)?;
-        let _out =
-            self.flow_lm.transformer.forward(&input, &mut state.flow_lm_state.transformer_state)?;
+        self.flow_lm.transformer.prefill(&input, &mut state.flow_lm_state.transformer_state)?;
         Ok(())
     }
 

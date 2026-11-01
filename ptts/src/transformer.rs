@@ -107,6 +107,19 @@ impl<Q: BackendQ> StreamingMultiheadAttention<Q> {
         state: &mut StreamingMHAState<Q::T, Q::B>,
         mask: Option<&Tensor<Q::T, Q::B>>,
     ) -> Result<Tensor<Q::T, Q::B>> {
+        self.forward_or_cache(query, rope, state, mask, false)?
+            .ok_or_else(|| xn::Error::msg("attention output missing"))
+    }
+
+    /// In cache-only mode, stop as soon as the keys and values are stored.
+    fn forward_or_cache(
+        &self,
+        query: &Tensor<Q::T, Q::B>,
+        rope: &RotaryEmbedding<Q::T, Q::B>,
+        state: &mut StreamingMHAState<Q::T, Q::B>,
+        mask: Option<&Tensor<Q::T, Q::B>>,
+        cache_only: bool,
+    ) -> Result<Option<Tensor<Q::T, Q::B>>> {
         use xn::ModuleT;
         let (b, t, _) = query.dims3()?;
         let (h, kvh) = (self.num_heads, self.num_kv_heads);
@@ -133,6 +146,10 @@ impl<Q: BackendQ> StreamingMultiheadAttention<Q> {
         let (q, k) = rope.forward(&q, &k)?;
         let (k, v) = state.complete_kv(&k, &v)?;
 
+        if cache_only {
+            return Ok(None);
+        }
+
         let inv_sqrt_d = 1.0 / (d as f32).sqrt();
 
         let x = if t == 1 {
@@ -156,7 +173,7 @@ impl<Q: BackendQ> StreamingMultiheadAttention<Q> {
             // Back to [b, t, h*d]
             x.transpose(1, 2)?.reshape((b, t, self.attn_dim))?.contiguous()?
         };
-        self.out_proj.forward(&x)
+        self.out_proj.forward(&x).map(Some)
     }
 }
 // ---- KV Cache ----
@@ -584,6 +601,26 @@ impl<Q: BackendQ> StreamingTransformer<Q> {
         x: &Tensor<Q::T, Q::B>,
         state: &mut StreamingTransformerState<Q::T, Q::B>,
     ) -> Result<Tensor<Q::T, Q::B>> {
+        self.forward_or_prefill(x, state, false)
+    }
+
+    /// Populate caches when no output positions will be consumed. The final flow-LM
+    /// layer needs only its normalized input's keys and values: its attention output
+    /// and feed-forward block cannot affect any cache, including its own.
+    pub fn prefill(
+        &self,
+        x: &Tensor<Q::T, Q::B>,
+        state: &mut StreamingTransformerState<Q::T, Q::B>,
+    ) -> Result<()> {
+        self.forward_or_prefill(x, state, true).map(drop)
+    }
+
+    fn forward_or_prefill(
+        &self,
+        x: &Tensor<Q::T, Q::B>,
+        state: &mut StreamingTransformerState<Q::T, Q::B>,
+        cache_only: bool,
+    ) -> Result<Tensor<Q::T, Q::B>> {
         let mut x = x.clone();
         let (_, seq_len, _) = x.dims3()?;
         // At single-token decode every cached key is visible, so the causal mask is identically
@@ -635,7 +672,18 @@ impl<Q: BackendQ> StreamingTransformer<Q> {
             .unwrap_or(0);
         let rope =
             RotaryEmbedding::new(self.head_dim, offset, seq_len, self.max_period, x.device())?;
-        for (layer, layer_state) in self.layers.iter().zip(state.layer_states.iter_mut()) {
+        for (index, (layer, layer_state)) in
+            self.layers.iter().zip(state.layer_states.iter_mut()).enumerate()
+        {
+            if cache_only
+                && index + 1 == self.layers.len()
+                && let (AttentionKind::FlowLm(attn), LayerAttentionState::FlowLm(cache)) =
+                    (&layer.self_attn, &mut *layer_state)
+            {
+                let normalized = layer.norm1.forward(&x)?;
+                attn.forward_or_cache(&normalized, &rope, cache, mask.as_ref(), true)?;
+                return Ok(x);
+            }
             x = layer.forward(&x, &rope, layer_state, mask.as_ref())?;
         }
         Ok(x)
@@ -729,6 +777,98 @@ impl<Q: BackendQ> ProjectedTransformer<Q> {
             ys.push(y.transpose(1, 2)?.contiguous()?);
         }
         Ok(ys)
+    }
+}
+
+#[cfg(test)]
+mod prefill_tests {
+    use super::*;
+    use xn::CpuDevice;
+
+    type Q = xn::Unquantized<f32, CpuDevice>;
+
+    fn model(kv_heads: usize) -> Result<StreamingTransformer<Q>> {
+        let (width, heads, head_dim) = (8, 4, 2);
+        let mut sequence = 0usize;
+        let mut linear = |output, input| -> Result<Linear<f32, CpuDevice>> {
+            let values = (0..output * input)
+                .map(|_| {
+                    sequence += 1;
+                    (sequence as f32 * 0.137).sin() * 0.15
+                })
+                .collect();
+            Ok(Linear::new(Tensor::from_vec(values, (output, input), &CpuDevice)?))
+        };
+        let norm = || {
+            LayerNorm::new(
+                Tensor::from_vec(vec![1.; width], (width,), &CpuDevice)?,
+                Tensor::zeros((width,), &CpuDevice)?,
+                1e-5,
+            )
+        };
+        let mut layers = Vec::new();
+        for _ in 0..3 {
+            layers.push(StreamingTransformerLayer {
+                self_attn: AttentionKind::FlowLm(StreamingMultiheadAttention {
+                    in_proj: linear(width + 2 * kv_heads * head_dim, width)?,
+                    out_proj: linear(width, width)?,
+                    embed_dim: width,
+                    num_heads: heads,
+                    attn_dim: width,
+                    num_kv_heads: kv_heads,
+                    device: CpuDevice,
+                }),
+                norm1: norm()?,
+                norm2: norm()?,
+                linear1: linear(16, width)?,
+                linear2: linear(width, 16)?,
+                layer_scale_1: None,
+                layer_scale_2: None,
+                gelu: Gelu::default(),
+            });
+        }
+        Ok(StreamingTransformer { layers, head_dim, max_period: 10_000. })
+    }
+
+    fn same_cache(
+        a: &StreamingTransformerState<f32, CpuDevice>,
+        b: &StreamingTransformerState<f32, CpuDevice>,
+    ) -> Result<()> {
+        for (a, b) in a.layer_states.iter().zip(&b.layer_states) {
+            let (LayerAttentionState::FlowLm(a), LayerAttentionState::FlowLm(b)) = (a, b) else {
+                panic!()
+            };
+            assert_eq!(a.current_end, b.current_end);
+            assert_eq!(a.k_cache.to_vec()?, b.k_cache.to_vec()?);
+            assert_eq!(a.v_cache.to_vec()?, b.v_cache.to_vec()?);
+        }
+        Ok(())
+    }
+
+    #[test]
+    fn discarded_outputs_do_not_affect_mha_or_gqa_state_or_later_tokens() -> Result<()> {
+        for kv_heads in [1, 2, 4] {
+            let model = model(kv_heads)?;
+            let mut reference = model.init_state(1, 32)?;
+            let mut optimized = model.init_state(1, 32)?;
+            for length in [1, 5, 3] {
+                let input = Tensor::from_vec(
+                    (0..length * 8).map(|i| (i as f32 * 0.123).cos()).collect(),
+                    (1, length, 8),
+                    &CpuDevice,
+                )?;
+                model.forward(&input, &mut reference)?;
+                model.prefill(&input, &mut optimized)?;
+                same_cache(&reference, &optimized)?;
+                let token = input.narrow(1, 0..1)?.contiguous()?;
+                assert_eq!(
+                    model.forward(&token, &mut reference)?.to_vec()?,
+                    model.forward(&token, &mut optimized)?.to_vec()?,
+                );
+                same_cache(&reference, &optimized)?;
+            }
+        }
+        Ok(())
     }
 }
 
