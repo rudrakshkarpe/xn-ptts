@@ -1,0 +1,5 @@
+# Four small, generated comparison samples; other WAV outputs remain ignored.
+!original-default.wav
+!optimized-default.wav
+!original-cache-pressure.wav
+!optimized-cache-pressure.wav

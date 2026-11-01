@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "label": "upstream",
+  "server_revision": "31e4e9f80275e432b570e17f5ccbefa895eff109",
+  "server_binary_sha256": "d8bf9d24075720ba8eb25a37292c5f3440e9e47d45434e07d90f20c2d1d718bf",
+  "workload_sha256": "8ddb4c397bf6917975794cdfd58160de16f36254c2bc7e953a641e60ae86d31f",
+  "harness_sha256": "1a0c441415c156962c3861ebf1f4b1cd06bfa1a02beefee480ee4d66de9140fd",
+  "client_platform": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+  "python": "3.13.3",
+  "base_url": "http://127.0.0.1:18880",
+  "load_mode": "closed_loop",
+  "concurrency": 1,
+  "warmup_requests": 17,
+  "timeout_s": 30,
+  "cache_before": {
+    "available": false,
+    "error": "HTTP Error 404: Not Found"
+  },
+  "cache_after_warmup": {
+    "available": false,
+    "error": "HTTP Error 404: Not Found"
+  },
+  "cache_after": {
+    "available": false,
+    "error": "HTTP Error 404: Not Found"
+  },
+  "summary": {
+    "requests": 102,
+    "outcomes": {
+      "completed": 102
+    },
+    "scenario_wall_s": 5.363512582989642,
+    "completed_audio_s": 305.2,
+    "audio_seconds_per_wall_second": 56.90300810851838,
+    "completed_requests_per_second": 19.01738803102515,
+    "client_ttfa_ms_completed": {
+      "n": 102,
+      "p50": 9.788124996703118,
+      "p95": 10.690291004721075,
+      "p99": 11.101665993919596,
+      "mean": 9.913376225478144
+    },
+    "client_total_ms_completed": {
+      "n": 102,
+      "p50": 51.30304198246449,
+      "p95": 60.981999995419756,
+      "p99": 72.06366601167247,
+      "mean": 52.39540848090067
+    },
+    "rtf_completed": {
+      "n": 102,
+      "p50": 0.017095342139197913,
+      "p95": 0.020059868419545972,
+      "p99": 0.02410634605391686,
+      "mean": 0.01751802785097976
+    },
+    "ttfa_slo_ms": 100,
+    "completed_within_ttfa_slo": 102,
+    "percentile_method": "nearest_rank",
+    "quality_evaluated": false
+  }
+}

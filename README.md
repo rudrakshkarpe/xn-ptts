@@ -7,6 +7,20 @@ services. It is built for offline assistants, accessibility tools, and
 interactive experiences that need speech without a cloud round trip. The runtime
 is written in Rust and needs no PyTorch.
 
+**Serving optimization fork:** this branch adds bounded LRU voice-prefix retention,
+cache controls/counters, and a reproducible PCM benchmark. On an M4 Pro, the controlled
+voice-pressure diagnostic reduced median client time to first audio by **54.6%** and
+increased throughput by **11.9%** versus the pinned upstream build. Single-voice TTFA
+was unchanged; the adverse round-robin control was slightly slower. See the
+[optimization stack and reproduction guide](benchmarks/voice-cache/README.md) and
+[all measured results](benchmarks/voice-cache/results/m4-pro-2026-11-01/README.md).
+An additional [AIPerf 0.13.0 profile](benchmarks/aiperf/results/m4-pro-2026-11-01/README.md)
+measured complete-response latency of 54.18 → 48.90 ms (−9.8%) and throughput
+of 17.62 → 19.40 requests/s (+10.1%) for the same cache-pressure diagnostic at
+concurrency one. See the [AIPerf adapter and reproduction guide](benchmarks/aiperf/README.md)
+for the separate metric and controls.
+The upstream performance table below describes separate experiments.
+
 <p align="center">
   <a href="https://github.com/gradium-ai/xn-ptts/actions/workflows/rust-ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/gradium-ai/xn-ptts/rust-ci.yml?branch=main&label=rust&style=flat-square&labelColor=000" alt="Rust CI"></a>
   <a href="https://github.com/gradium-ai/xn-ptts/actions/workflows/maturin-pub.yml"><img src="https://img.shields.io/github/actions/workflow/status/gradium-ai/xn-ptts/maturin-pub.yml?branch=main&label=python%20wheels&style=flat-square&labelColor=000" alt="Python wheels"></a>

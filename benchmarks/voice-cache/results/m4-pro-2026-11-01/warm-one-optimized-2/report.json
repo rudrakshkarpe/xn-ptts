@@ -1,0 +1,95 @@
+{
+  "schema_version": 1,
+  "label": "optimized",
+  "server_revision": "df6aeaa68d318c9ec5684dc6658eb8c0b5304ece",
+  "server_binary_sha256": "d491397620bec684d3eb5af9e9b7e6e081c8b8362ba7c58cec3694f022f5754d",
+  "workload_sha256": "552086d4c58ffd85db06ef184b30c4b30a21ff931a407165c2095b65d35c4447",
+  "harness_sha256": "1a0c441415c156962c3861ebf1f4b1cd06bfa1a02beefee480ee4d66de9140fd",
+  "client_platform": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+  "python": "3.13.3",
+  "base_url": "http://127.0.0.1:18880",
+  "load_mode": "closed_loop",
+  "concurrency": 1,
+  "warmup_requests": 1,
+  "timeout_s": 30,
+  "cache_before": {
+    "available": true,
+    "value": {
+      "bypasses": 0,
+      "entries": 0,
+      "evictions": 0,
+      "hits": 0,
+      "insertions": 0,
+      "invalidations": 0,
+      "kv_bytes": 0,
+      "max_entries": 16,
+      "max_kv_bytes": 67108864,
+      "misses": 0
+    }
+  },
+  "cache_after_warmup": {
+    "available": true,
+    "value": {
+      "bypasses": 0,
+      "entries": 1,
+      "evictions": 0,
+      "hits": 0,
+      "insertions": 1,
+      "invalidations": 0,
+      "kv_bytes": 3072000,
+      "max_entries": 16,
+      "max_kv_bytes": 67108864,
+      "misses": 1
+    }
+  },
+  "cache_after": {
+    "available": true,
+    "value": {
+      "bypasses": 0,
+      "entries": 1,
+      "evictions": 0,
+      "hits": 96,
+      "insertions": 1,
+      "invalidations": 0,
+      "kv_bytes": 3072000,
+      "max_entries": 16,
+      "max_kv_bytes": 67108864,
+      "misses": 1
+    }
+  },
+  "summary": {
+    "requests": 96,
+    "outcomes": {
+      "completed": 96
+    },
+    "scenario_wall_s": 4.435163916990859,
+    "completed_audio_s": 285.36,
+    "audio_seconds_per_wall_second": 64.34035028712292,
+    "completed_requests_per_second": 21.64519774167297,
+    "client_ttfa_ms_completed": {
+      "n": 96,
+      "p50": 4.445334023330361,
+      "p95": 4.695209005149081,
+      "p99": 4.879541986156255,
+      "mean": 4.451900624796205
+    },
+    "client_total_ms_completed": {
+      "n": 96,
+      "p50": 46.20687497663312,
+      "p95": 47.93550001340918,
+      "p99": 49.141958996187896,
+      "mean": 46.01723354062415
+    },
+    "rtf_completed": {
+      "n": 96,
+      "p50": 0.015430208329942414,
+      "p95": 0.01607097398625007,
+      "p99": 0.0166020131743878,
+      "mean": 0.01548164850793906
+    },
+    "ttfa_slo_ms": 100,
+    "completed_within_ttfa_slo": 96,
+    "percentile_method": "nearest_rank",
+    "quality_evaluated": false
+  }
+}

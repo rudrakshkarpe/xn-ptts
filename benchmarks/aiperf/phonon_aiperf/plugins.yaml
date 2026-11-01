@@ -1,0 +1,20 @@
+schema_version: "1.0"
+
+endpoint:
+  phonon_tts:
+    class: phonon_aiperf.endpoint:PhononTTSEndpoint
+    description: OpenAI-compatible Phonon text-to-speech with binary PCM output.
+    metadata:
+      endpoint_path: /v1/audio/speech
+      supports_streaming: false
+      produces_tokens: false
+      tokenizes_input: false
+      metrics_title: Phonon TTS Metrics
+
+transport:
+  phonon_http:
+    class: phonon_aiperf.transport:PhononHttpTransport
+    description: HTTP transport that records PCM byte count without serializing binary audio.
+    metadata:
+      transport_type: phonon_http
+      url_schemes: [http, https]

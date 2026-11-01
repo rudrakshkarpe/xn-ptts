@@ -1,0 +1,95 @@
+{
+  "schema_version": 1,
+  "label": "optimized",
+  "server_revision": "df6aeaa68d318c9ec5684dc6658eb8c0b5304ece",
+  "server_binary_sha256": "d491397620bec684d3eb5af9e9b7e6e081c8b8362ba7c58cec3694f022f5754d",
+  "workload_sha256": "8ddb4c397bf6917975794cdfd58160de16f36254c2bc7e953a641e60ae86d31f",
+  "harness_sha256": "1a0c441415c156962c3861ebf1f4b1cd06bfa1a02beefee480ee4d66de9140fd",
+  "client_platform": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+  "python": "3.13.3",
+  "base_url": "http://127.0.0.1:18880",
+  "load_mode": "closed_loop",
+  "concurrency": 1,
+  "warmup_requests": 17,
+  "timeout_s": 30,
+  "cache_before": {
+    "available": true,
+    "value": {
+      "bypasses": 0,
+      "entries": 0,
+      "evictions": 0,
+      "hits": 0,
+      "insertions": 0,
+      "invalidations": 0,
+      "kv_bytes": 0,
+      "max_entries": 16,
+      "max_kv_bytes": 67108864,
+      "misses": 0
+    }
+  },
+  "cache_after_warmup": {
+    "available": true,
+    "value": {
+      "bypasses": 0,
+      "entries": 16,
+      "evictions": 1,
+      "hits": 0,
+      "insertions": 17,
+      "invalidations": 0,
+      "kv_bytes": 49152000,
+      "max_entries": 16,
+      "max_kv_bytes": 67108864,
+      "misses": 17
+    }
+  },
+  "cache_after": {
+    "available": true,
+    "value": {
+      "bypasses": 0,
+      "entries": 16,
+      "evictions": 103,
+      "hits": 0,
+      "insertions": 119,
+      "invalidations": 0,
+      "kv_bytes": 49152000,
+      "max_entries": 16,
+      "max_kv_bytes": 67108864,
+      "misses": 119
+    }
+  },
+  "summary": {
+    "requests": 102,
+    "outcomes": {
+      "completed": 102
+    },
+    "scenario_wall_s": 5.516791542002466,
+    "completed_audio_s": 305.2,
+    "audio_seconds_per_wall_second": 55.32201057015462,
+    "completed_requests_per_second": 18.48900746446845,
+    "client_ttfa_ms_completed": {
+      "n": 102,
+      "p50": 10.057167004561052,
+      "p95": 11.259374994551763,
+      "p99": 17.766500008292496,
+      "mean": 10.463851763964996
+    },
+    "client_total_ms_completed": {
+      "n": 102,
+      "p50": 52.73716599913314,
+      "p95": 60.31820800853893,
+      "p99": 68.90833401121199,
+      "mean": 53.85910656803068
+    },
+    "rtf_completed": {
+      "n": 102,
+      "p50": 0.017592303124224096,
+      "p95": 0.02009653223802544,
+      "p99": 0.022086004490773074,
+      "mean": 0.017993378940181808
+    },
+    "ttfa_slo_ms": 100,
+    "completed_within_ttfa_slo": 102,
+    "percentile_method": "nearest_rank",
+    "quality_evaluated": false
+  }
+}
