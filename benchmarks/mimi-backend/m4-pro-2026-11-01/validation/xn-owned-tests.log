@@ -1,0 +1,317 @@
+   Compiling xn v0.2.13 (/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/xn-backend/xn-core)
+    Finished `release` profile [optimized + debuginfo] target(s) in 1.49s
+     Running unittests src/lib.rs (/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/xn-backend-target/release/deps/xn-5897822388bc744a)
+
+running 48 tests
+test kai_build::the_kernels_are_built ... ok
+test neon_conv::tests::conv1d_bench ... ignored
+test kai_f32::tests::declines_what_it_does_not_take ... ok
+test kai_f32::tests::keeps_nan ... ok
+test cpu_backend::tests::arch_gemm_guards ... ok
+test neon_conv::tests::takes_leaves_short_outputs_to_the_gemm ... ok
+test neon_gemm::tests::bench_against_the_generic_gemm ... ignored
+test cpu_backend::tests::matmul_layouts_that_fall_back ... ok
+test cpu_backend::tests::batched_matmul_t_with_a_weight_per_entry ... ok
+test cpu_backend::tests::elemwise_chunks_reach_every_thread ... ok
+test neon_conv::tests::conv1d_reads_rows_longer_than_the_window ... ok
+test models::kv_cache::tests::test_scattered_kv_cache ... ok
+test neon_gemm::tests::gemm_dot_batched_matches_the_entries_one_by_one ... ok
+test cpu_backend::tests::batched_matmul_t_with_a_broadcast_weight ... ok
+test neon_gemm::tests::gemm_dot_with_strided_rows ... ok
+test neon_conv::tests::backend_conv1d_matches_the_reference ... ok
+test quantized::kai::tests::active_needs_sme2 ... ok
+test quantized::kai::tests::from_float_replaces_the_weights ... ok
+test quantized::kai::tests::raw_data_is_q8_0_of_the_stored_weights ... ok
+test quantized::kai::tests::refuses_what_it_cannot_pack ... ok
+test neon_gemm::tests::gemm_dot_matches_the_scalar_reference ... ok
+test quantized::kai::tests::stores_the_per_row_requantization ... ok
+test quantized::repack::tests::eligibility ... ok
+test quantized::repack::tests::q8_0_storage_falls_back_on_ineligible_shapes ... ok
+test quantized::repack::tests::q8_0_storage_is_layout_agnostic ... ok
+test quantized::repack::tests::quantize_f32_matches_the_gguf_layout ... ok
+test quantized::kai::tests::the_hook_follows_the_gate ... ok
+test quantized::repack::tests::dequantize_matches_plain ... ok
+test quantized::repack::tests::interleave_round_trips ... ok
+test simd_math::tests::elu_and_gelu_are_dispatched ... ok
+test quantized::repack::tests::raw_data_is_the_stored_layout ... ok
+test simd_math::tests::edge_values ... ok
+test simd_math::tests::past_the_clamp_is_the_scalar_path ... ok
+test quantized::k_quants::tests::q8_0_matmul_matches_reference_at_every_pool_size ... ok
+test simd_math::tests::softmax_degenerate_rows ... ok
+test simd_math::tests::softmax_rows ... ok
+test threadpool::tests::the_pool_is_there_when_the_platform_has_threads ... ok
+test threadpool::tests::work_below_the_threshold_does_not_fan_out ... ok
+test quantized::kai::tests::matches_the_f32_reference ... ok
+test simd_math::tests::exp_matches_the_scalar_reference ... ok
+test quantized::repack::tests::matches_the_plain_kernel ... ok
+test neon_gemm::tests::gemm_dot_gives_the_same_bits_on_any_split ... ok
+test simd_math::tests::sigmoid_matches_the_scalar_reference ... ok
+test simd_math::tests::silu_matches_the_scalar_reference ... ok
+test neon_gemm::tests::gemm_dot_across_row_blocks_and_threads ... ok
+test simd_math::tests::accuracy_against_libm ... ok
+test neon_conv::tests::conv1d_matches_the_scalar_reference ... ok
+test kai_f32::tests::matches_the_reference ... ok
+
+test result: ok. 46 passed; 0 failed; 2 ignored; 0 measured; 0 filtered out; finished in 0.05s
+
+     Running tests/convert_tests.rs (/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/xn-backend-target/release/deps/convert_tests-316de098b7319ef9)
+
+running 17 tests
+test empty_vec_to_tensor ... ok
+test roundtrip_all_dtypes ... ok
+test scalar_to_tensor_and_back ... ok
+test scalar_all_dtypes ... ok
+test slice_to_tensor ... ok
+test tensor_to_vec1 ... ok
+test tensor_to_vec3 ... ok
+test tensor_to_vec2 ... ok
+test to_scalar_on_non_scalar_errors ... ok
+test to_vec_rank_mismatch_errors ... ok
+test vec_to_tensor ... ok
+test write_bytes_bf16 ... ok
+test write_bytes_f16 ... ok
+test write_bytes_f32 ... ok
+test write_bytes_flattens_multi_dim ... ok
+test write_bytes_i64 ... ok
+test write_bytes_u8 ... ok
+
+test result: ok. 17 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/cuda_graph_tests.rs (/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/xn-backend-target/release/deps/cuda_graph_tests-c7c3b2d8c79e2876)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/cuda_tests.rs (/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/xn-backend-target/release/deps/cuda_tests-2de17d7c08c011bb)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/display_tests.rs (/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/xn-backend-target/release/deps/display_tests-18a31810ca11043d)
+
+running 19 tests
+test test_debug_2d ... ok
+test test_debug_u8 ... ok
+test test_debug_1d_small ... ok
+test test_debug_i64 ... ok
+test test_debug_1d_large ... ok
+test test_debug_scalar ... ok
+test test_display_1d_f32_integers ... ok
+test test_display_3d ... ok
+test test_display_1d_f32_floats ... ok
+test test_display_bf16 ... ok
+test test_display_2d_f32 ... ok
+test test_display_f16 ... ok
+test test_display_i64 ... ok
+test test_display_summarize_large_1d ... ok
+test test_display_u8 ... ok
+test test_display_summarize_large_2d ... ok
+test test_print_options_full ... ok
+test test_print_options_short ... ok
+test test_sci_mode ... ok
+
+test result: ok. 19 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/metal_tests.rs (/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/xn-backend-target/release/deps/metal_tests-bbcab016deab2784)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/packed_f32_tests.rs (/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/xn-backend-target/release/deps/packed_f32_tests-4d4260c78d6f016e)
+
+running 2 tests
+test rejects_invalid_dimensions_before_native_access ... ok
+test snapshot_bias_tail_rows_and_concurrent_workspaces ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/packed_weight_tests.rs (/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/xn-backend-target/release/deps/packed_weight_tests-d6ec3217873e4f43)
+
+running 2 tests
+test a_buffer_written_in_place_is_never_served_stale ... ok
+test a_parameter_used_again_gives_the_same_result ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/quantized_tests.rs (/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/xn-backend-target/release/deps/quantized_tests-48d6fac9a97363bb)
+
+running 4 tests
+test sgemm_q8_0_neon_matches_vec_dot ... ok
+test qlinear_vs_linear_no_bias ... ok
+test qlinear_3d_input ... ok
+test qlinear_vs_linear_with_bias ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/serialization_tests.rs (/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/xn-backend-target/release/deps/serialization_tests-36ee323714187f91)
+
+running 5 tests
+test save_and_load_multiple_tensors ... ok
+test save_with_str_keys ... ok
+test save_and_load_single_tensor ... ok
+test save_load_buffer_roundtrip ... ok
+test roundtrip_preserves_dtypes ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/tensor_tests.rs (/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/xn-backend-target/release/deps/tensor_tests-c6af99b628e9da11)
+
+running 123 tests
+test test_argmax_dim0_cpu ... ok
+test test_argmin_dim0_cpu ... ok
+test test_argmax_dim1_cpu ... ok
+test convolutions_over_zero_input_channels_give_zeros ... ok
+test matmul_on_offset_views_matches_reference ... ok
+test matmul_tall_and_wide_match_naive_reference ... ok
+test test_argmin_dim1_cpu ... ok
+test test_broadcast_3d_cpu ... ok
+test convolutions_in_half_precision_match_the_reference ... ok
+test test_broadcast_add_1d_to_2d_cpu ... ok
+test test_broadcast_as_3d_cpu ... ok
+test test_broadcast_as_error_cpu ... ok
+test test_broadcast_add_same_shape_cpu ... ok
+test test_broadcast_as_add_dim_cpu ... ok
+test test_broadcast_as_expand_dim_cpu ... ok
+test test_broadcast_as_from_view_cpu ... ok
+test test_broadcast_as_noop_cpu ... ok
+test test_broadcast_div_cpu ... ok
+test test_broadcast_mul_column_cpu ... ok
+test test_broadcast_sub_cpu ... ok
+test test_cat_3d_dim1_cpu ... ok
+test test_cat_dim0_cpu ... ok
+test test_cat_dim1_cpu ... ok
+test test_conv1d_batch_large_cpu ... ok
+test test_conv1d_batch_multi_channel_cpu ... ok
+test test_conv1d_batch_simple_cpu ... ok
+test test_conv1d_batch_with_bias_cpu ... ok
+test test_conv1d_batch_with_padding_cpu ... ok
+test test_conv1d_batch_with_stride_cpu ... ok
+test test_conv1d_multi_channel_cpu ... ok
+test test_conv1d_simple_cpu ... ok
+test test_conv1d_with_padding_cpu ... ok
+test test_conv1d_with_bias_cpu ... ok
+test test_conv1d_with_stride_cpu ... ok
+test test_conv_transpose1d_batch_multi_channel_cpu ... ok
+test softmax_with_masked_rows_on_both_sides_of_the_gate ... ok
+test test_conv_transpose1d_output_padding_appends_zeros_cpu ... ok
+test test_conv_transpose1d_padding_crops_cpu ... ok
+test test_conv_transpose1d_batch_with_bias_cpu ... ok
+test test_conv_transpose1d_batch_with_stride_cpu ... ok
+test test_conv_transpose1d_batch_simple_cpu ... ok
+test test_conv_transpose1d_with_stride_cpu ... ok
+test test_conv_transpose1d_grouped_cpu ... ok
+test test_conv_transpose1d_simple_cpu ... ok
+test test_conv_transpose1d_with_bias_cpu ... ok
+test test_conv_transpose1d_depthwise_cpu ... ok
+test test_exp_cpu ... ok
+test test_exp_log_compose_cpu ... ok
+test test_index_select_3d_cpu ... ok
+test test_index_select_dim0_cpu ... ok
+test test_index_select_dim1_cpu ... ok
+test test_index_select_minus_one_cpu ... ok
+test test_index_select_narrowed_indices_cpu ... ok
+test test_log_cpu ... ok
+test test_max_dim0_cpu ... ok
+test test_max_dim1_cpu ... ok
+test test_log_neg_roundtrip_cpu ... ok
+test test_min_dim1_cpu ... ok
+test test_matmul_batched_strided_cpu ... ok
+test test_matmul_last_row_view_cpu ... ok
+test test_max_3d_cpu ... ok
+test test_matmul_transposed_view_cpu ... ok
+test test_min_dim0_cpu ... ok
+test test_neg_cpu ... ok
+test test_narrow_prefix_contiguous_cpu ... ok
+test test_pad_with_same_1d_cpu ... ok
+test conv_transpose1d_matches_naive_reference ... ok
+test test_pad_with_same_2d_dim0_cpu ... ok
+test test_pad_with_same_2d_dim1_cpu ... ok
+test test_pad_with_same_3d_cpu ... ok
+test test_pad_with_zeros_1d_cpu ... ok
+test test_pad_with_zeros_2d_dim0_cpu ... ok
+test test_pad_with_zeros_2d_dim1_cpu ... ok
+test test_pad_with_zeros_3d_cpu ... ok
+test test_rand_uniform_bounds_cpu ... ok
+test test_rand_uniform_cpu ... ok
+test test_rand_uniform_invalid_bounds_cpu ... ok
+test test_rand_uniform_shape_cpu ... ok
+test test_randn_cpu ... ok
+test test_randn_shape_cpu ... ok
+test test_reshape_cpu ... ok
+test test_reshape_with_hole_cpu ... ok
+test test_rope_batched_cos_sin_cpu ... ok
+test test_rope_i_batched_cos_sin_cpu ... ok
+test test_scatter_3d_cpu ... ok
+test test_scatter_dim0_cpu ... ok
+test test_scatter_dim1_cpu ... ok
+test test_scatter_set_dim0_cpu ... ok
+test test_sdpa_decode_composed_path_masks_cpu ... ok
+test test_sdpa_decode_rejects_bad_shapes_cpu ... ok
+test test_sdpa_decode_rejects_bad_masks_cpu ... ok
+test test_sdpa_decode_per_row_mask_cpu ... ok
+test test_slice_set_at_end_cpu ... ok
+test test_slice_set_1d_cpu ... ok
+test test_slice_set_3d_cpu ... ok
+test test_slice_set_dim0_cpu ... ok
+test test_slice_set_at_start_cpu ... ok
+test test_slice_set_dim1_cpu ... ok
+test test_sum_keepdim_1d_cpu ... ok
+test test_sum_keepdim_2d_dim1_cpu ... ok
+test test_sum_keepdim_multiple_dims_cpu ... ok
+test test_to_f16_to_f32_cpu ... ok
+test test_to_f32_to_f16_cpu ... ok
+test test_to_f32_to_i64_cpu ... ok
+test test_sum_keepdim_2d_dim0_cpu ... ok
+test test_to_i64_to_f32_cpu ... ok
+test test_to_bf16_to_f32_cpu ... ok
+test test_sum_keepdim_3d_cpu ... ok
+test test_to_f16_to_bf16_cpu ... ok
+test test_to_f32_to_bf16_cpu ... ok
+test test_to_f32_to_u8_cpu ... ok
+test test_to_i64_to_u8_cpu ... ok
+test test_to_preserves_shape_cpu ... ok
+test test_to_same_dtype_cpu ... ok
+test test_to_u8_to_f32_cpu ... ok
+test test_unsqueeze_1d_cpu ... ok
+test test_unsqueeze_dim0_cpu ... ok
+test test_unsqueeze_dim1_cpu ... ok
+test test_unsqueeze_dim_last_cpu ... ok
+test rope_matches_the_reference_on_both_sides_of_the_gate ... ok
+test activations_match_the_scalar_formulas_on_both_sides_of_the_gate ... ok
+test conv1d_matches_naive_reference ... ok
+test test_sdpa_decode_matches_composed_cpu ... ok
+
+test result: ok. 123 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.11s
+
+     Running tests/threadpool_tests.rs (/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/xn-backend-target/release/deps/threadpool_tests-4a988fdabff4f10e)
+
+running 6 tests
+test a_worker_panic_reaches_the_caller ... ok
+test concurrent_publishers_each_get_a_complete_result ... ok
+test every_participant_runs_exactly_once ... ok
+test dispatch_width_matches_size ... ok
+test nested_dispatch_does_not_deadlock ... ok
+test results_are_visible_to_the_caller ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.45s
+
+     Running tests/vulkan_tests.rs (/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/xn-backend-target/release/deps/vulkan_tests-4415f56cbac93b09)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/webgpu_match_tests.rs (/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/xn-backend-target/release/deps/webgpu_match_tests-b33976c50de7bc7f)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/webgpu_tests.rs (/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/xn-backend-target/release/deps/webgpu_tests-d14bce41cb90497a)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s

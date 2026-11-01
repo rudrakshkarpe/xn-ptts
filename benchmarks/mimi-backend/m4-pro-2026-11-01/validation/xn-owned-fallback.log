@@ -1,0 +1,9 @@
+   Compiling xn v0.2.13 (/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/xn-backend/xn-core)
+    Finished `release` profile [optimized + debuginfo] target(s) in 1.42s
+     Running tests/packed_f32_tests.rs (/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/xn-backend-target/release/deps/packed_f32_tests-780355203a817566)
+
+running 2 tests
+test rejects_invalid_dimensions_before_native_access ... ok
+test snapshot_bias_tail_rows_and_concurrent_workspaces ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s

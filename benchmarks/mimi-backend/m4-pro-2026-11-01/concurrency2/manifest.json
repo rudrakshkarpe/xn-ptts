@@ -1,0 +1,710 @@
+{
+  "binary": "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/binaries/mimi-backend-final-bench",
+  "sha256": "237a8e9b669380639c3cc8754905485001bf9874b5542cc0f329b3adf0667611",
+  "platform": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+  "threads": 4,
+  "trials": 3,
+  "iterations": 10,
+  "concurrency": 2,
+  "runtime_diagnostics": false,
+  "warmups_per_process": 10,
+  "texts": {
+    "release": "The quick brown fox jumps over the lazy dog, then naps in the warm afternoon sun."
+  },
+  "variants": {
+    "baseline": {},
+    "packed": {
+      "PTTS_EXPERIMENT_PACKED_MIMI": "1"
+    },
+    "packed-conv-small": {
+      "PTTS_EXPERIMENT_PACKED_MIMI": "1",
+      "PTTS_EXPERIMENT_PACKED_CONV": "initial-small"
+    }
+  },
+  "runs": [
+    {
+      "text": "release",
+      "variant": "baseline",
+      "trial": 0,
+      "command": [
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/binaries/mimi-backend-final-bench",
+        "--model",
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/models/phonon-31m-en/model.q8.gguf",
+        "--config",
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/models/phonon-31m-en/config.json",
+        "--voice",
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/models/phonon-31m-en/default-voice.safetensors",
+        "--quant",
+        "q8",
+        "--device",
+        "cpu",
+        "--threads",
+        "4",
+        "--lang",
+        "en",
+        "--seed",
+        "42",
+        "--warmup",
+        "5",
+        "--iters",
+        "10",
+        "--concurrency",
+        "2",
+        "--input",
+        "The quick brown fox jumps over the lazy dog, then naps in the warm afternoon sun.",
+        "--metrics-json",
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/results/mimi-backend-rnd/concurrency2/release-0-baseline.json"
+      ],
+      "rounds": [
+        {
+          "audio_seconds": 10.4,
+          "wall_ms": 107.02475
+        },
+        {
+          "audio_seconds": 10.4,
+          "wall_ms": 101.032083
+        },
+        {
+          "audio_seconds": 10.4,
+          "wall_ms": 105.34224999999999
+        },
+        {
+          "audio_seconds": 10.4,
+          "wall_ms": 106.937292
+        },
+        {
+          "audio_seconds": 10.4,
+          "wall_ms": 100.582167
+        },
+        {
+          "audio_seconds": 10.4,
+          "wall_ms": 107.281208
+        },
+        {
+          "audio_seconds": 10.4,
+          "wall_ms": 105.289042
+        },
+        {
+          "audio_seconds": 10.4,
+          "wall_ms": 114.10787499999999
+        },
+        {
+          "audio_seconds": 10.4,
+          "wall_ms": 101.642667
+        },
+        {
+          "audio_seconds": 10.4,
+          "wall_ms": 114.70491700000001
+        }
+      ]
+    },
+    {
+      "text": "release",
+      "variant": "packed",
+      "trial": 0,
+      "command": [
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/binaries/mimi-backend-final-bench",
+        "--model",
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/models/phonon-31m-en/model.q8.gguf",
+        "--config",
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/models/phonon-31m-en/config.json",
+        "--voice",
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/models/phonon-31m-en/default-voice.safetensors",
+        "--quant",
+        "q8",
+        "--device",
+        "cpu",
+        "--threads",
+        "4",
+        "--lang",
+        "en",
+        "--seed",
+        "42",
+        "--warmup",
+        "5",
+        "--iters",
+        "10",
+        "--concurrency",
+        "2",
+        "--input",
+        "The quick brown fox jumps over the lazy dog, then naps in the warm afternoon sun.",
+        "--metrics-json",
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/results/mimi-backend-rnd/concurrency2/release-0-packed.json"
+      ],
+      "rounds": [
+        {
+          "audio_seconds": 10.4,
+          "wall_ms": 106.00408399999999
+        },
+        {
+          "audio_seconds": 10.4,
+          "wall_ms": 106.81220900000001
+        },
+        {
+          "audio_seconds": 10.4,
+          "wall_ms": 108.168
+        },
+        {
+          "audio_seconds": 10.4,
+          "wall_ms": 108.00450000000001
+        },
+        {
+          "audio_seconds": 10.4,
+          "wall_ms": 102.20025000000001
+        },
+        {
+          "audio_seconds": 10.4,
+          "wall_ms": 104.739166
+        },
+        {
+          "audio_seconds": 10.4,
+          "wall_ms": 109.494125
+        },
+        {
+          "audio_seconds": 10.4,
+          "wall_ms": 112.030083
+        },
+        {
+          "audio_seconds": 10.4,
+          "wall_ms": 120.45150000000001
+        },
+        {
+          "audio_seconds": 10.4,
+          "wall_ms": 106.813875
+        }
+      ]
+    },
+    {
+      "text": "release",
+      "variant": "packed-conv-small",
+      "trial": 0,
+      "command": [
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/binaries/mimi-backend-final-bench",
+        "--model",
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/models/phonon-31m-en/model.q8.gguf",
+        "--config",
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/models/phonon-31m-en/config.json",
+        "--voice",
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/models/phonon-31m-en/default-voice.safetensors",
+        "--quant",
+        "q8",
+        "--device",
+        "cpu",
+        "--threads",
+        "4",
+        "--lang",
+        "en",
+        "--seed",
+        "42",
+        "--warmup",
+        "5",
+        "--iters",
+        "10",
+        "--concurrency",
+        "2",
+        "--input",
+        "The quick brown fox jumps over the lazy dog, then naps in the warm afternoon sun.",
+        "--metrics-json",
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/results/mimi-backend-rnd/concurrency2/release-0-packed-conv-small.json"
+      ],
+      "rounds": [
+        {
+          "audio_seconds": 10.4,
+          "wall_ms": 108.33850000000001
+        },
+        {
+          "audio_seconds": 10.4,
+          "wall_ms": 106.621083
+        },
+        {
+          "audio_seconds": 10.4,
+          "wall_ms": 109.738041
+        },
+        {
+          "audio_seconds": 10.4,
+          "wall_ms": 100.1365
+        },
+        {
+          "audio_seconds": 10.4,
+          "wall_ms": 106.884417
+        },
+        {
+          "audio_seconds": 10.4,
+          "wall_ms": 99.697041
+        },
+        {
+          "audio_seconds": 10.4,
+          "wall_ms": 107.606459
+        },
+        {
+          "audio_seconds": 10.4,
+          "wall_ms": 107.269417
+        },
+        {
+          "audio_seconds": 10.4,
+          "wall_ms": 107.999375
+        },
+        {
+          "audio_seconds": 10.4,
+          "wall_ms": 102.87079200000001
+        }
+      ]
+    },
+    {
+      "text": "release",
+      "variant": "baseline",
+      "trial": 1,
+      "command": [
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/binaries/mimi-backend-final-bench",
+        "--model",
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/models/phonon-31m-en/model.q8.gguf",
+        "--config",
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/models/phonon-31m-en/config.json",
+        "--voice",
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/models/phonon-31m-en/default-voice.safetensors",
+        "--quant",
+        "q8",
+        "--device",
+        "cpu",
+        "--threads",
+        "4",
+        "--lang",
+        "en",
+        "--seed",
+        "42",
+        "--warmup",
+        "5",
+        "--iters",
+        "10",
+        "--concurrency",
+        "2",
+        "--input",
+        "The quick brown fox jumps over the lazy dog, then naps in the warm afternoon sun.",
+        "--metrics-json",
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/results/mimi-backend-rnd/concurrency2/release-1-baseline.json"
+      ],
+      "rounds": [
+        {
+          "audio_seconds": 10.4,
+          "wall_ms": 104.62408300000001
+        },
+        {
+          "audio_seconds": 10.4,
+          "wall_ms": 111.095917
+        },
+        {
+          "audio_seconds": 10.4,
+          "wall_ms": 106.935084
+        },
+        {
+          "audio_seconds": 10.4,
+          "wall_ms": 109.333584
+        },
+        {
+          "audio_seconds": 10.4,
+          "wall_ms": 116.57783300000001
+        },
+        {
+          "audio_seconds": 10.4,
+          "wall_ms": 112.563417
+        },
+        {
+          "audio_seconds": 10.4,
+          "wall_ms": 111.7175
+        },
+        {
+          "audio_seconds": 10.4,
+          "wall_ms": 104.88033300000001
+        },
+        {
+          "audio_seconds": 10.4,
+          "wall_ms": 106.719958
+        },
+        {
+          "audio_seconds": 10.4,
+          "wall_ms": 109.504709
+        }
+      ]
+    },
+    {
+      "text": "release",
+      "variant": "packed-conv-small",
+      "trial": 1,
+      "command": [
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/binaries/mimi-backend-final-bench",
+        "--model",
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/models/phonon-31m-en/model.q8.gguf",
+        "--config",
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/models/phonon-31m-en/config.json",
+        "--voice",
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/models/phonon-31m-en/default-voice.safetensors",
+        "--quant",
+        "q8",
+        "--device",
+        "cpu",
+        "--threads",
+        "4",
+        "--lang",
+        "en",
+        "--seed",
+        "42",
+        "--warmup",
+        "5",
+        "--iters",
+        "10",
+        "--concurrency",
+        "2",
+        "--input",
+        "The quick brown fox jumps over the lazy dog, then naps in the warm afternoon sun.",
+        "--metrics-json",
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/results/mimi-backend-rnd/concurrency2/release-1-packed-conv-small.json"
+      ],
+      "rounds": [
+        {
+          "audio_seconds": 10.4,
+          "wall_ms": 112.53129200000001
+        },
+        {
+          "audio_seconds": 10.4,
+          "wall_ms": 106.106375
+        },
+        {
+          "audio_seconds": 10.4,
+          "wall_ms": 112.900625
+        },
+        {
+          "audio_seconds": 10.4,
+          "wall_ms": 108.755292
+        },
+        {
+          "audio_seconds": 10.4,
+          "wall_ms": 107.108333
+        },
+        {
+          "audio_seconds": 10.4,
+          "wall_ms": 112.341375
+        },
+        {
+          "audio_seconds": 10.4,
+          "wall_ms": 102.138708
+        },
+        {
+          "audio_seconds": 10.4,
+          "wall_ms": 105.212458
+        },
+        {
+          "audio_seconds": 10.4,
+          "wall_ms": 105.53999999999999
+        },
+        {
+          "audio_seconds": 10.4,
+          "wall_ms": 106.104708
+        }
+      ]
+    },
+    {
+      "text": "release",
+      "variant": "packed",
+      "trial": 1,
+      "command": [
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/binaries/mimi-backend-final-bench",
+        "--model",
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/models/phonon-31m-en/model.q8.gguf",
+        "--config",
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/models/phonon-31m-en/config.json",
+        "--voice",
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/models/phonon-31m-en/default-voice.safetensors",
+        "--quant",
+        "q8",
+        "--device",
+        "cpu",
+        "--threads",
+        "4",
+        "--lang",
+        "en",
+        "--seed",
+        "42",
+        "--warmup",
+        "5",
+        "--iters",
+        "10",
+        "--concurrency",
+        "2",
+        "--input",
+        "The quick brown fox jumps over the lazy dog, then naps in the warm afternoon sun.",
+        "--metrics-json",
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/results/mimi-backend-rnd/concurrency2/release-1-packed.json"
+      ],
+      "rounds": [
+        {
+          "audio_seconds": 10.4,
+          "wall_ms": 111.333167
+        },
+        {
+          "audio_seconds": 10.4,
+          "wall_ms": 109.60329200000001
+        },
+        {
+          "audio_seconds": 10.4,
+          "wall_ms": 125.13874999999999
+        },
+        {
+          "audio_seconds": 10.4,
+          "wall_ms": 115.54025
+        },
+        {
+          "audio_seconds": 10.4,
+          "wall_ms": 111.91199999999999
+        },
+        {
+          "audio_seconds": 10.4,
+          "wall_ms": 112.816667
+        },
+        {
+          "audio_seconds": 10.4,
+          "wall_ms": 108.89241700000001
+        },
+        {
+          "audio_seconds": 10.4,
+          "wall_ms": 101.663875
+        },
+        {
+          "audio_seconds": 10.4,
+          "wall_ms": 108.633041
+        },
+        {
+          "audio_seconds": 10.4,
+          "wall_ms": 107.418
+        }
+      ]
+    },
+    {
+      "text": "release",
+      "variant": "packed-conv-small",
+      "trial": 2,
+      "command": [
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/binaries/mimi-backend-final-bench",
+        "--model",
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/models/phonon-31m-en/model.q8.gguf",
+        "--config",
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/models/phonon-31m-en/config.json",
+        "--voice",
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/models/phonon-31m-en/default-voice.safetensors",
+        "--quant",
+        "q8",
+        "--device",
+        "cpu",
+        "--threads",
+        "4",
+        "--lang",
+        "en",
+        "--seed",
+        "42",
+        "--warmup",
+        "5",
+        "--iters",
+        "10",
+        "--concurrency",
+        "2",
+        "--input",
+        "The quick brown fox jumps over the lazy dog, then naps in the warm afternoon sun.",
+        "--metrics-json",
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/results/mimi-backend-rnd/concurrency2/release-2-packed-conv-small.json"
+      ],
+      "rounds": [
+        {
+          "audio_seconds": 10.4,
+          "wall_ms": 104.11475
+        },
+        {
+          "audio_seconds": 10.4,
+          "wall_ms": 110.424792
+        },
+        {
+          "audio_seconds": 10.4,
+          "wall_ms": 112.288
+        },
+        {
+          "audio_seconds": 10.4,
+          "wall_ms": 130.962208
+        },
+        {
+          "audio_seconds": 10.4,
+          "wall_ms": 131.2055
+        },
+        {
+          "audio_seconds": 10.4,
+          "wall_ms": 112.794375
+        },
+        {
+          "audio_seconds": 10.4,
+          "wall_ms": 106.09825000000001
+        },
+        {
+          "audio_seconds": 10.4,
+          "wall_ms": 111.889708
+        },
+        {
+          "audio_seconds": 10.4,
+          "wall_ms": 112.51641699999999
+        },
+        {
+          "audio_seconds": 10.4,
+          "wall_ms": 112.214625
+        }
+      ]
+    },
+    {
+      "text": "release",
+      "variant": "baseline",
+      "trial": 2,
+      "command": [
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/binaries/mimi-backend-final-bench",
+        "--model",
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/models/phonon-31m-en/model.q8.gguf",
+        "--config",
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/models/phonon-31m-en/config.json",
+        "--voice",
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/models/phonon-31m-en/default-voice.safetensors",
+        "--quant",
+        "q8",
+        "--device",
+        "cpu",
+        "--threads",
+        "4",
+        "--lang",
+        "en",
+        "--seed",
+        "42",
+        "--warmup",
+        "5",
+        "--iters",
+        "10",
+        "--concurrency",
+        "2",
+        "--input",
+        "The quick brown fox jumps over the lazy dog, then naps in the warm afternoon sun.",
+        "--metrics-json",
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/results/mimi-backend-rnd/concurrency2/release-2-baseline.json"
+      ],
+      "rounds": [
+        {
+          "audio_seconds": 10.4,
+          "wall_ms": 104.79575
+        },
+        {
+          "audio_seconds": 10.4,
+          "wall_ms": 116.732959
+        },
+        {
+          "audio_seconds": 10.4,
+          "wall_ms": 110.96737499999999
+        },
+        {
+          "audio_seconds": 10.4,
+          "wall_ms": 104.371459
+        },
+        {
+          "audio_seconds": 10.4,
+          "wall_ms": 108.625709
+        },
+        {
+          "audio_seconds": 10.4,
+          "wall_ms": 114.68124999999999
+        },
+        {
+          "audio_seconds": 10.4,
+          "wall_ms": 107.180208
+        },
+        {
+          "audio_seconds": 10.4,
+          "wall_ms": 105.12358300000001
+        },
+        {
+          "audio_seconds": 10.4,
+          "wall_ms": 108.567041
+        },
+        {
+          "audio_seconds": 10.4,
+          "wall_ms": 106.98558399999999
+        }
+      ]
+    },
+    {
+      "text": "release",
+      "variant": "packed",
+      "trial": 2,
+      "command": [
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/binaries/mimi-backend-final-bench",
+        "--model",
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/models/phonon-31m-en/model.q8.gguf",
+        "--config",
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/models/phonon-31m-en/config.json",
+        "--voice",
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/models/phonon-31m-en/default-voice.safetensors",
+        "--quant",
+        "q8",
+        "--device",
+        "cpu",
+        "--threads",
+        "4",
+        "--lang",
+        "en",
+        "--seed",
+        "42",
+        "--warmup",
+        "5",
+        "--iters",
+        "10",
+        "--concurrency",
+        "2",
+        "--input",
+        "The quick brown fox jumps over the lazy dog, then naps in the warm afternoon sun.",
+        "--metrics-json",
+        "/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/results/mimi-backend-rnd/concurrency2/release-2-packed.json"
+      ],
+      "rounds": [
+        {
+          "audio_seconds": 10.4,
+          "wall_ms": 107.27795800000001
+        },
+        {
+          "audio_seconds": 10.4,
+          "wall_ms": 112.268
+        },
+        {
+          "audio_seconds": 10.4,
+          "wall_ms": 113.44925
+        },
+        {
+          "audio_seconds": 10.4,
+          "wall_ms": 112.36979199999999
+        },
+        {
+          "audio_seconds": 10.4,
+          "wall_ms": 107.38975
+        },
+        {
+          "audio_seconds": 10.4,
+          "wall_ms": 121.521125
+        },
+        {
+          "audio_seconds": 10.4,
+          "wall_ms": 109.08004100000001
+        },
+        {
+          "audio_seconds": 10.4,
+          "wall_ms": 114.046292
+        },
+        {
+          "audio_seconds": 10.4,
+          "wall_ms": 109.052334
+        },
+        {
+          "audio_seconds": 10.4,
+          "wall_ms": 115.987375
+        }
+      ]
+    }
+  ]
+}

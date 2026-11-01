@@ -1,0 +1,186 @@
+   Compiling ptts v0.6.0 (/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/xn-ptts-profiling/ptts)
+    Finished `release` profile [optimized] target(s) in 12.31s
+     Running unittests src/lib.rs (/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/xn-ptts/target/release/deps/ptts-5eb9b6ce806b31a5)
+
+running 108 tests
+test conditioners::tests::sin_embedding_matches_the_reference_formula ... ok
+test flow_lm::tests::a_boxed_rng_forwards_to_its_inner_source ... ok
+test flow_lm::tests::replay_rng_cycles_and_rejects_empty ... ok
+test error::tests::unknown_voice_hands_back_the_names_that_would_have_worked ... ok
+test flow_lm::tests::normal_rng_is_reproducible_from_its_seed ... ok
+test flow_lm::tests::normal_rng_differs_between_seeds ... ok
+test flow_lm::tests::zero_temperature_removes_the_noise ... ok
+test error::tests::an_io_failure_gets_one_class_whichever_layer_caught_it ... ok
+test error::tests::a_classified_error_keeps_its_message_when_flattened ... ok
+test conditioners::tests::no_tokens_embed_to_the_output_width ... ok
+test conditioners::tests::a_token_id_past_the_table_is_an_error ... ok
+test error::tests::the_passthrough_variants_survive_the_round_trip_to_xn ... ok
+test conditioners::tests::conditioner_configs_parse ... ok
+test hub::tests::hub_sources_parse ... ok
+test loader::tests::remap_key_renames_and_drops ... ok
+test conditioners::tests::the_learnt_padding_row_is_not_a_token_id ... ok
+test loader::tests::flow_lm_flow_is_renamed_not_dropped ... ok
+test loader::tests::unused_tensors_are_recognized ... ok
+test mlp::tests::the_config_names_the_time_norms_and_defaults_to_rms_var ... ok
+test loader::tests::voice_emb_loads_from_bytes ... ok
+test mlp::tests::both_time_norms_follow_their_formulas ... ok
+test plan::tests::a_sentence_over_the_limit_stays_one_chunk ... ok
+test plan::tests::chunks_end_sentences_at_the_other_scripts_marks ... ok
+test loader::tests::model_ext_is_read_from_a_header_only_read ... ok
+test plan::tests::chunks_group_whole_sentences_up_to_the_limit ... ok
+test plan::tests::chunks_normalize_the_whole_text_first ... ok
+test plan::tests::each_chunk_is_prepared_and_budgeted_on_its_own ... ok
+test plan::tests::empty_text_is_an_error ... ok
+test loader::tests::voice_emb_is_batched_whatever_its_name ... ok
+test plan::tests::eos_policy_emits_the_eos_frame_plus_the_tail ... ok
+test plan::tests::eos_policy_matches_the_reference_loop ... ok
+test plan::tests::eos_policy_reports_eos ... ok
+test plan::tests::fit_counts_a_comma_inside_closing_quotes ... ok
+test plan::tests::fit_cuts_a_word_that_is_too_long_on_its_own ... ok
+test packed_f32::tests::lowered_convolution_matches_dense_backend_for_strides_and_dilations ... ok
+test plan::tests::fit_cuts_after_the_middle_comma_without_a_full_stop ... ok
+test loader::tests::speaker_wavs_are_transposed_and_projected ... ok
+test plan::tests::fit_keeps_a_word_that_fits_the_models_larger_limit ... ok
+test loader::tests::catalog_files_stay_inside_the_catalog ... ok
+test plan::tests::fit_leaves_chunks_that_fit_alone ... ok
+test plan::tests::fit_keeps_the_words_in_order_and_every_piece_fits ... ok
+test plan::tests::fit_or_error_accepts_a_long_word_between_sentences ... ok
+test plan::tests::fit_passes_over_a_comma_that_would_leave_a_tiny_piece ... ok
+test plan::tests::fit_or_error_bounds_a_long_sentence_before_cache_sizing ... ok
+test plan::tests::fit_prefers_a_sentence_end_to_a_comma ... ok
+test plan::tests::frame_budget_follows_the_frame_rate ... ok
+test plan::tests::frame_budget_matches_the_frontends ... ok
+test plan::tests::max_tokens_for_is_the_largest_chunk_that_fits ... ok
+test plan::tests::seq_budget_covers_tokens_frames_and_headroom ... ok
+test preprocess::rewrite::abbreviations::tests::abbreviations_are_expanded ... ok
+test loader::tests::checkpoint_voices_follow_the_layout ... ok
+test preprocess::rewrite::currency::tests::amounts_are_read_with_their_currency ... ok
+test preprocess::rewrite::dashed_digits::tests::digit_groups_are_read_out ... ok
+test preprocess::rewrite::dates::tests::dates_are_read_out ... ok
+test preprocess::rewrite::elongations::tests::elongated_words_are_shortened ... ok
+test preprocess::rewrite::emails::tests::addresses_are_read_out ... ok
+test preprocess::rewrite::numbers::tests::numbers_are_read_out ... ok
+test preprocess::rewrite::phones::tests::numbers_are_grouped ... ok
+test preprocess::rewrite::tests::helpers ... ok
+test preprocess::rewrite::tests::numbers_win_over_times ... ok
+test preprocess::rewrite::tests::rules_parse_lists_spaces_and_case ... ok
+test preprocess::rewrite::tests::rules_pick_what_runs ... ok
+test preprocess::rewrite::times::tests::times_are_read_out ... ok
+test preprocess::rewrite::tlds::tests::the_table_is_sorted_and_searchable ... ok
+test preprocess::rewrite::urls::tests::addresses_are_read_out ... ok
+test preprocess::tests::a_language_the_model_lacks_is_warned_about ... ok
+test preprocess::tests::apply_follows_the_policy ... ok
+test preprocess::tests::japanese_is_spaced_by_character ... ok
+test preprocess::tests::lang_round_trips_through_str ... ok
+test preprocess::tests::languages_without_rules_get_the_character_pass ... ok
+test preprocess::tests::normalize_parses_and_round_trips ... ok
+test preprocess::tests::normalize_text_cases ... ok
+test seanet::tests::a_compress_outside_1_to_the_width_is_an_error ... ok
+test preprocess::tests::symbols_are_spelled_after_the_rules ... ok
+test synth::tests::a_nonsensical_temperature_is_rejected_as_an_argument ... ok
+test synth::tests::auto_runs_quantized_weights_on_the_cpu ... ok
+test preprocess::tests::spoken_symbols_follow_the_language ... ok
+test synth::tests::a_terminal_stream_error_closes_output_and_joins_workers ... ok
+test synth::tests::each_field_overrides_independently ... ok
+test synth::tests::guidance_at_one_is_normalized_away ... ok
+test synth::tests::dropping_a_stream_unblocks_and_joins_both_workers ... ok
+test synth::tests::the_builder_keeps_the_policy_it_was_given ... ok
+test synth::tests::the_in_flight_guard_clears_on_drop ... ok
+test synth::tests::unset_options_leave_the_defaults_alone ... ok
+test transformer::bad_config_tests::heads_that_do_not_divide_the_width_are_an_error ... ok
+test transformer::bad_config_tests::kv_heads_that_do_not_divide_the_heads_are_an_error ... ok
+test transformer::with_seq_budget_tests::a_budget_smaller_than_the_prefix_is_refused ... ok
+test transformer::with_seq_budget_tests::copies_the_used_prefix_and_zero_fills_the_rest ... ok
+test transformer::grouped_query_tests::grouped_query_attention_is_attention_with_repeated_kv_heads ... ok
+test transformer::with_seq_budget_tests::the_copy_does_not_share_storage_with_the_source ... ok
+test tts_model::tests::config_ignores_keys_it_no_longer_reads ... ok
+test preprocess::tests::sentences_are_rewritten ... ok
+test tts_model::tests::architecture_keys_default_to_the_released_model ... ok
+test tts_model::tests::config_round_trips_and_fills_defaults ... ok
+test tts_model::tests::prefix_sinks_read_phonon_conditioner_names ... ok
+test tts_model::tests::prepare_text_prompt_edge_cases ... ok
+test tts_model::tests::short_text_is_not_padded ... ok
+test tts_model::tests::gelu_defaults_to_erf_except_for_pocket_tts_checkpoints ... ok
+test tok::tests::from_bytes_reads_a_tokenizer_json ... ok
+test voice_catalog::tests::a_missing_catalog_is_not_found ... ok
+test voice_catalog::tests::the_default_catalog_is_a_hub_repo_pinned_to_a_commit ... ok
+test voice_catalog::tests::a_bad_line_is_reported_with_its_number ... ok
+test voice_catalog::tests::a_file_outside_the_catalog_is_refused ... ok
+test voice_catalog::tests::a_catalog_reads_its_voices_and_ignores_unknown_fields ... ok
+test voice_catalog::tests::a_local_voice_file_is_found_beside_the_catalog ... ok
+test voice_catalog::tests::names_match_in_any_case_and_without_accents ... ok
+test voice_catalog::tests::voice_ids_match_exactly ... ok
+test transformer::prefill_tests::discarded_outputs_do_not_affect_mha_or_gqa_state_or_later_tokens ... ok
+
+test result: ok. 108 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+     Running tests/checkpoint.rs (/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/xn-ptts/target/release/deps/checkpoint-3689bfd7e182d921)
+
+running 13 tests
+test private_checkpoint_synthesizes_through_the_public_api ... ignored, requires PTTS_TEST_MODEL pointing to a q8 checkpoint
+test the_default_model_is_a_hub_repo_pinned_to_a_commit ... ok
+test hub_voice_paths_use_the_checkpoint_names_and_directory_precedence ... ok
+test legacy_sources_keep_their_meaning ... ok
+test only_hf_sources_are_hub_repos ... ok
+test malformed_configs_fail_without_a_fallback ... ok
+test only_tokenizer_json_is_selected ... ok
+test nonstandard_weights_require_an_explicit_path ... ok
+test a_directory_and_its_config_resolve_identically ... ok
+test symlinked_configs_keep_the_snapshot_directory ... ok
+test a_voice_catalog_adds_to_the_checkpoint_voices ... ok
+test checkpoints_require_their_own_config ... ok
+test voice_precedence_is_identical_for_all_callers ... ok
+
+test result: ok. 12 passed; 0 failed; 1 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+     Running tests/mimi_split_checkpoint.rs (/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/xn-ptts/target/release/deps/mimi_split_checkpoint-2cd4efbe7bb04e6f)
+
+running 2 tests
+test cancelling_after_the_first_piece_does_not_emit_the_remainder ... ignored, requires PTTS_TEST_MODEL
+test splitting_first_frame_preserves_pcm_and_later_streaming_state ... ignored, requires PTTS_TEST_MODEL; also run with PTTS_EXPERIMENT_PACKED_MIMI=1
+
+test result: ok. 0 passed; 0 failed; 2 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/prefill_checkpoint.rs (/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/xn-ptts/target/release/deps/prefill_checkpoint-7fe8f193415c19b6)
+
+running 1 test
+test cache_only_prefill_preserves_every_layer_and_subsequent_decode_exactly ... ignored, requires PTTS_TEST_MODEL with local Phonon q8 weights; no download
+
+test result: ok. 0 passed; 0 failed; 1 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/synth_api.rs (/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/xn-ptts/target/release/deps/synth_api-e7e111b792e08402)
+
+running 16 tests
+test a_frontend_on_xn_result_still_compiles ... ok
+test auto_resolves_to_something_concrete ... ok
+test explicit_device_survives_resolution ... ok
+test preflight_accepts_compiled_backends_without_initializing_them ... ok
+test the_types_the_frontends_move_between_threads_still_can ... ok
+test quant_parses_every_spelling_the_clis_accept ... ok
+test quant_round_trips_through_its_canonical_name ... ok
+test session_is_part_of_the_public_api ... ok
+test speech_options_build_up_fluently ... ok
+test speech_options_default_to_the_builders_settings ... ok
+test unknown_quant_lists_the_valid_ones ... ok
+test device_parses_and_rejects_unknown_names ... ok
+test quantization_on_a_gpu_is_rejected_before_the_weights_are_touched ... ok
+test missing_weights_are_a_not_found_naming_the_path ... ok
+test unavailable_f32_backends_fail_before_reading_model_files ... ok
+test a_load_without_a_tokenizer_says_how_to_supply_one ... ok
+
+test result: ok. 16 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Doc-tests ptts
+
+running 7 tests
+test ptts/src/synth.rs - synth (line 9) - compile ... ok
+test ptts/src/lib.rs - (line 11) - compile ... ok
+test ptts/src/synth.rs - synth::SynthApi::session_default (line 1968) - compile ... ok
+test ptts/src/synth.rs - synth (line 33) - compile ... ok
+test ptts/src/synth.rs - synth::SynthApi::session (line 1980) - compile ... ok
+test ptts/src/synth.rs - synth::SynthBuilder::new (line 1509) - compile ... ok
+test ptts/src/error.rs - error (line 13) ... ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+all doctests ran in 0.73s; merged doctests compilation took 0.41s

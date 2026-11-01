@@ -1,0 +1,7 @@
+    Updating git repository `https://github.com/rudrakshkarpe/xn.git`
+     Locking 1 package to latest Rust 1.92.0 compatible version
+      Adding xn v0.2.13 (https://github.com/rudrakshkarpe/xn.git?rev=7363979dd2c8ff1c0beb3a023bd176901872922f#7363979d)
+   Compiling xn v0.2.13 (https://github.com/rudrakshkarpe/xn.git?rev=7363979dd2c8ff1c0beb3a023bd176901872922f#7363979d)
+   Compiling ptts-coreml v0.6.0 (/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/xn-ptts-profiling/ptts-coreml)
+   Compiling ptts v0.6.0 (/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/xn-ptts-profiling/ptts)
+    Finished `release` profile [optimized] target(s) in 16.17s

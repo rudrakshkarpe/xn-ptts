@@ -1,0 +1,27 @@
+{
+  "phonon_base": "52aad0c69b86df8a14452908b43fa7948e4457e0",
+  "implementation": "c23e36f7c71ae5b90a551539cf33f33716b01e33",
+  "xn_base": "4242d4445ffafd8ed77380d30890db057102cb0c",
+  "xn_pinned": "7363979dd2c8ff1c0beb3a023bd176901872922f",
+  "machine": "Apple M4 Pro, 12 logical CPUs, 24 GiB, macOS 27.0.1",
+  "rust": "1.92.0",
+  "features": [
+    "hf",
+    "accelerate",
+    "kai"
+  ],
+  "rustflags": [
+    "-C",
+    "target-cpu=native"
+  ],
+  "model_revision": "92741c5b07d085ff840e26fea8ce43110b87852f",
+  "model_sha256": "a7d9aad2cd6dc66473f24a08bc6d2939030ef4d751ef82349361fbef3272dbae",
+  "final_measured_requests": 1080,
+  "final_warmups": 360,
+  "intermediate_measured_requests": 1260,
+  "intermediate_warmups": 450,
+  "diagnostic_requests": 240,
+  "diagnostic_warmups": 10,
+  "exploratory_smoke_requests": 48,
+  "note": "All timing and diagnostic cohorts retained, including individual slow requests. Intermediate cohorts precede direct output-buffer initialization; final cohorts use the pinned backend and final adapter. Flags off is the same-binary baseline; earlier prefill optimization is present in both. No splitting, tracing, audio capture or runtime diagnostics in final timing cohorts."
+}

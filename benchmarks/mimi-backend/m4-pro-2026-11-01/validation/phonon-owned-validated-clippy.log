@@ -1,0 +1,4 @@
+   Compiling xn v0.2.13 (https://github.com/rudrakshkarpe/xn.git?rev=7363979dd2c8ff1c0beb3a023bd176901872922f#7363979d)
+    Checking ptts-coreml v0.6.0 (/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/xn-ptts-profiling/ptts-coreml)
+    Checking ptts v0.6.0 (/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/xn-ptts-profiling/ptts)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 4.76s

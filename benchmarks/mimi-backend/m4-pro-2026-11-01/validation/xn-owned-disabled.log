@@ -1,0 +1,8 @@
+    Finished `release` profile [optimized + debuginfo] target(s) in 0.32s
+     Running tests/packed_f32_tests.rs (/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/xn-backend-target/release/deps/packed_f32_tests-4d4260c78d6f016e)
+
+running 2 tests
+test rejects_invalid_dimensions_before_native_access ... ok
+test snapshot_bias_tail_rows_and_concurrent_workspaces ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s

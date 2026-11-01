@@ -1,0 +1,13 @@
+    Checking xn-gemm-common v0.20.2
+   Compiling xn v0.2.13 (https://github.com/rudrakshkarpe/xn.git?rev=7363979dd2c8ff1c0beb3a023bd176901872922f#7363979d)
+    Checking log v0.4.29
+    Checking tokenizers v0.23.1
+    Checking xn-gemm-f32 v0.20.2
+    Checking xn-gemm-c32 v0.20.2
+    Checking xn-gemm-c64 v0.20.2
+    Checking xn-gemm-f64 v0.20.2
+    Checking xn-gemm-f16 v0.20.2
+    Checking xn-gemm v0.20.2
+    Checking ptts v0.6.0 (/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/xn-ptts-profiling/ptts)
+    Checking ptts-text v0.1.0 (/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/xn-ptts-profiling/qnn/text-ffi)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 3.10s
