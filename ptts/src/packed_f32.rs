@@ -1,255 +1,208 @@
-//! Opt-in research prototype: model-owned packed f32 weights for Mimi.
-//! Original weights remain available for the baseline, so packing adds memory.
-#[cfg(all(target_os = "macos", target_arch = "aarch64", feature = "kai"))]
-mod native {
-    use std::ffi::c_void;
-    unsafe extern "C" {
-        fn kai_get_mr_matmul_clamp_f32_f32p2vlx1_f32p2vlx1biasf32_sme2_mopa() -> usize;
-        fn kai_get_nr_matmul_clamp_f32_f32p2vlx1_f32p2vlx1biasf32_sme2_mopa() -> usize;
-        fn kai_get_kr_matmul_clamp_f32_f32p2vlx1_f32p2vlx1biasf32_sme2_mopa() -> usize;
-        fn kai_get_sr_matmul_clamp_f32_f32p2vlx1_f32p2vlx1biasf32_sme2_mopa() -> usize;
-        fn kai_get_lhs_packed_size_lhs_pack_f32p2vlx1_f32_sme(
-            m: usize,
-            k: usize,
-            mr: usize,
-            kr: usize,
-            sr: usize,
-        ) -> usize;
-        fn kai_get_rhs_packed_size_rhs_pack_nxk_f32p2vlx1biasf32_f32_f32_sme(
-            n: usize,
-            k: usize,
-        ) -> usize;
-        fn kai_run_lhs_pack_f32p2vlx1_f32_sme(
-            m: usize,
-            k: usize,
-            mr: usize,
-            kr: usize,
-            sr: usize,
-            start: usize,
-            x: *const c_void,
-            stride: usize,
-            packed: *mut c_void,
-        );
-        fn kai_run_rhs_pack_nxk_f32p2vlx1biasf32_f32_f32_sme(
-            groups: usize,
-            n: usize,
-            k: usize,
-            nr: usize,
-            kr: usize,
-            sr: usize,
-            stride: usize,
-            w: *const c_void,
-            bias: *const c_void,
-            scale: *const c_void,
-            packed: *mut c_void,
-            extra: usize,
-            params: *const c_void,
-        );
-        fn kai_run_matmul_clamp_f32_f32p2vlx1_f32p2vlx1biasf32_sme2_mopa(
-            m: usize,
-            n: usize,
-            k: usize,
-            x: *const c_void,
-            w: *const c_void,
-            out: *mut c_void,
-            row_stride: usize,
-            col_stride: usize,
-            lo: f32,
-            hi: f32,
-        );
+//! Opt-in adapters to xn's explicit, model-owned packed f32 CPU operator.
+use std::any::{Any, TypeId};
+use std::cell::RefCell;
+use xn::cpu_backend::packed::{PackedF32 as Matrix, PackedF32Scratch};
 
-    }
+#[derive(Default)]
+struct Workspace {
+    pack: PackedF32Scratch,
+    lowered: Vec<f32>,
+    product: Vec<f32>,
+}
 
-    pub(crate) struct PackedF32 {
-        weights: Vec<f32>,
-        n: usize,
-        k: usize,
-        mr: usize,
-        kr: usize,
-        sr: usize,
-    }
-    impl PackedF32 {
-        pub(crate) fn load<Q: xn::BackendQ>(
-            vb: &xn::nn::var_builder::Path<Q::B>,
-            n: usize,
-            k: usize,
-        ) -> xn::Result<Option<Box<Self>>> {
-            if std::env::var("PTTS_EXPERIMENT_PACKED_MIMI").as_deref() != Ok("1")
-                || std::any::TypeId::of::<Q>()
-                    != std::any::TypeId::of::<xn::Unquantized<f32, xn::CpuDevice>>()
-                || !xn::quantized::kai::active()
-            {
-                return Ok(None);
-            }
-            let w: xn::Tensor<f32, Q::B> = vb.tensor("weight", (n, k))?;
-            let w = w.to_vec()?;
-            Ok(Some(Box::new(Self::pack(&w, n, k)?)))
-        }
-
-        fn pack(w: &[f32], n: usize, k: usize) -> xn::Result<Self> {
-            if n == 0
-                || k == 0
-                || n.checked_mul(k) != Some(w.len())
-                || !xn::quantized::kai::active()
-            {
-                xn::bail!("invalid packed f32 weights or unsupported CPU");
-            }
-            let bias = vec![0f32; n];
-            // SAFETY: the runtime CPU check above guarantees SME2. Dimensions match the
-            // source allocation; the packer's own size query bounds its output buffer.
-            unsafe {
-                let mr = kai_get_mr_matmul_clamp_f32_f32p2vlx1_f32p2vlx1biasf32_sme2_mopa();
-                let nr = kai_get_nr_matmul_clamp_f32_f32p2vlx1_f32p2vlx1biasf32_sme2_mopa();
-                let kr = kai_get_kr_matmul_clamp_f32_f32p2vlx1_f32p2vlx1biasf32_sme2_mopa();
-                let sr = kai_get_sr_matmul_clamp_f32_f32p2vlx1_f32p2vlx1biasf32_sme2_mopa();
-                let bytes = kai_get_rhs_packed_size_rhs_pack_nxk_f32p2vlx1biasf32_f32_f32_sme(n, k);
-                let mut weights = vec![0f32; bytes.div_ceil(4)];
-                kai_run_rhs_pack_nxk_f32p2vlx1biasf32_f32_f32_sme(
-                    1,
-                    n,
-                    k,
-                    nr,
-                    kr,
-                    sr,
-                    k * 4,
-                    w.as_ptr().cast(),
-                    bias.as_ptr().cast(),
-                    std::ptr::null(),
-                    weights.as_mut_ptr().cast(),
-                    0,
-                    std::ptr::null(),
-                );
-                eprintln!(
-                    "experimental packed Mimi matrix: n={n} k={k} bytes={}",
-                    weights.len() * 4
-                );
-                Ok(Self { weights, n, k, mr, kr, sr })
-            }
-        }
-        #[tracing::instrument(level="trace",target="ptts_profile",name="packed_mimi_linear",skip_all,fields(n=self.n,k=self.k))]
-        pub(crate) fn forward<T: xn::WithDTypeF, B: xn::Backend>(
-            &self,
-            x: &xn::Tensor<T, B>,
-        ) -> xn::Result<xn::Tensor<T, B>> {
-            if std::any::TypeId::of::<T>() != std::any::TypeId::of::<f32>()
-                || std::any::TypeId::of::<B>() != std::any::TypeId::of::<xn::CpuDevice>()
-                || x.dims().last().copied() != Some(self.k)
-            {
-                xn::bail!("incompatible packed f32 input");
-            }
-            let input: Vec<f32> = x.to_vec()?.into_iter().map(|v| v.to_f32()).collect();
-            let m = input.len() / self.k;
-            let mut out = vec![0f32; m * self.n];
-            if m != 0 {
-                // SAFETY: only validated CPU f32 tensors reach here. Input/output sizes are
-                // derived from their dimensions; immutable packed weights have model lifetime.
-                // Scratch is request-local, so concurrent calls share no mutable buffers.
-                unsafe {
-                    let bytes = kai_get_lhs_packed_size_lhs_pack_f32p2vlx1_f32_sme(
-                        m, self.k, self.mr, self.kr, self.sr,
-                    );
-                    let mut scratch = vec![0f32; bytes.div_ceil(4)];
-                    kai_run_lhs_pack_f32p2vlx1_f32_sme(
-                        m,
-                        self.k,
-                        self.mr,
-                        self.kr,
-                        self.sr,
-                        0,
-                        input.as_ptr().cast(),
-                        self.k * 4,
-                        scratch.as_mut_ptr().cast(),
-                    );
-                    kai_run_matmul_clamp_f32_f32p2vlx1_f32p2vlx1biasf32_sme2_mopa(
-                        m,
-                        self.n,
-                        self.k,
-                        scratch.as_ptr().cast(),
-                        self.weights.as_ptr().cast(),
-                        out.as_mut_ptr().cast(),
-                        self.n * 4,
-                        4,
-                        f32::NAN,
-                        f32::NAN,
-                    );
-                }
-            }
-            let mut shape = x.dims().to_vec();
-            *shape.last_mut().expect("validated input rank") = self.n;
-            xn::Tensor::from_vec(out.into_iter().map(T::from_f32).collect(), shape, x.device())
-        }
-    }
-
-    #[cfg(test)]
-    mod tests {
-        use super::PackedF32;
-        use xn::{CpuDevice, Tensor};
-
-        #[test]
-        fn packed_tail_shapes_and_concurrent_calls_match_scalar_reference() -> xn::Result<()> {
-            if !xn::quantized::kai::active() {
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use xn::{CpuDevice, Tensor};
+    #[test]
+    fn lowered_convolution_matches_dense_backend_for_strides_and_dilations() -> xn::Result<()> {
+        for (batch, channels, n, length, kernel, stride, dilation) in [
+            (1, 3, 35, 23, 7, 1, 1),
+            (2, 5, 37, 31, 3, 2, 2),
+            (1, 3, 33, 1, 1, 1, 1),
+            (2, 7, 32, 17, 1, 2, 1),
+        ] {
+            let weight = Tensor::from_vec(
+                (0..n * channels * kernel).map(|i| (i as f32 * 0.13).sin() * 0.1).collect(),
+                (n, channels, kernel),
+                &CpuDevice,
+            )?;
+            let Some(packed) = PackedF32::from_weight(&weight, n, channels * kernel)? else {
                 return Ok(());
+            };
+            let input = Tensor::from_vec(
+                (0..batch * channels * length).map(|i| (i as f32 * 0.07).cos()).collect(),
+                (batch, channels, length),
+                &CpuDevice,
+            )?;
+            let expected = input.conv1d(&weight, None, stride, 0, dilation, 1)?;
+            let actual = packed.conv1d(&input, kernel, stride, dilation)?;
+            assert_eq!(expected.dims(), actual.dims());
+            for (a, b) in expected.to_vec()?.into_iter().zip(actual.to_vec()?) {
+                assert!(b.is_finite() && (a - b).abs() < 1e-5, "{a} != {b}");
             }
-            // Odd dimensions exercise packer padding; rank-three inputs exercise flattening.
-            let (n, k) = (19, 37);
-            let weights: Vec<f32> = (0..n * k).map(|i| (i as f32 * 0.13).sin() * 0.2).collect();
-            let packed = PackedF32::pack(&weights, n, k)?;
-            std::thread::scope(|scope| {
-                let handles: Vec<_> = [1, 2, 3, 8, 17]
-                    .into_iter()
-                    .map(|rows| {
-                        let packed = &packed;
-                        let weights = &weights;
-                        scope.spawn(move || -> xn::Result<()> {
-                            let input: Vec<f32> =
-                                (0..rows * k).map(|i| (i as f32 * 0.07).cos()).collect();
-                            let tensor = Tensor::from_vec(input.clone(), (1, rows, k), &CpuDevice)?;
-                            let actual = packed.forward(&tensor)?;
-                            assert_eq!(actual.dims(), &[1, rows, n]);
-                            for (index, value) in actual.to_vec()?.iter().enumerate() {
-                                let (r, c) = (index / n, index % n);
-                                let expected: f32 =
-                                    (0..k).map(|j| input[r * k + j] * weights[c * k + j]).sum();
-                                assert!(
-                                    value.is_finite() && (value - expected).abs() < 1e-5,
-                                    "row={r} col={c}"
-                                );
-                            }
-                            Ok(())
-                        })
-                    })
-                    .collect();
-                for handle in handles {
-                    handle.join().unwrap()?;
-                }
-                xn::Result::Ok(())
-            })?;
-            let empty = Tensor::<f32, _>::zeros((1, 0, k), &CpuDevice)?;
-            assert_eq!(packed.forward(&empty)?.dims(), &[1, 0, n]);
-            assert!(packed.forward(&Tensor::<f32, _>::zeros((2, k + 1), &CpuDevice)?).is_err());
-            assert!(PackedF32::pack(&[], 0, k).is_err());
-            Ok(())
         }
+        Ok(())
     }
 }
-#[cfg(all(target_os = "macos", target_arch = "aarch64", feature = "kai"))]
-pub(crate) use native::PackedF32;
+thread_local! { static WORK: RefCell<Workspace> = RefCell::new(Workspace::default()); }
 
-#[cfg(not(all(target_os = "macos", target_arch = "aarch64", feature = "kai")))]
-pub(crate) struct PackedF32;
-#[cfg(not(all(target_os = "macos", target_arch = "aarch64", feature = "kai")))]
+pub(crate) struct PackedF32 {
+    matrix: Matrix,
+    n: usize,
+    k: usize,
+}
+
 impl PackedF32 {
     pub(crate) fn load<Q: xn::BackendQ>(
-        _: &xn::nn::var_builder::Path<Q::B>,
-        _: usize,
-        _: usize,
+        vb: &xn::nn::var_builder::Path<Q::B>,
+        n: usize,
+        k: usize,
     ) -> xn::Result<Option<Box<Self>>> {
-        Ok(None)
+        if std::env::var("PTTS_EXPERIMENT_PACKED_MIMI").as_deref() != Ok("1")
+            || TypeId::of::<Q>() != TypeId::of::<xn::Unquantized<f32, xn::CpuDevice>>()
+        {
+            return Ok(None);
+        }
+        let weights: xn::Tensor<f32, Q::B> = vb.tensor("weight", (n, k))?;
+        Self::from_weight(&weights, n, k)
     }
+
+    pub(crate) fn from_weight<T: xn::WithDTypeF, B: xn::Backend>(
+        weight: &xn::Tensor<T, B>,
+        n: usize,
+        k: usize,
+    ) -> xn::Result<Option<Box<Self>>> {
+        if TypeId::of::<T>() != TypeId::of::<f32>()
+            || TypeId::of::<B>() != TypeId::of::<xn::CpuDevice>()
+        {
+            return Ok(None);
+        }
+        let storage = weight.storage()?;
+        let values = (&*storage as &dyn Any)
+            .downcast_ref::<Vec<f32>>()
+            .ok_or_else(|| xn::Error::msg("expected CPU f32 weights"))?;
+        let matrix = match Matrix::try_new(&values[..weight.elem_count()], n, k, None)? {
+            Some(m) => m,
+            None => return Ok(None),
+        };
+        eprintln!("experimental packed matrix: n={n} k={k} bytes={}", matrix.packed_bytes());
+        Ok(Some(Box::new(Self { matrix, n, k })))
+    }
+
+    #[tracing::instrument(level="trace",target="ptts_profile",name="packed_mimi_linear",skip_all,fields(n=self.n,k=self.k))]
     pub(crate) fn forward<T: xn::WithDTypeF, B: xn::Backend>(
         &self,
-        _: &xn::Tensor<T, B>,
+        x: &xn::Tensor<T, B>,
     ) -> xn::Result<xn::Tensor<T, B>> {
-        xn::bail!("SME2 experiment is unavailable")
+        if TypeId::of::<T>() != TypeId::of::<f32>()
+            || TypeId::of::<B>() != TypeId::of::<xn::CpuDevice>()
+            || x.dims().last().copied() != Some(self.k)
+        {
+            xn::bail!("incompatible packed input");
+        }
+        let m = x.elem_count() / self.k;
+        let mut shape = x.dims().to_vec();
+        *shape.last_mut().unwrap() = self.n;
+        let len =
+            m.checked_mul(self.n).ok_or_else(|| xn::Error::msg("packed output size overflow"))?;
+        // CPU-only adapter: initialize directly rather than dispatching a tensor fill
+        // to the shared worker pool just before the matrix kernel overwrites it.
+        let output = xn::Tensor::from_vec(vec![T::zero(); len], shape, x.device())?;
+        {
+            let input = x.storage()?;
+            let input = (&*input as &dyn Any)
+                .downcast_ref::<Vec<f32>>()
+                .ok_or_else(|| xn::Error::msg("expected CPU f32 input"))?;
+            let mut dst = output.storage_mut()?;
+            let dst = (&mut *dst as &mut dyn Any)
+                .downcast_mut::<Vec<f32>>()
+                .ok_or_else(|| xn::Error::msg("expected CPU f32 output"))?;
+            WORK.with_borrow_mut(|w| {
+                self.matrix.matmul(&input[..x.elem_count()], m, &mut dst[..m * self.n], &mut w.pack)
+            })?;
+        }
+        Ok(output)
+    }
+
+    /// Research im2row path for a dense, unpadded, single-group NCL convolution.
+    pub(crate) fn conv1d<T: xn::WithDTypeF, B: xn::Backend>(
+        &self,
+        x: &xn::Tensor<T, B>,
+        kernel: usize,
+        stride: usize,
+        dilation: usize,
+    ) -> xn::Result<xn::Tensor<T, B>> {
+        if TypeId::of::<T>() != TypeId::of::<f32>()
+            || TypeId::of::<B>() != TypeId::of::<xn::CpuDevice>()
+        {
+            xn::bail!("incompatible packed convolution input");
+        }
+        let (batch, channels, length) = x.dims3()?;
+        if stride == 0
+            || dilation == 0
+            || kernel == 0
+            || channels.checked_mul(kernel) != Some(self.k)
+        {
+            xn::bail!("invalid packed convolution dimensions");
+        }
+        let effective = (kernel - 1)
+            .checked_mul(dilation)
+            .and_then(|v| v.checked_add(1))
+            .ok_or_else(|| xn::Error::msg("convolution extent overflow"))?;
+        if length < effective {
+            xn::bail!("convolution input is shorter than its kernel");
+        }
+        let width = (length - effective) / stride + 1;
+        let rows =
+            batch.checked_mul(width).ok_or_else(|| xn::Error::msg("convolution size overflow"))?;
+        let lower_len =
+            rows.checked_mul(self.k).ok_or_else(|| xn::Error::msg("convolution size overflow"))?;
+        let product_len =
+            rows.checked_mul(self.n).ok_or_else(|| xn::Error::msg("convolution size overflow"))?;
+        let output =
+            xn::Tensor::from_vec(vec![T::zero(); product_len], (batch, self.n, width), x.device())?;
+        {
+            let storage = x.storage()?;
+            let input = (&*storage as &dyn Any)
+                .downcast_ref::<Vec<f32>>()
+                .ok_or_else(|| xn::Error::msg("expected CPU f32 input"))?;
+            let mut dst = output.storage_mut()?;
+            let dst = (&mut *dst as &mut dyn Any)
+                .downcast_mut::<Vec<f32>>()
+                .ok_or_else(|| xn::Error::msg("expected CPU f32 output"))?;
+            WORK.with_borrow_mut(|w| -> xn::Result<()> {
+                tracing::trace_span!(target:"ptts_profile","packed_conv_lower").in_scope(|| {
+                    w.lowered.resize(lower_len, 0.);
+                    for b in 0..batch {
+                        for t in 0..width {
+                            for c in 0..channels {
+                                let src = (b * channels + c) * length + t * stride;
+                                let dest = ((b * width + t) * channels + c) * kernel;
+                                for tap in 0..kernel {
+                                    w.lowered[dest + tap] = input[src + tap * dilation];
+                                }
+                            }
+                        }
+                    }
+                });
+                w.product.resize(product_len, 0.);
+                tracing::trace_span!(target:"ptts_profile","packed_conv_gemm").in_scope(|| {
+                    self.matrix.matmul(&w.lowered, rows, &mut w.product, &mut w.pack)
+                })?;
+                tracing::trace_span!(target:"ptts_profile","packed_conv_output").in_scope(|| {
+                    for b in 0..batch {
+                        for c in 0..self.n {
+                            for t in 0..width {
+                                dst[(b * self.n + c) * width + t] =
+                                    w.product[(b * width + t) * self.n + c];
+                            }
+                        }
+                    }
+                });
+                Ok(())
+            })?;
+        }
+        Ok(output)
     }
 }
