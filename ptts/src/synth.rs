@@ -360,6 +360,7 @@ struct Primed<Q: BackendQ> {
 
 impl<Q: BackendQ> SynthOf<Q> {
     /// Build a session, sized to `seq_budget`.
+    #[tracing::instrument(target = "ptts_profile", name = "session_setup", skip_all)]
     fn session_at(&self, settings: &Defaults, seq_budget: usize) -> Result<SessionOf<Q>> {
         let (base, cfg_base) =
             self.primed_state(settings.voice.as_deref(), seq_budget, settings.cfg_coef)?;
@@ -778,6 +779,7 @@ impl<Q: BackendQ> SynthApi for SynthOf<Q> {
 }
 
 /// A fresh, independently-owned state at `seq_budget`, seeded with `prefix`'s filled positions.
+#[tracing::instrument(target = "ptts_profile", name = "kv_allocate_and_copy", skip_all)]
 fn grow<Q: BackendQ>(prefix: &TTSState<Q>, seq_budget: usize) -> Result<TTSState<Q>> {
     let transformer_state = prefix.flow_lm_state.transformer_state.with_seq_budget(seq_budget)?;
     let conditions = prefix.flow_lm_state.conditions.clone();
@@ -790,6 +792,7 @@ fn grow<Q: BackendQ>(prefix: &TTSState<Q>, seq_budget: usize) -> Result<TTSState
 /// Free rather than a method because both [`Synth`] and [`Session`] need
 /// it, and it depends only on the tokenizer inside the model and the codec's
 /// frame rate.
+#[tracing::instrument(target = "ptts_profile", name = "normalize_tokenize_plan", skip_all)]
 fn plan_chunks<Q: BackendQ>(
     model: &TTSModel<Q>,
     frame_rate: f64,
@@ -983,7 +986,12 @@ impl<Q: BackendQ> SessionOf<Q> {
                     };
                     let pcm = decode_model
                         .decode_latent(&latent, &mut state)
-                        .and_then(|audio| audio.narrow(0, ..1)?.contiguous()?.to_vec())
+                        .and_then(|audio| {
+                            let _span =
+                                tracing::info_span!(target: "ptts_profile", "audio_readback")
+                                    .entered();
+                            audio.narrow(0, ..1)?.contiguous()?.to_vec()
+                        })
                         .map(|mut pcm| {
                             post.process(&mut pcm);
                             let n = skip.min(pcm.len());
@@ -1242,7 +1250,11 @@ fn run_inline<Q: BackendQ>(
             };
             let pcm = model
                 .decode_latent(&next, &mut mimi_state)
-                .and_then(|audio| audio.narrow(0, ..1)?.contiguous()?.to_vec())
+                .and_then(|audio| {
+                    let _span =
+                        tracing::info_span!(target: "ptts_profile", "audio_readback").entered();
+                    audio.narrow(0, ..1)?.contiguous()?.to_vec()
+                })
                 .map(|mut pcm| {
                     post.process(&mut pcm);
                     let n = skip.min(pcm.len());

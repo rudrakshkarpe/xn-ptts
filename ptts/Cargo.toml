@@ -37,6 +37,7 @@ libc = { workspace = true, optional = true }
 anyhow = { workspace = true }
 clap = { workspace = true }
 half = { workspace = true }
+tracing-chrome = { workspace = true }
 tracing-subscriber = { workspace = true }
 # For the `export_coreml` example: the Core ML graph builder, the safetensors it writes, and
 # hashing the files it writes.

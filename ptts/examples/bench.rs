@@ -52,6 +52,18 @@ struct Args {
     #[arg(long, default_value_t = false)]
     cpu: bool,
 
+    /// Require this backend. Explicit CUDA fails instead of silently falling back to CPU.
+    #[arg(long, conflicts_with_all = ["cpu", "breakdown"])]
+    device: Option<DeviceKind>,
+
+    /// Write a host-side Chrome trace. Instrumented timings are diagnostic, not benchmarks.
+    #[arg(long, conflicts_with = "breakdown")]
+    trace_json: Option<std::path::PathBuf>,
+
+    /// Save the last iteration as little-endian float32 PCM, outside the timed region.
+    #[arg(long, conflicts_with = "breakdown")]
+    pcm_output: Option<std::path::PathBuf>,
+
     /// Number of CPU threads for tensor ops.
     #[arg(long)]
     threads: Option<usize>,
@@ -127,15 +139,26 @@ fn one_synth(tts: &Synth, opts: &SpeechOptions, args: &Args) -> Result<Run> {
     let start = Instant::now();
     let mut ttfa = None;
     let mut samples = 0usize;
+    let mut recorded = args.pcm_output.as_ref().map(|_| Vec::new());
     for pcm in tts.stream_with(&args.input, opts)? {
         let pcm = pcm?;
         if !pcm.is_empty() {
+            if ttfa.is_none() {
+                tracing::info!(target: "ptts_profile", samples = pcm.len(), "first_audio_received");
+            }
             ttfa.get_or_insert_with(|| start.elapsed());
             samples += pcm.len();
+            if let Some(recorded) = &mut recorded {
+                recorded.extend_from_slice(&pcm);
+            }
         }
     }
     let total = start.elapsed();
     let ttfa = ttfa.context("no audio produced")?;
+    if let (Some(path), Some(recorded)) = (&args.pcm_output, recorded) {
+        let bytes: Vec<u8> = recorded.iter().flat_map(|v| v.to_le_bytes()).collect();
+        std::fs::write(path, bytes)?;
+    }
     let frame_samples = tts.sample_rate() as f64 / tts.config().mimi.frame_rate;
     let nframes = (samples as f64 / frame_samples).round() as usize;
     Ok(Run { ttfa, frames: vec![], sample_t: vec![], decode_t: vec![], nframes, total, samples })
@@ -337,11 +360,13 @@ impl Bench<'_> {
 
 /// Runs `--warmup` unmeasured iterations, then `--iters` measured ones.
 fn measure(args: &Args, mut one: impl FnMut() -> Result<Run>) -> Result<Vec<Run>> {
-    for _ in 0..args.warmup {
+    for i in 0..args.warmup {
+        let _span = tracing::info_span!(target: "ptts_profile", "warmup", iteration = i).entered();
         one()?;
     }
     let mut runs = Vec::with_capacity(args.iters);
     for i in 0..args.iters {
+        let _span = tracing::info_span!(target: "ptts_profile", "request", iteration = i).entered();
         let r = one()?;
         if args.per_iter {
             println!(
@@ -428,7 +453,9 @@ fn bench_synth(args: &Args, normalize: Normalize, quant: Quant) -> Result<()> {
     let t_load = Instant::now();
     // Quantized weights run only on the CPU, so a GPU build picks it for them, as `--breakdown`
     // does, rather than failing to build.
-    let device = if args.cpu || quant != Quant::F32 { DeviceKind::Cpu } else { DeviceKind::Auto };
+    let device = args.device.unwrap_or_else(|| {
+        if args.cpu || quant != Quant::F32 { DeviceKind::Cpu } else { DeviceKind::Auto }
+    });
     let mut builder = SynthBuilder::new(cfg, &args.model, normalize)
         .tokenizer_file(tokenizer_path)
         .device(device)
@@ -444,6 +471,7 @@ fn bench_synth(args: &Args, normalize: Normalize, quant: Quant) -> Result<()> {
         builder = builder.add_voice(&voice, &args.voice);
     }
     let tts = builder.build()?;
+    eprintln!("backend: {}; weight format: {:?}", tts.device_name(), quant);
     let load_ms = ms(t_load.elapsed());
 
     // `Synth` conditions on a voice the first time it speaks in it and keeps the result, as a
@@ -463,6 +491,19 @@ fn main() -> Result<()> {
     use std::str::FromStr;
 
     let args = Args::parse();
+    let _trace_guard = if let Some(path) = &args.trace_json {
+        use tracing_subscriber::prelude::*;
+        let (layer, guard) =
+            tracing_chrome::ChromeLayerBuilder::new().file(path).include_args(true).build();
+        tracing_subscriber::registry()
+            .with(layer)
+            .with(tracing_subscriber::EnvFilter::new("ptts_profile=trace"))
+            .try_init()?;
+        eprintln!("diagnostic host trace enabled: do not use these timings as performance results");
+        Some(guard)
+    } else {
+        None
+    };
     // Parsed before the weights are read, so a bad --lang does not cost a model load.
     let normalize = args.lang.parse::<Normalize>()?.with_rules(args.rewrites.parse::<Rules>()?);
     if let Some(threads) = args.threads {

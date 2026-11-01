@@ -224,6 +224,7 @@ impl<Q: BackendQ> TTSModel<Q> {
     }
 
     /// Run flow LM step with text tokens. Increments state.
+    #[tracing::instrument(target = "ptts_profile", name = "text_prefill", skip_all, fields(tokens = text_tokens.len()))]
     pub fn prompt_text(&self, state: &mut TTSState<Q>, text_tokens: &[u32]) -> Result<()> {
         let text_embeddings = self.flow_lm.conditioner.embed_tokens(text_tokens)?;
         let text_embeddings = match &self.text_sink {
@@ -352,6 +353,7 @@ impl<Q: BackendQ> TTSModel<Q> {
     }
 
     /// Decode latent to audio using mimi (streaming).
+    #[tracing::instrument(target = "ptts_profile", name = "mimi_decode", skip_all)]
     pub fn decode_latent(
         &self,
         latent: &Tensor<Q::T, Q::B>,
@@ -373,6 +375,7 @@ impl<Q: BackendQ> TTSModel<Q> {
     /// The decoder transformer's context window is fixed at load time from
     /// `MimiConfig::transformer_context`; nothing about this state is sized per call, so unlike
     /// [`Self::init_flow_lm_state`] there is no budget to pass.
+    #[tracing::instrument(target = "ptts_profile", name = "mimi_state_init", skip_all)]
     pub fn init_mimi_state(&self, batch_size: usize) -> Result<MimiDecoderState<f32, Q::B>> {
         // `sequence_length` reaches only the flow-LM attention kind, which a Mimi decoder has
         // none of, so any value here is discarded.
