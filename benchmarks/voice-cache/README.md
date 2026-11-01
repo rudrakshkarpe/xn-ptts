@@ -10,6 +10,9 @@ The intended gain is lower time to first audio when a mostly hot voice set sees
 occasional additional voices. It does not accelerate the transformer or Mimi kernels.
 Single-voice traffic should be treated as a regression control, not a source of gains.
 
+[Measured M4 Pro comparison, raw records and validation](results/m4-pro-2026-11-01/README.md)
+are checked in. The pressure case improved; the round-robin control did not.
+
 ## What is implemented
 
 - LRU retention, default 16 entries and 64 MiB of flow-LM KV payloads.
@@ -105,7 +108,9 @@ languages/checkpoints and guidance as separate scenarios where supported.
 - **Quality:** a completed response means valid transport, PCM content type and
   nonempty whole samples. It does not prove correct speech or semantic completion.
   Waveform hashes allow sequential deterministic comparisons; WER/listening quality
-  are not evaluated by the harness. Concurrent scheduling changes seed assignment,
+  are not evaluated by the harness. Even sequential seeded CPU runs can differ in
+  their last PCM bit; the measured results include a separate numerical comparison.
+  Concurrent scheduling changes seed assignment,
   so matching request IDs alone is insufficient for concurrent hash comparisons.
 - **Statistics:** nearest-rank percentiles. Around 100 requests are useful for a local
   diagnostic, not a reliable production p99 estimate. Use repeated trials and report

@@ -1,0 +1,259 @@
+{
+  "method": "Median of three per-trial statistics; local diagnostic, not production capacity or statistical significance.",
+  "workloads": {
+    "warm-one": {
+      "upstream": {
+        "trials": [
+          {
+            "trial": 1,
+            "ttfa_p50_ms": 4.48291699285619,
+            "ttfa_p95_ms": 5.5231250007636845,
+            "audio_seconds_per_wall_second": 62.07174116251617,
+            "completed_audio_s": 285.36
+          },
+          {
+            "trial": 2,
+            "ttfa_p50_ms": 4.445333004696295,
+            "ttfa_p95_ms": 4.782166011864319,
+            "audio_seconds_per_wall_second": 64.3564853779272,
+            "completed_audio_s": 285.36
+          },
+          {
+            "trial": 3,
+            "ttfa_p50_ms": 4.440958990016952,
+            "ttfa_p95_ms": 4.897124978015199,
+            "audio_seconds_per_wall_second": 63.52433622405791,
+            "completed_audio_s": 285.36
+          }
+        ],
+        "median": {
+          "ttfa_p50_ms": 4.445333004696295,
+          "ttfa_p95_ms": 4.897124978015199,
+          "audio_seconds_per_wall_second": 63.52433622405791
+        }
+      },
+      "optimized": {
+        "trials": [
+          {
+            "trial": 1,
+            "ttfa_p50_ms": 4.489417013246566,
+            "ttfa_p95_ms": 5.250499991234392,
+            "audio_seconds_per_wall_second": 58.69161516974763,
+            "completed_audio_s": 285.36,
+            "cache_delta": {
+              "hits": 96,
+              "misses": 0,
+              "evictions": 0,
+              "bypasses": 0
+            },
+            "retained_kv_bytes": 3072000
+          },
+          {
+            "trial": 2,
+            "ttfa_p50_ms": 4.445334023330361,
+            "ttfa_p95_ms": 4.695209005149081,
+            "audio_seconds_per_wall_second": 64.34035028712292,
+            "completed_audio_s": 285.36,
+            "cache_delta": {
+              "hits": 96,
+              "misses": 0,
+              "evictions": 0,
+              "bypasses": 0
+            },
+            "retained_kv_bytes": 3072000
+          },
+          {
+            "trial": 3,
+            "ttfa_p50_ms": 4.403750004712492,
+            "ttfa_p95_ms": 4.690583009505644,
+            "audio_seconds_per_wall_second": 64.59769499227673,
+            "completed_audio_s": 285.36,
+            "cache_delta": {
+              "hits": 96,
+              "misses": 0,
+              "evictions": 0,
+              "bypasses": 0
+            },
+            "retained_kv_bytes": 3072000
+          }
+        ],
+        "median": {
+          "ttfa_p50_ms": 4.445334023330361,
+          "ttfa_p95_ms": 4.695209005149081,
+          "audio_seconds_per_wall_second": 64.34035028712292
+        }
+      }
+    },
+    "voice-pressure": {
+      "upstream": {
+        "trials": [
+          {
+            "trial": 1,
+            "ttfa_p50_ms": 10.216166003374383,
+            "ttfa_p95_ms": 13.651874993229285,
+            "audio_seconds_per_wall_second": 54.348696715625955,
+            "completed_audio_s": 286.96
+          },
+          {
+            "trial": 2,
+            "ttfa_p50_ms": 9.855667012743652,
+            "ttfa_p95_ms": 10.423917003208771,
+            "audio_seconds_per_wall_second": 56.64799095188675,
+            "completed_audio_s": 286.96
+          },
+          {
+            "trial": 3,
+            "ttfa_p50_ms": 9.793750010430813,
+            "ttfa_p95_ms": 10.422624996863306,
+            "audio_seconds_per_wall_second": 57.01905357179824,
+            "completed_audio_s": 286.96
+          }
+        ],
+        "median": {
+          "ttfa_p50_ms": 9.855667012743652,
+          "ttfa_p95_ms": 10.423917003208771,
+          "audio_seconds_per_wall_second": 56.64799095188675
+        }
+      },
+      "optimized": {
+        "trials": [
+          {
+            "trial": 1,
+            "ttfa_p50_ms": 4.478583985473961,
+            "ttfa_p95_ms": 9.854000003542751,
+            "audio_seconds_per_wall_second": 63.39637822245448,
+            "completed_audio_s": 286.96,
+            "cache_delta": {
+              "hits": 89,
+              "misses": 7,
+              "evictions": 7,
+              "bypasses": 0
+            },
+            "retained_kv_bytes": 49152000
+          },
+          {
+            "trial": 2,
+            "ttfa_p50_ms": 4.443957994226366,
+            "ttfa_p95_ms": 9.966457990230992,
+            "audio_seconds_per_wall_second": 63.672595295027875,
+            "completed_audio_s": 286.96,
+            "cache_delta": {
+              "hits": 89,
+              "misses": 7,
+              "evictions": 7,
+              "bypasses": 0
+            },
+            "retained_kv_bytes": 49152000
+          },
+          {
+            "trial": 3,
+            "ttfa_p50_ms": 4.481457988731563,
+            "ttfa_p95_ms": 9.886665997328237,
+            "audio_seconds_per_wall_second": 61.68135757875573,
+            "completed_audio_s": 286.96,
+            "cache_delta": {
+              "hits": 89,
+              "misses": 7,
+              "evictions": 7,
+              "bypasses": 0
+            },
+            "retained_kv_bytes": 49152000
+          }
+        ],
+        "median": {
+          "ttfa_p50_ms": 4.478583985473961,
+          "ttfa_p95_ms": 9.886665997328237,
+          "audio_seconds_per_wall_second": 63.39637822245448
+        }
+      }
+    },
+    "round-robin-17": {
+      "upstream": {
+        "trials": [
+          {
+            "trial": 1,
+            "ttfa_p50_ms": 9.788124996703118,
+            "ttfa_p95_ms": 10.690291004721075,
+            "audio_seconds_per_wall_second": 56.90300810851838,
+            "completed_audio_s": 305.2
+          },
+          {
+            "trial": 2,
+            "ttfa_p50_ms": 9.890957997413352,
+            "ttfa_p95_ms": 10.611292003886774,
+            "audio_seconds_per_wall_second": 57.41117141788976,
+            "completed_audio_s": 305.2
+          },
+          {
+            "trial": 3,
+            "ttfa_p50_ms": 9.882333019049838,
+            "ttfa_p95_ms": 10.444790998008102,
+            "audio_seconds_per_wall_second": 56.64893257534721,
+            "completed_audio_s": 305.2
+          }
+        ],
+        "median": {
+          "ttfa_p50_ms": 9.882333019049838,
+          "ttfa_p95_ms": 10.611292003886774,
+          "audio_seconds_per_wall_second": 56.90300810851838
+        }
+      },
+      "optimized": {
+        "trials": [
+          {
+            "trial": 1,
+            "ttfa_p50_ms": 10.057167004561052,
+            "ttfa_p95_ms": 11.259374994551763,
+            "audio_seconds_per_wall_second": 55.32201057015462,
+            "completed_audio_s": 305.2,
+            "cache_delta": {
+              "hits": 0,
+              "misses": 102,
+              "evictions": 102,
+              "bypasses": 0
+            },
+            "retained_kv_bytes": 49152000
+          },
+          {
+            "trial": 2,
+            "ttfa_p50_ms": 10.094500001287088,
+            "ttfa_p95_ms": 10.692290990846232,
+            "audio_seconds_per_wall_second": 56.013888700312364,
+            "completed_audio_s": 305.2,
+            "cache_delta": {
+              "hits": 0,
+              "misses": 102,
+              "evictions": 102,
+              "bypasses": 0
+            },
+            "retained_kv_bytes": 49152000
+          },
+          {
+            "trial": 3,
+            "ttfa_p50_ms": 9.969459002604708,
+            "ttfa_p95_ms": 10.635374987032264,
+            "audio_seconds_per_wall_second": 56.6695928318482,
+            "completed_audio_s": 305.2,
+            "cache_delta": {
+              "hits": 0,
+              "misses": 102,
+              "evictions": 102,
+              "bypasses": 0
+            },
+            "retained_kv_bytes": 49152000
+          }
+        ],
+        "median": {
+          "ttfa_p50_ms": 10.057167004561052,
+          "ttfa_p95_ms": 10.692290990846232,
+          "audio_seconds_per_wall_second": 56.013888700312364
+        }
+      }
+    }
+  },
+  "measured_requests": 1764,
+  "warmup_requests": 204,
+  "paired_pcm_lengths_equal": 984,
+  "paired_pcm_hashes_equal": 55,
+  "paired_records": 984
+}

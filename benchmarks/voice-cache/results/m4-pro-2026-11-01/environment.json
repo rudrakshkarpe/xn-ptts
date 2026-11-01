@@ -1,0 +1,160 @@
+{
+  "started_utc": "2026-11-01T08:44:54.820567+00:00",
+  "cpu": "Apple M4 Pro",
+  "logical_cpus": 12,
+  "memory_bytes": 25769803776,
+  "os": "macOS 27.0.1 (26A434)",
+  "rustc": "1.92.0 (ded5c06cf 2025-12-08)",
+  "target": "aarch64-apple-darwin",
+  "features": [
+    "accelerate",
+    "kai"
+  ],
+  "build": "cargo build --locked --release -p ptts-openai-server --features accelerate,kai",
+  "rustflags": [
+    "-C",
+    "target-cpu=native"
+  ],
+  "server_revisions": {
+    "upstream": "31e4e9f80275e432b570e17f5ccbefa895eff109",
+    "optimized": "df6aeaa68d318c9ec5684dc6658eb8c0b5304ece"
+  },
+  "binary_sha256": {
+    "upstream": "d8bf9d24075720ba8eb25a37292c5f3440e9e47d45434e07d90f20c2d1d718bf",
+    "optimized": "d491397620bec684d3eb5af9e9b7e6e081c8b8362ba7c58cec3694f022f5754d"
+  },
+  "environment_overrides": {
+    "RAYON_NUM_THREADS": "4",
+    "XN_KAI": "1",
+    "RUST_LOG": "warn"
+  },
+  "server_arguments": [
+    "--model",
+    "<ASSET_ROOT>/models/phonon-31m-en",
+    "--quant",
+    "q8",
+    "--device",
+    "cpu",
+    "--lang",
+    "en",
+    "--voice-catalog",
+    "<ASSET_ROOT>/models/voices/voices.jsonl",
+    "--addr",
+    "127.0.0.1:18880",
+    "--max-concurrent-requests",
+    "1",
+    "--temperature",
+    "0.3",
+    "--seed",
+    "42"
+  ],
+  "optimized_extra_arguments": [
+    "--voice-cache-entries",
+    "16",
+    "--voice-cache-bytes",
+    "67108864"
+  ],
+  "plan": [
+    {
+      "trial": 1,
+      "workload": "warm-one",
+      "variant": "upstream"
+    },
+    {
+      "trial": 1,
+      "workload": "warm-one",
+      "variant": "optimized"
+    },
+    {
+      "trial": 1,
+      "workload": "voice-pressure",
+      "variant": "upstream"
+    },
+    {
+      "trial": 1,
+      "workload": "voice-pressure",
+      "variant": "optimized"
+    },
+    {
+      "trial": 1,
+      "workload": "round-robin-17",
+      "variant": "upstream"
+    },
+    {
+      "trial": 1,
+      "workload": "round-robin-17",
+      "variant": "optimized"
+    },
+    {
+      "trial": 2,
+      "workload": "warm-one",
+      "variant": "optimized"
+    },
+    {
+      "trial": 2,
+      "workload": "warm-one",
+      "variant": "upstream"
+    },
+    {
+      "trial": 2,
+      "workload": "voice-pressure",
+      "variant": "optimized"
+    },
+    {
+      "trial": 2,
+      "workload": "voice-pressure",
+      "variant": "upstream"
+    },
+    {
+      "trial": 2,
+      "workload": "round-robin-17",
+      "variant": "optimized"
+    },
+    {
+      "trial": 2,
+      "workload": "round-robin-17",
+      "variant": "upstream"
+    },
+    {
+      "trial": 3,
+      "workload": "warm-one",
+      "variant": "upstream"
+    },
+    {
+      "trial": 3,
+      "workload": "warm-one",
+      "variant": "optimized"
+    },
+    {
+      "trial": 3,
+      "workload": "voice-pressure",
+      "variant": "upstream"
+    },
+    {
+      "trial": 3,
+      "workload": "voice-pressure",
+      "variant": "optimized"
+    },
+    {
+      "trial": 3,
+      "workload": "round-robin-17",
+      "variant": "upstream"
+    },
+    {
+      "trial": 3,
+      "workload": "round-robin-17",
+      "variant": "optimized"
+    }
+  ],
+  "client_concurrency": 1,
+  "notes": [
+    "Local shared desktop, no dedicated performance isolation or thermal control.",
+    "No compiler or other task-owned inference running during trials.",
+    "Restarted server for every run; same ordered warm-up and seed for paired variants.",
+    "Runner resumed after a TIME_WAIT port-check failure following warm-one-upstream-1; that completed run was retained unchanged.",
+    "All three trials of every workload are retained, including adverse controls."
+  ],
+  "completed_utc": "2026-11-01T08:46:54.989048+00:00",
+  "resumed_utc": "2026-11-01T08:45:10.575630+00:00",
+  "start_time_source": "Result directory creation time; resumed_utc records runner restart after TIME_WAIT port check."
+}

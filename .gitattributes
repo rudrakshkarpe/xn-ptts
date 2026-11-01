@@ -1,0 +1,3 @@
+# Keep raw benchmark evidence available while collapsing it in code review.
+benchmarks/voice-cache/results/**/*.json linguist-generated=true
+benchmarks/voice-cache/results/**/*.jsonl linguist-generated=true
