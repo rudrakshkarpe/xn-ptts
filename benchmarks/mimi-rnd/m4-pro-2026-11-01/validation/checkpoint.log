@@ -1,0 +1,17 @@
+    Finished `release` profile [optimized] target(s) in 0.28s
+     Running tests/mimi_split_checkpoint.rs (/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/xn-ptts/target/release/deps/mimi_split_checkpoint-a3127124172e08ae)
+
+running 2 tests
+test cancelling_after_the_first_piece_does_not_emit_the_remainder ... ok
+test splitting_first_frame_preserves_pcm_and_later_streaming_state ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.32s
+
+    Finished `release` profile [optimized] target(s) in 0.09s
+     Running tests/mimi_split_checkpoint.rs (/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/xn-ptts/target/release/deps/mimi_split_checkpoint-a3127124172e08ae)
+
+running 2 tests
+test cancelling_after_the_first_piece_does_not_emit_the_remainder ... ok
+test splitting_first_frame_preserves_pcm_and_later_streaming_state ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.24s

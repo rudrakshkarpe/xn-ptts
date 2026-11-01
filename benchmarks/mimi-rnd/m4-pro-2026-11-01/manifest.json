@@ -1,0 +1,28 @@
+{
+  "baseline_commit": "97ac4980ddaf31f4cab71cc2a92ab9ee6c2821ff",
+  "implementation_commit": "7a25ee278acd4d241e1267d8553cff3df12bf848",
+  "xn_version": "0.2.13",
+  "xn_source_commit": "4242d4445ffafd8ed77380d30890db057102cb0c",
+  "checkpoint_revision": "92741c5b07d085ff840e26fea8ce43110b87852f",
+  "model_sha256": "a7d9aad2cd6dc66473f24a08bc6d2939030ef4d751ef82349361fbef3272dbae",
+  "features": [
+    "hf",
+    "accelerate",
+    "kai"
+  ],
+  "rustflags": [
+    "-C",
+    "target-cpu=native"
+  ],
+  "machine": "Apple M4 Pro, 12 logical CPUs, 24 GiB, macOS 27.0.1",
+  "rust": "1.92.0",
+  "measured_requests": 3060,
+  "warmups": 570,
+  "timing_source_note": "Delivery/scheduler/one-thread matrices used the same saved prototype binary. Final confirmation rebuilt implementation 7a25ee2 after constructor validation, boxed optional packed weights, formatting and test additions. Algorithms and flags unchanged; exact binary hashes retained in every cohort manifest.",
+  "timing_protocol": "Sequential requests, fresh process per variant/trial, rotating/reversing order. No tracing, audio capture, compilation or other research benchmarks during timed matrices. Interactive desktop, no OS/thermal isolation.",
+  "voice_sha256": {
+    "default": "dc537478eaadc1a5257fcda2e3501ab81e14c111a5d95a5838f350db2afd0f1a",
+    "second_voice_0zLApsZfVLLNaEGl": "dc1341c8937af5534e6bbcc5c0fc5e7c10312229b59061228074f93683fe2261"
+  },
+  "tail_repeat_note": "Additional 5 x 60 requests for baseline/packed/packed-wave20 on release text, after four individual underruns were found in earlier matrices. These earlier requests remain included."
+}

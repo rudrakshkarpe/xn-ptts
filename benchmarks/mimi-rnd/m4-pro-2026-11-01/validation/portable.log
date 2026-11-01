@@ -1,0 +1,19 @@
+    Checking bitflags v2.11.1
+    Checking either v1.15.0
+    Checking rand v0.9.4
+    Checking tracing-core v0.1.36
+    Checking raw-cpuid v11.6.0
+    Checking sysctl v0.6.0
+    Checking rayon v1.12.0
+    Checking tracing v0.1.44
+    Checking rand_distr v0.5.1
+    Checking xn-gemm-common v0.20.2
+    Checking xn-gemm-f32 v0.20.2
+    Checking xn-gemm-c32 v0.20.2
+    Checking xn-gemm-c64 v0.20.2
+    Checking xn-gemm-f64 v0.20.2
+    Checking xn-gemm-f16 v0.20.2
+    Checking xn-gemm v0.20.2
+    Checking xn v0.2.13
+    Checking ptts v0.6.0 (/Users/rudrakshkarpe/Documents/ChatGPT/Dev/phonon-inference-review/xn-ptts-profiling/ptts)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 3.13s
