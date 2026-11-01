@@ -19,6 +19,11 @@ PACK = {"PTTS_EXPERIMENT_PACKED_MIMI": "1"}
 SPLIT = {"PTTS_EXPERIMENT_FIRST_STEPS": "4"}
 WAVE = {**SPLIT, "PTTS_EXPERIMENT_WAVEFORM_ONLY": "1"}
 VARIANTS = {
+    "packed-conv-small": {**PACK, "PTTS_EXPERIMENT_PACKED_CONV": "initial-small"},
+    "conv-initial": {"PTTS_EXPERIMENT_PACKED_CONV": "initial"},
+    "conv-all": {"PTTS_EXPERIMENT_PACKED_CONV": "all"},
+    "packed-conv-initial": {**PACK, "PTTS_EXPERIMENT_PACKED_CONV": "initial"},
+    "packed-conv-all": {**PACK, "PTTS_EXPERIMENT_PACKED_CONV": "all"},
     "baseline": {}, "packed": PACK, "split20": SPLIT, "wave20": WAVE,
     "packed-wave20": {**PACK, **WAVE},
     "packed-wave20-early": {**PACK, **WAVE, "PTTS_EXPERIMENT_EARLY_RELEASE": "1"},
@@ -42,9 +47,13 @@ def run(args):
     common = ["--model", str(model / "model.q8.gguf"), "--config", str(model / "config.json"),
               "--voice", str(model / "default-voice.safetensors"), "--quant", "q8", "--device", "cpu",
               "--threads", str(args.threads), "--lang", "en", "--seed", "42", "--warmup", "5", "--iters", str(args.iters)]
+    if args.concurrency != 1:
+        common += ["--concurrency", str(args.concurrency)]
+    if args.runtime_diagnostics:
+        common += ["--runtime-diagnostics"]
     metadata = {"binary": str(binary), "sha256": hashlib.sha256(binary.read_bytes()).hexdigest(),
                 "platform": platform.platform(), "threads": args.threads, "trials": args.trials,
-                "iterations": args.iters, "warmups_per_process": 5, "texts": {t: TEXTS[t] for t in texts},
+                "iterations": args.iters, "concurrency": args.concurrency, "runtime_diagnostics": args.runtime_diagnostics, "warmups_per_process": 5*args.concurrency, "texts": {t: TEXTS[t] for t in texts},
                 "variants": {v: VARIANTS[v] for v in selected}, "runs": []}
     rows = []
     for trial in range(args.trials):
@@ -63,11 +72,12 @@ def run(args):
                 (args.out / (stem + ".txt")).write_text(p.stdout)
                 if p.returncode:
                     raise RuntimeError(stem + ": " + p.stdout)
-                raw = json.loads(path.read_text())["runs"]
-                assert len(raw) == args.iters
+                result = json.loads(path.read_text())
+                raw = result["runs"]
+                assert len(raw) == args.iters*args.concurrency
                 for index, row in enumerate(raw):
                     rows.append({"text": name, "variant": variant, "trial": trial, "request": index, **row})
-                metadata["runs"].append({"text": name, "variant": variant, "trial": trial, "command": command})
+                metadata["runs"].append({"text": name, "variant": variant, "trial": trial, "command": command, "rounds": result.get("rounds", [])})
                 (args.out / "manifest.json").write_text(json.dumps(metadata, indent=2)+"\n")
                 (args.out / "observations.jsonl").write_text("".join(json.dumps(r, separators=(",", ":"))+"\n" for r in rows))
                 print(stem, {k: round(statistics.median(r[k] for r in raw), 3) for k in ["t20_ms", "t80_ms", "total_ms"]}, flush=True)
@@ -96,4 +106,6 @@ if __name__ == "__main__":
     parser.add_argument("--threads", type=int, default=4)
     parser.add_argument("--iters", type=int, default=20)
     parser.add_argument("--trials", type=int, default=3)
+    parser.add_argument("--concurrency", type=int, default=1)
+    parser.add_argument("--runtime-diagnostics", action="store_true")
     run(parser.parse_args())

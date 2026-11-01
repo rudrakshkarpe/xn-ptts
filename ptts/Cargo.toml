@@ -34,6 +34,7 @@ half = { workspace = true, optional = true }
 libc = { workspace = true, optional = true }
 
 [dev-dependencies]
+libc = { workspace = true }
 anyhow = { workspace = true }
 clap = { workspace = true }
 half = { workspace = true }

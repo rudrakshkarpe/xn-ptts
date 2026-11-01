@@ -26,10 +26,12 @@ def run(args):
     model = root / "models/phonon-31m-en"
     voices = [model / "default-voice.safetensors"] + args.voice
     report = []
+    candidates = args.variants.split(",")
+    assert all(v in variants and v != "baseline" for v in candidates)
     for vi, voice in enumerate(voices):
         for ti, text in enumerate(reference.TEXTS):
             audio = {}
-            for label in ["baseline", "repeat", "packed", "packed-wave20"]:
+            for label in ["baseline", "repeat", *candidates]:
                 env = {k: v for k, v in os.environ.items() if not k.startswith("PTTS_EXPERIMENT_") and k != "XN_SPIN_BUDGET"}
                 env.update(variants.get(label, {}))
                 stem = f"voice{vi}-text{ti}-{label}"
@@ -51,12 +53,12 @@ def run(args):
                     with wave.open(str(args.out / f"sample-{label}.wav"), "wb") as output:
                         output.setparams((1, 2, 24000, 0, "NONE", "not compressed"))
                         output.writeframes(pcm.tobytes())
-            row = {"voice": str(voice), "text": text, **{v: reference.compare(audio["baseline"], audio[v]) for v in ["repeat", "packed", "packed-wave20"]}}
+            row = {"voice": str(voice), "text": text, **{v: reference.compare(audio["baseline"], audio[v]) for v in ["repeat", *candidates]}}
             report.append(row)
-            print(vi, ti, {v: row[v].get("snr_db") for v in ["repeat", "packed", "packed-wave20"]}, flush=True)
+            print(vi, ti, {v: row[v].get("snr_db") for v in ["repeat", *candidates]}, flush=True)
     result = {"binary_sha256": hashlib.sha256(binary.read_bytes()).hexdigest(), "seed": 42, "threads": args.threads, "results": report}
     (args.out / "report.json").write_text(json.dumps(result, indent=2) + "\n")
-    if any(not r[v]["same_length"] or r[v].get("max_abs_error", math.inf) > 1e-5 for r in report for v in ["repeat", "packed", "packed-wave20"]):
+    if any(not r[v]["same_length"] or r[v].get("max_abs_error", math.inf) > 1e-5 for r in report for v in ["repeat", *candidates]):
         raise SystemExit("waveform check failed; inspect report.json")
 
 if __name__ == "__main__":
@@ -65,4 +67,5 @@ if __name__ == "__main__":
         parser.add_argument("--" + name, type=Path, required=True)
     parser.add_argument("--voice", type=Path, action="append", default=[])
     parser.add_argument("--threads", type=int, default=4)
+    parser.add_argument("--variants", default="packed,packed-wave20")
     run(parser.parse_args())

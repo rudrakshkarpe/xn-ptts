@@ -68,6 +68,14 @@ struct Args {
     #[arg(long, conflicts_with = "breakdown")]
     metrics_json: Option<std::path::PathBuf>,
 
+    /// Simultaneous streams per round, sharing one loaded Synth and warm voice.
+    #[arg(long, default_value_t = 1)]
+    concurrency: usize,
+
+    /// Diagnostic process CPU/context-switch snapshots per chunk; affects timing.
+    #[arg(long, requires = "metrics_json")]
+    runtime_diagnostics: bool,
+
     /// Number of CPU threads for tensor ops.
     #[arg(long)]
     threads: Option<usize>,
@@ -138,10 +146,26 @@ struct Run {
     samples: usize,
     delivery: Vec<(f64, usize)>,
     onset_ms: Option<f64>,
+    runtime: Vec<serde_json::Value>,
+}
+
+fn runtime_snapshot() -> serde_json::Value {
+    #[cfg(unix)]
+    {
+        let mut usage = std::mem::MaybeUninit::<libc::rusage>::uninit();
+        // SAFETY: getrusage initializes the supplied struct on success; read it only then.
+        if unsafe { libc::getrusage(libc::RUSAGE_SELF, usage.as_mut_ptr()) } == 0 {
+            let usage = unsafe { usage.assume_init() };
+            let ms = |v: libc::timeval| v.tv_sec as f64 * 1000. + v.tv_usec as f64 / 1000.;
+            return serde_json::json!({"user_ms":ms(usage.ru_utime),"system_ms":ms(usage.ru_stime),"voluntary_switches":usage.ru_nvcsw,"involuntary_switches":usage.ru_nivcsw});
+        }
+    }
+    serde_json::Value::Null
 }
 
 /// Generates the utterance once through `Synth`, as any caller would.
 fn one_synth(tts: &Synth, opts: &SpeechOptions, args: &Args) -> Result<Run> {
+    let mut runtime = if args.runtime_diagnostics { vec![runtime_snapshot()] } else { Vec::new() };
     let start = Instant::now();
     let mut ttfa = None;
     let mut samples = 0usize;
@@ -159,6 +183,9 @@ fn one_synth(tts: &Synth, opts: &SpeechOptions, args: &Args) -> Result<Run> {
             samples += pcm.len();
             if args.metrics_json.is_some() {
                 delivery.push((ms(received), samples));
+                if args.runtime_diagnostics {
+                    runtime.push(runtime_snapshot());
+                }
                 // Fixed -60 dBFS amplitude threshold; a diagnostic, not perceived speech onset.
                 if onset_ms.is_none() && pcm.iter().any(|v| v.abs() >= 0.001) {
                     onset_ms = Some(ms(received));
@@ -187,6 +214,7 @@ fn one_synth(tts: &Synth, opts: &SpeechOptions, args: &Args) -> Result<Run> {
         samples,
         delivery,
         onset_ms,
+        runtime,
     })
 }
 
@@ -253,6 +281,7 @@ fn one<Q: BackendQ>(
         samples,
         delivery: vec![],
         onset_ms: None,
+        runtime: vec![],
     })
 }
 
@@ -518,7 +547,36 @@ fn bench_synth(args: &Args, normalize: Normalize, quant: Quant) -> Result<()> {
     drop(tts.session(&opts, 2048)?);
     let voice_ms = ms(t_voice.elapsed());
 
-    let runs = measure(args, || one_synth(&tts, &opts, args))?;
+    let mut rounds = Vec::new();
+    let runs = if args.concurrency == 1 {
+        measure(args, || one_synth(&tts, &opts, args))?
+    } else {
+        let mut runs = Vec::new();
+        for round in 0..args.warmup + args.iters {
+            let barrier = std::sync::Barrier::new(args.concurrency);
+            let start = Instant::now();
+            let batch = std::thread::scope(|scope| -> Result<Vec<Run>> {
+                let handles: Vec<_> = (0..args.concurrency)
+                    .map(|_| {
+                        let (tts, opts, barrier) = (&tts, &opts, &barrier);
+                        scope.spawn(move || {
+                            barrier.wait();
+                            one_synth(tts, opts, args)
+                        })
+                    })
+                    .collect();
+                handles
+                    .into_iter()
+                    .map(|h| h.join().map_err(|_| anyhow::anyhow!("stream worker panicked"))?)
+                    .collect()
+            })?;
+            if round >= args.warmup {
+                rounds.push(serde_json::json!({"wall_ms":ms(start.elapsed()),"audio_seconds":batch.iter().map(|r|r.samples as f64/tts.sample_rate() as f64).sum::<f64>()}));
+                runs.extend(batch);
+            }
+        }
+        runs
+    };
     report(args, normalize, &runs, tts.sample_rate() as f64, load_ms, voice_ms);
     if let Some(path) = &args.metrics_json {
         let rate = tts.sample_rate() as f64;
@@ -555,14 +613,14 @@ fn bench_synth(args: &Args, normalize: Normalize, quant: Quant) -> Result<()> {
                 "amplitude_onset_ms": r.onset_ms, "total_ms": ms(r.total),
                 "samples": r.samples, "audio_seconds": r.samples as f64/rate,
                 "rtfx": (r.samples as f64/rate)/r.total.as_secs_f64(),
-                "simulated_underrun_ms": underrun_ms, "delivery": r.delivery})
+                "simulated_underrun_ms": underrun_ms, "delivery": r.delivery, "runtime":r.runtime})
             })
             .collect();
         std::fs::write(
             path,
             serde_json::to_vec_pretty(&serde_json::json!({
                 "sample_rate": tts.sample_rate(), "onset_threshold": 0.001,
-                "backend": tts.device_name(), "runs": rows
+                "backend": tts.device_name(), "runs": rows, "concurrency":args.concurrency, "rounds":rounds
             }))?,
         )?;
     }
@@ -573,6 +631,18 @@ fn main() -> Result<()> {
     use std::str::FromStr;
 
     let args = Args::parse();
+    anyhow::ensure!(
+        args.iters > 0 && args.concurrency > 0,
+        "iterations and concurrency must be positive"
+    );
+    anyhow::ensure!(
+        args.concurrency == 1
+            || (args.pcm_output.is_none()
+                && args.trace_json.is_none()
+                && !args.breakdown
+                && !args.runtime_diagnostics),
+        "concurrent mode cannot capture PCM, tracing, breakdown or process-wide runtime diagnostics"
+    );
     let _trace_guard = if let Some(path) = &args.trace_json {
         use tracing_subscriber::prelude::*;
         let (layer, guard) =
