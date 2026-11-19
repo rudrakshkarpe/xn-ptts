@@ -1,0 +1,11 @@
+avx: false, neon: true, simd128: false, f16c: false
+
+model $MODEL/model.q8.gguf  threads 4  input 291 chars  audio 16000ms  frames/iter 200
+Synth::stream: flow LM and Mimi on their own threads, as callers run it
+load 42.4ms, voice conditioning 9.2ms (both excluded below)
+
+metric                     n        min      mean       p50       p95       max
+total generate             1     241.99    241.99    241.99    241.99    241.99  ms
+time to first audio        1       5.37      5.37      5.37      5.37      5.37  ms
+per-frame (average)        1      1.210     1.210     1.210     1.210     1.210  ms
+rtf (lower is better)      1     0.0151    0.0151    0.0151    0.0151    0.0151  ratio

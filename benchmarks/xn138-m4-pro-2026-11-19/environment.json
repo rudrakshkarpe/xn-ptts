@@ -1,0 +1,11 @@
+{
+  "cpu": "Apple M4 Pro",
+  "physical_cores": 12,
+  "os": "macOS 27.2.1 (26B131)",
+  "power": "AC before and after",
+  "temporarily_paused_app_and_sync_processes": 69,
+  "all_paused_processes_resumed": true,
+  "remaining_background_activity": "macOS system services and Codex remained active; not an isolated machine",
+  "before": "Thu Nov 19 12:26:06 UTC 2026\n17:56  up 3 days, 16:10, 1 user, load averages: 9.95 11.46 9.18\nNow drawing from 'AC Power'\n -InternalBattery-0 (id=35651683)\t53%; charging; 2:02 remaining present: true\nNote: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n  601  25.6 Ss   /System/Library/PrivateFrameworks/SkyLight.framework/Resources/WindowServer",
+  "after": "Thu Nov 19 12:30:11 UTC 2026\n18:00  up 3 days, 16:14, 1 user, load averages: 4.80 7.66 8.05\nNow drawing from 'AC Power'\n -InternalBattery-0 (id=35651683)\t57%; charging; 2:02 remaining present: true\nNote: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded\n"
+}
